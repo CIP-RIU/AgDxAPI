@@ -1,4 +1,4 @@
-﻿# Crop Pest and Disease Data API (AgDxAPI)
+# Crop Pest and Disease Data API (AgDxAPI)
 
 ## Background
 
