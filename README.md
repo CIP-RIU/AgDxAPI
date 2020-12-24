@@ -32,4 +32,4 @@ It will build on existing data standards for Agriculture, such as the Crop and A
 3. AgDxAPI standardized web service API specification published on the AgDx Alliance Github
 4. Documentation of the AgDxAPI including on online API documentation systems such as Apiary and Swagger
 
-## Toold used
+## Tools used
