@@ -1,46 +1,55 @@
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-
-plugins {
-    id("org.springframework.boot") version "2.4.1"
-    id("io.spring.dependency-management") version "1.0.10.RELEASE"
-    kotlin("jvm") version "1.4.21"
-    kotlin("plugin.spring") version "1.4.21"
-}
-
-group = "com.cip"
-version = "1.0.0"
-java.sourceCompatibility = JavaVersion.VERSION_15
-
-repositories {
-    mavenCentral()
-}
-
-dependencies {
-    implementation("org.springframework.boot:spring-boot-starter-web")
-    implementation("org.springframework.boot:spring-boot-starter-actuator")
-    implementation("org.springframework.boot:spring-boot-starter-validation")
-//    implementation("org.springframework.boot:spring-boot-starter-security")
-    implementation("org.springframework.boot:spring-boot-starter-data-rest")
-
-    implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
-
-    implementation("org.jetbrains.kotlin:kotlin-reflect")
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-
-    implementation("org.liquibase:liquibase-core")
-    runtimeOnly("com.h2database:h2")
-
-    testImplementation("org.springframework.boot:spring-boot-starter-test")
-//    testImplementation("org.springframework.security:spring-security-test")
-}
-
-tasks.withType<KotlinCompile> {
-    kotlinOptions {
-        freeCompilerArgs = listOf("-Xjsr305=strict")
-        jvmTarget = "15"
+buildscript {
+    repositories {
+        mavenCentral()
+        mavenLocal()
+        jcenter()
     }
 }
 
-tasks.withType<Test> {
-    useJUnitPlatform()
+plugins {
+    val kotlinVersion = "1.4.21"
+    val springVersion = "2.4.1"
+
+    id("org.springframework.boot") version springVersion apply false
+    id("io.spring.dependency-management") version "1.0.10.RELEASE" apply false
+    id("name.remal.check-updates") version "1.0.211" apply false
+
+
+    kotlin("jvm") version kotlinVersion apply false
+    kotlin("plugin.spring") version kotlinVersion apply false
+    kotlin("plugin.jpa") version kotlinVersion apply false
+}
+allprojects {
+    group = "com.cip"
+    version = "1.0.0"
+
+    tasks.withType<JavaCompile> {
+        sourceCompatibility = "15"
+        targetCompatibility = "15"
+    }
+
+    tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
+        kotlinOptions {
+            freeCompilerArgs = listOf("-Xjsr305=strict")
+            jvmTarget = "15"
+        }
+    }
+
+    tasks.withType<Test> {
+        useJUnitPlatform()
+    }
+}
+
+subprojects {
+    repositories {
+        mavenCentral()
+        mavenLocal()
+        maven {
+            url = uri("https://jitpack.io")
+        }
+    }
+    apply {
+        plugin("io.spring.dependency-management")
+        plugin("name.remal.check-updates")
+    }
 }

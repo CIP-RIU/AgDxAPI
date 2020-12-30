@@ -8,7 +8,7 @@ plugins {
 }
 
 dependencies {
-//    implementation(project(":core"))
+    implementation(project(":core"))
 //    implementation(project(":enums"))
 //    implementation(project(":config"))
 //    implementation(project(":database"))
