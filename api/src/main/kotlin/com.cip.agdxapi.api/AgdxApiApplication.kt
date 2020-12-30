@@ -1,4 +1,4 @@
-package com.cip.agdxapi
+package com.cip.agdxapi.api
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
