@@ -1,4 +1,11 @@
 package com.cip.agdxapi.migrations
 
-class MigrationApp {
+import org.springframework.boot.autoconfigure.SpringBootApplication
+import org.springframework.boot.runApplication
+
+@SpringBootApplication
+class MigrationApp
+
+fun main(args: Array<String>) {
+    runApplication<MigrationApp>(*args)
 }

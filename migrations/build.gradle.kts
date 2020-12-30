@@ -38,7 +38,10 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-jdbc")
 
     runtimeOnly("com.h2database:h2")
+    runtimeOnly("org.mariadb.jdbc:mariadb-java-client")
     runtimeOnly("org.postgresql:postgresql")
+    runtimeOnly("com.microsoft.sqlserver:mssql-jdbc")
+    runtimeOnly("mysql:mysql-connector-java")
 
     implementation("org.liquibase:liquibase-core")
 }

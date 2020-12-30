@@ -16,19 +16,17 @@ tasks.getByName<Jar>("jar") {
 
 
 dependencies {
+    implementation(kotlin("reflect"))
+    implementation(kotlin("stdlib"))
+    implementation(kotlin("stdlib-jdk8"))
+
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-actuator")
-    implementation("org.springframework.boot:spring-boot-starter-validation")
+    api("org.springframework.boot:spring-boot-starter-validation")
 //    implementation("org.springframework.boot:spring-boot-starter-security")
-    implementation("org.springframework.boot:spring-boot-starter-data-rest")
+    api("org.springframework.boot:spring-boot-starter-data-rest")
+    api("com.fasterxml.jackson.module:jackson-module-kotlin")
 
-    implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
-
-    implementation("org.jetbrains.kotlin:kotlin-reflect")
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-
-    implementation("org.liquibase:liquibase-core")
-    runtimeOnly("com.h2database:h2")
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
 //    testImplementation("org.springframework.security:spring-security-test")

@@ -3,11 +3,12 @@ spring:
     change-log: "classpath:db/changelog.xml"
     enabled: true
 
-  jpa:
-    database-platform: org.hibernate.dialect.PostgreSQL9Dialect
+#  jpa:
+#    database-platform: ${DB_PLATFORM:org.hibernate.dialect.MySQL5Dialect}
+    #database-platform: org.hibernate.dialect.PostgreSQL9Dialect
 
   ## default connection pool
   datasource:
-    url: ${DATABASE_URL:jdbc:postgresql://localhost:5433/api}
-    username: ${DATABASE_USERNAME:api-user}
-    password: ${DATABASE_PASSWORD:api-pass}
+    url: ${DB_URL:jdbc:mysql://localhost:3306/agdxapi}
+    username: ${DB_USER:root}
+    password: ${DB_PASS:}
