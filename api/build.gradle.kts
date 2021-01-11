@@ -1,6 +1,3 @@
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
-
 plugins {
     id("org.springframework.boot")
     kotlin("jvm")
@@ -8,10 +5,10 @@ plugins {
 }
 
 dependencies {
+    val swaggerVersion  = "3.0.0"
+
     implementation(project(":core"))
-//    implementation(project(":enums"))
-//    implementation(project(":config"))
-//    implementation(project(":database"))
+    implementation(project(":database"))
 
     implementation(kotlin("reflect"))
     implementation(kotlin("stdlib"))
@@ -21,10 +18,13 @@ dependencies {
 
     implementation("org.springframework.boot:spring-boot-starter-web")
 
-    implementation("io.springfox:springfox-swagger2:2.9.2")
-    implementation("io.springfox:springfox-swagger-ui:2.9.2")
+//    implementation("io.springfox:springfox-boot-starter:3.0.0")
+//    implementation("io.springfox:springfox-swagger-ui:3.0.0")
 
-    implementation("io.springfox:springfox-bean-validators:2.9.2")
+
+    implementation("io.springfox:springfox-swagger2:${swaggerVersion}")
+    implementation("io.springfox:springfox-swagger-ui:${swaggerVersion}")
+    implementation("io.springfox:springfox-bean-validators:${swaggerVersion}")
 
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
 

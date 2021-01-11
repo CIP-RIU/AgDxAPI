@@ -18,7 +18,7 @@ tasks.getByName<Jar>("jar") {
 dependencies {
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
 
-    implementation(project(":database"))
+//    implementation(project(":database"))
 
 
     implementation(kotlin("reflect"))
@@ -29,7 +29,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-actuator")
     api("org.springframework.boot:spring-boot-starter-validation")
 //    implementation("org.springframework.boot:spring-boot-starter-security")
-    api("org.springframework.boot:spring-boot-starter-data-rest")
+//    api("org.springframework.boot:spring-boot-starter-data-rest")
     api("com.fasterxml.jackson.module:jackson-module-kotlin")
 
     api("com.github.rozidan:modelmapper-spring-boot-starter:2.3.1")
