@@ -38,9 +38,9 @@
             <column name="location_level2" type="text"/>
             <column name="location_level3" type="text"/>
 
-            <column name="date_reported" type="date"/>
-            <column name="date_updated" type="date"/>
-            <column name="date_reviewed" type="date"/>
+            <column name="date_reported" type="datetime"/>
+            <column name="date_updated" type="datetime"/>
+            <column name="date_reviewed" type="datetime"/>
 
 
             <column name="ontology_name" type="varchar(150)"/>
