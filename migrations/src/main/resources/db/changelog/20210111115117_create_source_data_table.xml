@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet id="20210111115117" author="smbar" labels="agdxapi">
+        <createTable tableName="common_data">
+
+            <column name="id" type="bigint" autoIncrement="true" startWith="100">
+                <constraints primaryKey="true" primaryKeyName="pk-data-id" nullable="false"/>
+            </column>
+
+            <column name="lat" type="decimal(11,8)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="lon" type="decimal(11,8)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="alt" type="decimal(11,8)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="accuracy" type="decimal(11,8)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="country_code" type="varchar(3)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="country_name" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="location_level1" type="text"/>
+            <column name="location_level2" type="text"/>
+            <column name="location_level3" type="text"/>
+
+            <column name="date_reported" type="date"/>
+            <column name="date_updated" type="date"/>
+            <column name="date_reviewed" type="date"/>
+
+
+            <column name="ontology_name" type="varchar(150)"/>
+            <column name="common_name" type="varchar(255)"/>
+            <column name="scientific_name" type="varchar(255)"/>
+            <column name="area_sampled" type="decimal(10,2)"/>
+            <column name="affected_area" type="decimal(10,2)"/>
+            <column name="area_unit" type="decimal(10,2)"/>
+            <column name="sample_source" type="text"/>
+            <column name="sample_desc" type="text"/>
+            <column name="sample_size" type="int(6)"/>
+            <column name="affected_sample_size" type="int(6)"/>
+            <column name="severity" type="int(2)"/>
+            <column name="occurrence_status" type="varchar(50)" remarks="whether detected or undetected"/>
+            <column name="comments" type="text"/>
+
+            <column name="identification_method" type="text"/>
+            <column name="data_collection_method" type="varchar(255)"/>
+            <column name="visually_identified" type="boolean"/>
+
+            <column name="image_url" type="varchar(255)"/>
+            <column name="identified_by" type="varchar(255)"/>
+
+        </createTable>
+        <modifySql dbms="mysql,mariadb">
+            <append value=" engine innodb"/>
+        </modifySql>
+    </changeSet>
+</databaseChangeLog>
