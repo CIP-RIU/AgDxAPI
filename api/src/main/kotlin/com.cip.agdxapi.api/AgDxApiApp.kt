@@ -1,11 +1,11 @@
-package com.cip.agdxapi.migrations
+package com.cip.agdxapi.api
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
 @SpringBootApplication
-class MigrationApp
+class AgDxApiApp
 
 fun main(args: Array<String>) {
-    runApplication<MigrationApp>(*args)
+    runApplication<AgDxApiApp>(*args)
 }

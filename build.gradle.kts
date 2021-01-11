@@ -24,14 +24,14 @@ allprojects {
     version = "1.0.0"
 
     tasks.withType<JavaCompile> {
-        sourceCompatibility = "15"
-        targetCompatibility = "15"
+        sourceCompatibility = "14"
+        targetCompatibility = "14"
     }
 
     tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
         kotlinOptions {
             freeCompilerArgs = listOf("-Xjsr305=strict")
-            jvmTarget = "15"
+            jvmTarget = "14"
         }
     }
 
