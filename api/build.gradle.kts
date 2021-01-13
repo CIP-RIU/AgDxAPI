@@ -6,7 +6,7 @@ plugins {
 
 dependencies {
     val swaggerVersion  = "3.0.0"
-    val springDoc  = "1.5.2"
+
 
     implementation(project(":core"))
     implementation(project(":database"))
@@ -27,10 +27,6 @@ dependencies {
 //    implementation("io.springfox:springfox-swagger-ui:${swaggerVersion}")
 //    implementation("io.springfox:springfox-bean-validators:${swaggerVersion}")
 
-//    implementation("org.springdoc:springdoc-openapi-core:${springDoc}")
-    implementation("org.springdoc:springdoc-openapi-ui:${springDoc}")
-    implementation("org.springdoc:springdoc-openapi-kotlin:${springDoc}")
-//    implementation("org.springdoc:springdoc-openapi-data-rest:1.5.2")
 
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
 

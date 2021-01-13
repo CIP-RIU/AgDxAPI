@@ -61,7 +61,7 @@ class CommonDataEntity : BaseEntity() {
     var affectedArea: BigDecimal? = null
 
     @Column(name = "area_unit")
-    var areaUnit: BigDecimal? = null
+    var areaUnit: String? = null
 
     @Column(name = "sample_source",columnDefinition = "TEXT")
     var sampleSource: String? = null

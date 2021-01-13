@@ -6,5 +6,7 @@
 
         <include file="changelog/20210111115117_create_source_data_table.xml" relativeToChangelogFile="true"/>
 
+        <include file="changelog/20210113113700_modify_area_unit_data_type.xml" relativeToChangelogFile="true"/>
+
 
 </databaseChangeLog>
