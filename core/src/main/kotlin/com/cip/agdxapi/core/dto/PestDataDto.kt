@@ -9,80 +9,35 @@ import java.time.LocalDate
 import java.time.LocalDateTime
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-class PestDataDto {
+class PestDataDto : CommonDataDto() {
 
-    @Schema(description = "GPS lat", example = "36.821945", required = true)
-    var lat: BigDecimal? = null
-
-    @Schema(description = "GPS lon", example = "-1.292066", required = true)
-    var lon: BigDecimal? = null
-
-    @Schema(description = "Identification Altitude above sea level", example = "1200", required = true)
-    var alt: BigDecimal? = null
-
-    @Schema(description = "Accuracy of GPS location in meters", example = "1.0", required = true)
-    var accuracy: BigDecimal? = null
-
-    @Schema(description = "Country code of the identification: ISO2", example = "KE", required = false)
-    var countryCode: String? = null
-
-    @Schema(description = "Country of the identification", example = "Kenya", required = true)
-    var countryName: String? = null
-
-
-    @Schema(description = "Administrative level one; Province,district,region", example = "Western Province", required = true)
-    var locationLevel1: String? = null
-
-    @Schema(description = "Administrative level two; municipality,district", example = "Kakamega", required = true)
-    var locationLevel2: String? = null
-
-    @Schema(description = "Administrative level three; city,town or farm name", example = "Shianda", required = true)
-    var locationLevel3: String? = null
-
-    @Schema(description = "Date when occurrence was first reported", example = "2021-01-13", required = true)
-    var dateReported: LocalDate? = null
-
-    @Schema(description = "Date when occurrence was updated", example = "2021-01-13", required = true)
-    var dateUpdated: LocalDate? = null
-
-    @Schema(description = "Date when occurrence was reviewed", example = "2021-01-13", required = true)
-    var dateReviewed: LocalDate? = null
 
     @Schema(description = "Common ontology name", example = "Banana", required = true)
-    var ontologyName: String? = null
+    override var ontologyName: String? = null
 
     @Schema(description = "Common pest name", example = "Banana weevil borer", required = true)
-    var commonName: String? = null
+    override var commonName: String? = null
 
     @Schema(description = "Scientific pest name", example = "Cosmopolites sordidus", required = true)
-    var scientificName: String? = null
-
-    @Schema(description = "Size of land sampled", example = "2", required = true)
-    var areaSampled: BigDecimal? = null
-
-    @Schema(description = "Size of land affected", example = "1.5", required = true)
-    var affectedArea: BigDecimal? = null
-
-    @Schema(description = "Land measurement unit", example = "ha", required = true)
-    var areaUnit: String? = null
+    override var scientificName: String? = null
 
     @Schema(description = "Where the sample was obtained", example = "Field", required = true)
-    var sampleSource: String? = null
+    override var sampleSource: String? = null
 
     @Schema(description = "Description of sample type", example = "Banana stems", required = true)
-    var sampleDesc: String? = null
+    override var sampleDesc: String? = null
 
     @Schema(description = "Sample size", example = "200", required = true)
-    var sampleSize: Int? = null
+    override var sampleSize: Int? = null
 
     @Schema(description = "Sample size", example = "200", required = true)
-    var affectedSampleSize: Int? = null
+    override var affectedSampleSize: Int? = null
 
     @Schema(description = "Severity of occurrence", example = "4", required = true)
-    var severity: Int? = null
+    override var severity: Int? = null
 
     @Schema(description = "Status of occurrence", example = "Detected", required = true)
-    var occurrenceStatus: String? = null
+    override var occurrenceStatus: String? = null
 
 
     @Schema(
@@ -90,19 +45,11 @@ class PestDataDto {
         example = "Adult weevils are about 10-12mm long, hard shelled and have the pronounced snout typical of weevils",
         required = false
     )
-    var comments: String? = null
+    override var comments: String? = null
 
     @Schema(description = "Identification method", example = "Visual", required = true)
-    var identificationMethod: String? = null
+    override var identificationMethod: String? = null
 
     @Schema(description = "Data collection method", example = "Field visit", required = true)
-    var dataCollectionMethod: String? = null
-
-    @Schema(description = "Visually identified", example = "true", required = true)
-    var visuallyIdentified: Boolean? = null
-
-    var imageList: ArrayList<ImageDto>? = null
-
-    @Schema(description = "Identified by", example = "John Doe", required = true)
-    var identifiedBy: String? = null
+    override var dataCollectionMethod: String? = null
 }
