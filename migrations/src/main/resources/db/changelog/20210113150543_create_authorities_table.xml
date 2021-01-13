@@ -7,8 +7,8 @@
     <changeSet id="20210113150543" author="smbar" labels="agdxapi">
         <createTable tableName="authorities">
 
-            <column name="email" type="varchar(50)">
-                <constraints nullable="false" foreignKeyName="email-fk" referencedTableName="users" referencedColumnNames="email"/>
+            <column name="username" type="varchar(50)">
+                <constraints nullable="false" foreignKeyName="username-fk" referencedTableName="users" referencedColumnNames="username"/>
             </column>
 
             <column name="authority" type="varchar(50)">
