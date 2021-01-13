@@ -10,6 +10,9 @@
         <include file="changelog/20210113124428_modify_datetime_to_date_columns.xml" relativeToChangelogFile="true"/>
         <include file="changelog/20210113130253_modify_alt_column_data_precision.xml" relativeToChangelogFile="true"/>
         <include file="changelog/20210113130356_modify_accuracy_column_data_precision.xml" relativeToChangelogFile="true"/>
+        <include file="changelog/20210113144359_create_users_table.xml" relativeToChangelogFile="true"/>
+        <include file="changelog/20210113150543_create_authorities_table.xml" relativeToChangelogFile="true"/>
+        <include file="changelog/20210113150831_add_unique_index_to_authorities_table.xml" relativeToChangelogFile="true"/>
 
 
 </databaseChangeLog>

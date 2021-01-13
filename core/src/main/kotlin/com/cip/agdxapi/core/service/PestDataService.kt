@@ -8,6 +8,14 @@ import org.slf4j.LoggerFactory
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
+import org.springframework.web.bind.annotation.PathVariable
+
+import java.awt.print.Book
+
+import org.springframework.web.bind.annotation.GetMapping
+
+
+
 
 @Service
 class PestDataService
@@ -27,6 +35,11 @@ constructor(val pestDataRepo: PestDataRepo) {
         }
     }
 
+
+//    fun findByI(@PathVariable id: Long): Book? {
+//        return repository.findById(id)
+//            .orElseThrow { BookNotFoundException() }
+//    }
     fun addPestData(pestData: PestDataDto): PestDataDto {
         val entity = modelMapper.map(pestData, CommonDataEntity::class.java)
 

@@ -23,6 +23,11 @@ spring:
 springdoc:
   show-actuator: true
   pathsToMatch: /api/v1/**
+  api-docs:
+    path: /agdxapi
+  swagger-ui:
+#    tags-sorter: alpha
+    operations-sorter: alpha
 
 cip:
   name: 'AgDxAPI'

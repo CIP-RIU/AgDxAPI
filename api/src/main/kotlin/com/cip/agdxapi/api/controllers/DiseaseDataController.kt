@@ -4,6 +4,7 @@ import com.cip.agdxapi.core.dto.DiseaseDataDto
 import com.cip.agdxapi.core.service.DiseaseDataService
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.Parameter
+import io.swagger.v3.oas.annotations.security.SecurityRequirement
 import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.*
 @RequestMapping("api/v1/disease")
 @RestController
 @Tag(name = "Crop disease data", description = "Operations pertaining crop disease data")
+@SecurityRequirement(name = "api")
 class DiseaseDataController(val diseaseDataService: DiseaseDataService) {
 
     @PostMapping
