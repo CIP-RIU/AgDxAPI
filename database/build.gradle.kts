@@ -4,7 +4,7 @@ plugins {
     id("org.springframework.boot")
     kotlin("jvm")
     kotlin("plugin.spring")
-    kotlin("plugin.jpa")
+//    kotlin("plugin.jpa")
 }
 
 tasks.getByName<BootJar>("bootJar") {
@@ -22,6 +22,7 @@ dependencies {
     implementation(kotlin("stdlib-jdk8"))
 
     api("org.springframework.boot:spring-boot-starter-data-jpa")
+//    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 
     runtimeOnly("com.h2database:h2")
     runtimeOnly("org.mariadb.jdbc:mariadb-java-client")

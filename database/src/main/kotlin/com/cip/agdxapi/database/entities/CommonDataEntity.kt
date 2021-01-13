@@ -27,13 +27,13 @@ class CommonDataEntity : BaseEntity() {
     @Column(name = "country_name", nullable = false)
     var countryName: String? = null
 
-    @Column(name = "location_level1")
+    @Column(name = "location_level1",columnDefinition = "TEXT")
     var locationLevel1: String? = null
 
-    @Column(name = "location_level2")
+    @Column(name = "location_level2",columnDefinition = "TEXT")
     var locationLevel2: String? = null
 
-    @Column(name = "location_level3")
+    @Column(name = "location_level3",columnDefinition = "TEXT")
     var locationLevel3: String? = null
 
     @Column(name = "date_reported")
@@ -63,10 +63,10 @@ class CommonDataEntity : BaseEntity() {
     @Column(name = "area_unit")
     var areaUnit: BigDecimal? = null
 
-    @Column(name = "sample_source")
+    @Column(name = "sample_source",columnDefinition = "TEXT")
     var sampleSource: String? = null
 
-    @Column(name = "sample_desc")
+    @Column(name = "sample_desc",columnDefinition = "TEXT")
     var sampleDesc: String? = null
 
     @Column(name = "sample_size")
@@ -84,10 +84,10 @@ class CommonDataEntity : BaseEntity() {
     @Column(name = "occurrence_status")
     var occurrenceStatus: String? = null
 
-    @Column(name = "comments")
+    @Column(name = "comments", columnDefinition = "TEXT")
     var comments: String? = null
 
-    @Column(name = "identification_method")
+    @Column(name = "identification_method",columnDefinition = "TEXT")
     var identificationMethod: String? = null
 
     @Column(name = "data_collection_method")

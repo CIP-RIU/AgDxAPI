@@ -13,11 +13,11 @@ open class BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long? = null
 
-    @CreationTimestamp
-    @Column(name = "created_at", updatable = false, nullable = false)
-    var createdAt: LocalDateTime? = null
-
-    @UpdateTimestamp
-    @Column(name = "updated_at", insertable = false)
-    var updatedAt: LocalDateTime? = null
+//    @CreationTimestamp
+//    @Column(name = "created_at", updatable = false, nullable = false)
+//    var createdAt: LocalDateTime? = null
+//
+//    @UpdateTimestamp
+//    @Column(name = "updated_at", insertable = false)
+//    var updatedAt: LocalDateTime? = null
 }

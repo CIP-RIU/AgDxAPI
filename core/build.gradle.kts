@@ -18,7 +18,7 @@ tasks.getByName<Jar>("jar") {
 dependencies {
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
 
-//    implementation(project(":database"))
+    implementation(project(":database"))
 
 
     implementation(kotlin("reflect"))
