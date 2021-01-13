@@ -1,6 +1,7 @@
 package com.cip.agdxapi.database.entities
 
 import java.math.BigDecimal
+import java.time.LocalDate
 import java.time.LocalDateTime
 import javax.persistence.Column
 import javax.persistence.Entity
@@ -37,13 +38,13 @@ class CommonDataEntity : BaseEntity() {
     var locationLevel3: String? = null
 
     @Column(name = "date_reported")
-    var dateReported: LocalDateTime? = null
+    var dateReported: LocalDate? = null
 
     @Column(name = "date_updated")
-    var dateUpdated: LocalDateTime? = null
+    var dateUpdated: LocalDate? = null
 
     @Column(name = "date_reviewed")
-    var dateReviewed: LocalDateTime? = null
+    var dateReviewed: LocalDate? = null
 
     @Column(name = "ontology_name")
     var ontologyName: String? = null

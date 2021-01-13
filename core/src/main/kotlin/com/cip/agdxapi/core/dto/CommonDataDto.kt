@@ -7,6 +7,7 @@ import io.swagger.v3.oas.annotations.media.Schema
 import java.math.BigDecimal
 import java.time.LocalDate
 import java.time.LocalDateTime
+import javax.validation.constraints.Size
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 open class CommonDataDto {
@@ -24,6 +25,7 @@ open class CommonDataDto {
     var accuracy: BigDecimal? = null
 
     @Schema(description = "Country code of the identification: ISO2", example = "KE", required = false)
+    @Size(min = 2, max = 2)
     var countryCode: String? = null
 
     @Schema(description = "Country of the identification", example = "Kenya", required = true)
@@ -49,7 +51,7 @@ open class CommonDataDto {
     @Schema(description = "Date when occurrence was reviewed", example = "2021-01-13", required = true)
     var dateReviewed: LocalDate? = null
 
-    @Schema(description = "Common ontology name", example = "Banana", required = true)
+    @Schema(description = "Common ontology name for the crop e.g Banana, Cassava, Rice", example = "Banana", required = true)
     open var ontologyName: String? = null
 
     @Schema(description = "Common name", example = "BXW", required = true)
@@ -88,7 +90,7 @@ open class CommonDataDto {
 
     @Schema(
         description = "Comments",
-        example = "Symptoms of BXW are progressive yellowing, withering and necrosis of leaves; fruits that rapidly and prematurely ripen and show internal browning; shrivelling/rotting male flowers and bracts, stem and bunches; withering and rotting of the entire plant",
+        example = "Symptoms of BXW are progressive yellowing, withering and necrosis of leaves;",
         required = false
     )
     open var comments: String? = null

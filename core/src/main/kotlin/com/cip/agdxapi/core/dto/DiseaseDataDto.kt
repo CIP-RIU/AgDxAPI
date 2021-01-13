@@ -8,7 +8,6 @@ import java.math.BigDecimal
 import java.time.LocalDate
 import java.time.LocalDateTime
 
-@JsonInclude(JsonInclude.Include.NON_NULL)
 class DiseaseDataDto : CommonDataDto() {
 
     @Schema(description = "Common ontology name", example = "Banana", required = true)
@@ -44,7 +43,7 @@ class DiseaseDataDto : CommonDataDto() {
 
     @Schema(
         description = "Comments",
-        example = "Symptoms of BXW are progressive yellowing, withering and necrosis of leaves; fruits that rapidly and prematurely ripen and show internal browning; shrivelling/rotting male flowers and bracts, stem and bunches; withering and rotting of the entire plant",
+        example = "Symptoms of BXW are progressive yellowing, withering and necrosis of leaves;",
         required = false
     )
     override var comments: String? = null

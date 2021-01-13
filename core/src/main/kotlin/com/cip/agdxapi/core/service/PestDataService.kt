@@ -30,8 +30,10 @@ constructor(val pestDataRepo: PestDataRepo) {
     fun addPestData(pestData: PestDataDto): PestDataDto {
         val entity = modelMapper.map(pestData, CommonDataEntity::class.java)
 
+        val saved = pestDataRepo.save(entity)
+
         logger.info("Adding pest data")
-        return modelMapper.map(entity, PestDataDto::class.java)
+        return modelMapper.map(saved, PestDataDto::class.java)
     }
 
 
