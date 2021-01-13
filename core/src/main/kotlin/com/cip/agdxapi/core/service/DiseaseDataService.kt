@@ -31,7 +31,8 @@ constructor(val diseaseDataRepo: DiseaseDataRepo) {
         val entity = modelMapper.map(diseaseData, CommonDataEntity::class.java)
 
         logger.info("Adding disease data")
-        return modelMapper.map(entity, DiseaseDataDto::class.java)
+        val saved = diseaseDataRepo.save(entity)
+        return modelMapper.map(saved, DiseaseDataDto::class.java)
     }
 
 }

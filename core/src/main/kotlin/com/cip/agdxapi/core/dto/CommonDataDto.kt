@@ -31,7 +31,6 @@ open class CommonDataDto {
     @Schema(description = "Country of the identification", example = "Kenya", required = true)
     var countryName: String? = null
 
-
     @Schema(description = "Administrative level one; Province,district,region", example = "Western Province", required = true)
     var locationLevel1: String? = null
 
