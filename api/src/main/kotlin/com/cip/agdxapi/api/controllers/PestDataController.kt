@@ -26,7 +26,7 @@ class PestDataController(private val pestDataService: PestDataService) {
     @GetMapping
     fun getPestData(@Parameter(hidden = true) pageable: Pageable): ResponseEntity<Page<PestDataDto>> {
 
-        val pestData = pestDataService.getPestData(pageable)
+        val pestData: Page<PestDataDto> = pestDataService.getPestData(pageable)
 
         return ResponseEntity<Page<PestDataDto>>(pestData, HttpStatus.OK)
     }
