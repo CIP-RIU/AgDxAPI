@@ -4,18 +4,15 @@ import com.cip.agdxapi.core.service.ApiUserPasswordService
 import com.cip.agdxapi.core.service.ApiUserService
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
-import kotlin.Throws
-import org.springframework.security.config.annotation.web.builders.HttpSecurity
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder
-import org.springframework.security.crypto.password.PasswordEncoder
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
-import java.lang.Exception
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.authentication.AuthenticationProvider
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
-import javax.sql.DataSource
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder
+import org.springframework.security.config.annotation.web.builders.HttpSecurity
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
+import org.springframework.security.crypto.password.PasswordEncoder
+import javax.sql.DataSource
 
 
 @Configuration
@@ -44,24 +41,14 @@ class SecurityConfig(
 
     @Throws(Exception::class)
     override fun configure(auth: AuthenticationManagerBuilder) {
-        auth.jdbcAuthentication()
-            .dataSource(datasource)
+        auth.inMemoryAuthentication()
             .withUser("admin")
-            .password(passwordEncoder().encode("password"))
+            .password(passwordEncoder().encode("admin"))
             .authorities("ADMIN")
     }
 
     @Bean
     fun passwordEncoder(): PasswordEncoder {
         return BCryptPasswordEncoder()
-    }
-
-    @Bean
-    fun daoAuthenticationProvider(): AuthenticationProvider? {
-        val provider = DaoAuthenticationProvider()
-        provider.setPasswordEncoder(passwordEncoder())
-        provider.setUserDetailsPasswordService(this.apiUserPasswordService)
-        provider.setUserDetailsService(this.apiUserService)
-        return provider
     }
 }
