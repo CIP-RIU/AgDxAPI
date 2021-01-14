@@ -7,8 +7,12 @@
     <changeSet id="20210113150543" author="smbar" labels="agdxapi">
         <createTable tableName="authorities">
 
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" primaryKeyName="pk-auth-id" nullable="false"/>
+            </column>
+
             <column name="username" type="varchar(50)">
-                <constraints nullable="false" foreignKeyName="username-fk" referencedTableName="users" referencedColumnNames="username"/>
+                <constraints nullable="false" foreignKeyName="username-fk" referencedTableName="api_users" referencedColumnNames="username"/>
             </column>
 
             <column name="authority" type="varchar(50)">

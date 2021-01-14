@@ -7,7 +7,7 @@
     <changeSet id="20210111115117" author="smbar" labels="agdxapi">
         <createTable tableName="common_data">
 
-            <column name="id" type="bigint" autoIncrement="true" startWith="100">
+            <column name="id" type="bigint" autoIncrement="true">
                 <constraints primaryKey="true" primaryKeyName="pk-data-id" nullable="false"/>
             </column>
 

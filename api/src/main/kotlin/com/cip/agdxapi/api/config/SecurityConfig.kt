@@ -1,5 +1,7 @@
 package com.cip.agdxapi.api.config
 
+import com.cip.agdxapi.core.service.ApiUserPasswordService
+import com.cip.agdxapi.core.service.ApiUserService
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
@@ -10,13 +12,19 @@ import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import java.lang.Exception
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.security.authentication.AuthenticationProvider
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
 import javax.sql.DataSource
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider
 
 
 @Configuration
 @EnableWebSecurity
-class SecurityConfig(val datasource: DataSource) : WebSecurityConfigurerAdapter() {
+class SecurityConfig(
+    val datasource: DataSource,
+    val apiUserService: ApiUserService,
+    val apiUserPasswordService: ApiUserPasswordService
+) : WebSecurityConfigurerAdapter() {
 
     @Throws(Exception::class)
     override fun configure(http: HttpSecurity) {
@@ -30,6 +38,8 @@ class SecurityConfig(val datasource: DataSource) : WebSecurityConfigurerAdapter(
             .authenticated()
             .and()
             .httpBasic()
+
+        http.headers().frameOptions().disable()
     }
 
     @Throws(Exception::class)
@@ -44,5 +54,14 @@ class SecurityConfig(val datasource: DataSource) : WebSecurityConfigurerAdapter(
     @Bean
     fun passwordEncoder(): PasswordEncoder {
         return BCryptPasswordEncoder()
+    }
+
+    @Bean
+    fun daoAuthenticationProvider(): AuthenticationProvider? {
+        val provider = DaoAuthenticationProvider()
+        provider.setPasswordEncoder(passwordEncoder())
+        provider.setUserDetailsPasswordService(this.apiUserPasswordService)
+        provider.setUserDetailsService(this.apiUserService)
+        return provider
     }
 }
