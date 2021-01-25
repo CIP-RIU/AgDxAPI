@@ -9,6 +9,7 @@ import java.util.*
 import javax.transaction.Transactional
 
 @Repository
+@Deprecated("To be removed ASAP")
 interface PestDataRepo : JpaRepository<CommonDataEntity, Long> {
 
     override fun findAll(pageable: Pageable): Page<CommonDataEntity>

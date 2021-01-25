@@ -16,7 +16,7 @@ tasks.getByName<Jar>("jar") {
 
 
 dependencies {
-    val springDoc  = "1.5.2"
+
 
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
 
@@ -37,8 +37,7 @@ dependencies {
 
     api("com.github.rozidan:modelmapper-spring-boot-starter:2.3.1")
 
-    api("org.springdoc:springdoc-openapi-ui:${springDoc}")
-    api("org.springdoc:springdoc-openapi-kotlin:${springDoc}")
+
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
 //    testImplementation("org.springframework.security:spring-security-test")

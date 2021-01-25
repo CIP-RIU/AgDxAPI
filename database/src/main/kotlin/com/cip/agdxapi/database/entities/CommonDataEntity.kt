@@ -9,6 +9,7 @@ import javax.persistence.Table
 
 @Entity
 @Table(name = "common_data")
+@Deprecated("To be removed ASAP")
 class CommonDataEntity : BaseEntity() {
     @Column(name = "lat", nullable = false)
     var lat: BigDecimal? = null
@@ -28,13 +29,13 @@ class CommonDataEntity : BaseEntity() {
     @Column(name = "country_name", nullable = false)
     var countryName: String? = null
 
-    @Column(name = "location_level1",columnDefinition = "TEXT")
+    @Column(name = "location_level1", columnDefinition = "TEXT")
     var locationLevel1: String? = null
 
-    @Column(name = "location_level2",columnDefinition = "TEXT")
+    @Column(name = "location_level2", columnDefinition = "TEXT")
     var locationLevel2: String? = null
 
-    @Column(name = "location_level3",columnDefinition = "TEXT")
+    @Column(name = "location_level3", columnDefinition = "TEXT")
     var locationLevel3: String? = null
 
     @Column(name = "date_reported")
@@ -64,10 +65,10 @@ class CommonDataEntity : BaseEntity() {
     @Column(name = "area_unit")
     var areaUnit: String? = null
 
-    @Column(name = "sample_source",columnDefinition = "TEXT")
+    @Column(name = "sample_source", columnDefinition = "TEXT")
     var sampleSource: String? = null
 
-    @Column(name = "sample_desc",columnDefinition = "TEXT")
+    @Column(name = "sample_desc", columnDefinition = "TEXT")
     var sampleDesc: String? = null
 
     @Column(name = "sample_size")
@@ -88,7 +89,7 @@ class CommonDataEntity : BaseEntity() {
     @Column(name = "comments", columnDefinition = "TEXT")
     var comments: String? = null
 
-    @Column(name = "identification_method",columnDefinition = "TEXT")
+    @Column(name = "identification_method", columnDefinition = "TEXT")
     var identificationMethod: String? = null
 
     @Column(name = "data_collection_method")

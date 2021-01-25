@@ -1,52 +1,40 @@
 package com.cip.agdxapi.core.service
 
-import com.cip.agdxapi.core.dto.PestDataDto
 import com.cip.agdxapi.core.utils.MyModelMapper
-import com.cip.agdxapi.database.entities.CommonDataEntity
-import com.cip.agdxapi.database.repos.PestDataRepo
+import com.cip.agdxapi.database.entities.CropPestEntity
+import com.cip.agdxapi.database.repos.CropPestRepo
 import org.slf4j.LoggerFactory
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
-import org.springframework.web.bind.annotation.PathVariable
-
-import java.awt.print.Book
-
-import org.springframework.web.bind.annotation.GetMapping
-
-
 
 
 @Service
 class PestDataService
-constructor(val pestDataRepo: PestDataRepo) {
+constructor(val cropPestRepo: CropPestRepo) {
 
     private val logger = LoggerFactory.getLogger(PestDataService::class.java)
 
     private val modelMapper = MyModelMapper.init()
 
 
-    fun getPestData(pageable: Pageable): Page<PestDataDto> {
-        logger.info("Fetching pest data")
-        val pestDataList = pestDataRepo.findAll(pageable)
-        return pestDataList.map { dataEntity ->
-            val pestDataDto = modelMapper.map(dataEntity, PestDataDto::class.java)
-            pestDataDto
-        }
+    fun getPestData(pageable: Pageable): Page<CropPestEntity> {
+        logger.info("Fetching crop pest data")
+        return cropPestRepo.findAll(pageable)
+//        return cropPestList.map { dataEntity ->
+//            val cropPEstDto = modelMapper.map(dataEntity, PestDataDto::class.java)
+//            cropPEstDto
+//        }
     }
 
 
-//    fun findByI(@PathVariable id: Long): Book? {
-//        return repository.findById(id)
-//            .orElseThrow { BookNotFoundException() }
-//    }
-    fun addPestData(pestData: PestDataDto): PestDataDto {
-        val entity = modelMapper.map(pestData, CommonDataEntity::class.java)
+    fun addPestData(pestEntity: CropPestEntity): CropPestEntity {
+        val cropPestEntity = modelMapper.map(pestEntity, CropPestEntity::class.java)
 
-        val saved = pestDataRepo.save(entity)
+        val saved = cropPestRepo.save(cropPestEntity)
 
         logger.info("Adding pest data")
-        return modelMapper.map(saved, PestDataDto::class.java)
+        return saved
     }
 
 

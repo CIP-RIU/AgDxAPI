@@ -1,2 +1,2 @@
 rootProject.name = "agdxapi"
-include("core", "migrations","database", "api")
+include("core", "migrations","database", "api","enums")
