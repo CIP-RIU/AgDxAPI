@@ -16,6 +16,7 @@
 
     <include file="changelog/20210125110308_create_crop_disease_table.xml" relativeToChangelogFile="true"/>
     <include file="changelog/20210125110309_create_crop_pests_table.xml" relativeToChangelogFile="true"/>
+    <include file="changelog/20210125135123_rename_crop_disease_table.xml" relativeToChangelogFile="true"/>
 
 
 </databaseChangeLog>
