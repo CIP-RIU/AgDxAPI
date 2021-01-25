@@ -3,7 +3,7 @@
         xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-     
+
     <changeSet id="20210125110308" author="smbar" labels="agdxapi">
         <createTable tableName="crop_disease">
 
@@ -37,10 +37,10 @@
             <column name="location_level2" type="text" remarks="municipality, district"/>
             <column name="location_level3" type="text" remarks="Administrative leve i.e city,down"/>
 
-            <column name="date_observed" type="datetime" remarks="Date when it was detected"/>
-            <column name="date_identified" type="datetime" remarks="Date when it was identified"/>
-            <column name="date_recorded" type="datetime" remarks="Date when it was recorded into the system"/>
-            <column name="date_updated" type="datetime" remarks="Date the record was updated"/>
+            <column name="date_observed" type="date" remarks="Date when it was detected"/>
+            <column name="date_identified" type="date" remarks="Date when it was identified"/>
+            <column name="date_recorded" type="date" remarks="Date when it was recorded into the system"/>
+            <column name="date_updated" type="date" remarks="Date the record was updated"/>
 
             <column name="crop_name" type="varchar(150)"/>
             <column name="cultivar_name" type="varchar(150)"/>
@@ -93,7 +93,8 @@
             <column name="original_system_id" type="varchar(255)" remarks="In the case of data from an aggregator,
             the unique identifier from the original data set. Used in cases where two aggregators may encounter the same data."/>
 
-            <column name="contributing_system_id" type="varchar(255)" remarks="Unique identifier from system contributing data for followup and updating">
+            <column name="contributing_system_id" type="varchar(255)"
+                    remarks="Unique identifier from system contributing data for followup and updating">
                 <constraints unique="true" uniqueConstraintName="pest_sys_id"/>
             </column>
 
