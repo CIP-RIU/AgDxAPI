@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+        <include file="changelog/20210111115117_create_source_data_table.xml" relativeToChangelogFile="true"/>
+
+        <include file="changelog/20210113113700_modify_area_unit_data_type.xml" relativeToChangelogFile="true"/>
+        <include file="changelog/20210113124428_modify_datetime_to_date_columns.xml" relativeToChangelogFile="true"/>
+        <include file="changelog/20210113130253_modify_alt_column_data_precision.xml" relativeToChangelogFile="true"/>
+        <include file="changelog/20210113130356_modify_accuracy_column_data_precision.xml" relativeToChangelogFile="true"/>
+        <include file="changelog/20210113144359_create_api_users_table.xml" relativeToChangelogFile="true"/>
+        <include file="changelog/20210113150543_create_authorities_table.xml" relativeToChangelogFile="true"/>
+        <include file="changelog/20210113150831_add_unique_index_to_authorities_table.xml" relativeToChangelogFile="true"/>
+
+
+</databaseChangeLog>
