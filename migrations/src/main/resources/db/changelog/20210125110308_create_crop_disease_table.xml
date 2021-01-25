@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+     
+    <changeSet id="20210125110308" author="smbar" labels="agdxapi">
+        <createTable tableName="crop_disease">
+
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" primaryKeyName="pk-pest-data-id" nullable="false"/>
+            </column>
+
+            <column name="country_code" type="varchar(3)" remarks="Can be ISO2 or ISO3">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="lat" type="decimal(11,8)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="lon" type="decimal(11,8)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="alt" type="decimal(11,2)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="accuracy" type="decimal(11,2)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="geodetic_datum" type="varchar(50)" remarks="North America Datum or World geodetic coordinate system"/>
+
+            <column name="location_level1" type="text" remarks="Province, district or region"/>
+            <column name="location_level2" type="text" remarks="municipality, district"/>
+            <column name="location_level3" type="text" remarks="Administrative leve i.e city,down"/>
+
+            <column name="date_observed" type="datetime" remarks="Date when it was detected"/>
+            <column name="date_identified" type="datetime" remarks="Date when it was identified"/>
+            <column name="date_recorded" type="datetime" remarks="Date when it was recorded into the system"/>
+            <column name="date_updated" type="datetime" remarks="Date the record was updated"/>
+
+            <column name="crop_name" type="varchar(150)"/>
+            <column name="cultivar_name" type="varchar(150)"/>
+
+            <column name="pathogen_common_name" type="varchar(255)"/>
+            <column name="pathogen_scientific_name" type="varchar(255)"/>
+            <column name="pathogen_nativity" type="varchar(30)" remarks="Native or Introduced"/>
+            <column name="pathogen_detection_status" type="varchar(50)" remarks="Detected, Undetected"/>
+            <column name="pathogen_category" type="varchar(25)" remarks="Virus, Bacteria, Nematode"/>
+            <column name="pathogen_vector" type="varchar(80)" remarks="Vector of the pathogen"/>
+            <column name="pathogen_identification_method" type="text" remarks="This can contain multiple identification methods (PCR,ELISA)"/>
+            <column name="pathogen_verification_method" type="text" remarks="This can contain multiple verification methods"/>
+            <column name="pathogen_status" type="text" remarks="Status of the pathogen at time of recording (Treated, Untreated)"/>
+            <column name="pathogen_record_basis" type="text" remarks="The basis of the occurrence (Human observation)"/>
+            <column name="pathogen_verified" type="boolean"/>
+
+            <column name="severity_number_scale" type="int(2)" remarks="Severity scale on an number level (5)"/>
+            <column name="severity_percentage_scale" type="decimal(3,2)" remarks="Severity scale on an percentage level"/>
+            <column name="severity_range_scale" type="varchar(50)" remarks="Severity scale on an range level (1-5,4-9)"/>
+            <column name="pathogen_incidence" type="varchar(80)" remarks="Severity scale on an percentage level"/>
+
+            <column name="area_unit" type="varchar(4)" remarks="Area measurement unit ha,acre,sqm"/>
+            <column name="sampled_area_size" type="decimal(10,2)" remarks="Size of area sampled"/>
+            <column name="affected_area_size" type="decimal(10,2)" remarks="Size of area affected"/>
+
+            <column name="sample_source" type="text" remarks="Source of the sample i.e Field, greenhouse, lab"/>
+            <column name="sample_desc" type="text" remarks="Description of the sample i.e roots, leaves"/>
+
+            <column name="num_of_samples" type="int(6)"/>
+            <column name="num_of_affected_samples" type="int(6)"/>
+            <column name="sample_units" type="varchar(6)" remarks="Unit of measure (individuals, adults, grams, etc.)"/>
+
+            <column name="lab_sample_id" type="varchar(120)"/>
+            <column name="has_visual_symptoms" type="boolean"/>
+
+            <column name="data_collection_method" type="text" remarks="Methodology/protocol used to take the data (Aerial survey)"/>
+            <column name="genbank_accession_number" type="varchar(80)" remarks="GeneBank number for identification and confirmation"/>
+            <column name="project_name" type="varchar(120)"/>
+
+            <column name="identified_by" type="varchar(255)"/>
+            <column name="reported_by" type="varchar(255)"/>
+            <column name="recorded_by" type="varchar(255)"/>
+            <column name="reviewed_by" type="varchar(255)"/>
+
+            <column name="comments" type="text"/>
+
+            <column name="identification_method" type="text"/>
+            <column name="visually_identified" type="boolean"/>
+
+            <column name="original_system_id" type="varchar(255)" remarks="In the case of data from an aggregator,
+            the unique identifier from the original data set. Used in cases where two aggregators may encounter the same data."/>
+
+            <column name="contributing_system_id" type="varchar(255)" remarks="Unique identifier from system contributing data for followup and updating">
+                <constraints unique="true" uniqueConstraintName="pest_sys_id"/>
+            </column>
+
+        </createTable>
+        <modifySql dbms="mysql,mariadb">
+            <append value=" engine innodb"/>
+        </modifySql>
+    </changeSet>
+</databaseChangeLog>

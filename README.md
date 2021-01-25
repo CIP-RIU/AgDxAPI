@@ -18,10 +18,10 @@ It will build on existing data standards for Agriculture, such as the Crop and A
 
 ## Tasks
 
-1. [ ] Review data structures in existing pest and disease databases and applications and recommend a minimum set of data for interoperability and exchange.
-2. [ ] Participate in requirements gathering via agile methodologies to define functional and non-functional requirements.
-3. [ ] Review existing data definition standards and ontologies from the CGIAR, Academia, and development organizations like FAO for reuse in defining data exchange attributes for the **AgDxAPI**.
-4. [ ] Create a draft version of the **AgDxAPI** standardized web service API specification for data exchange.
+1. [x] Review data structures in existing pest and disease databases and applications and recommend a minimum set of data for interoperability and exchange.
+2. [x] Participate in requirements gathering via agile methodologies to define functional and non-functional requirements.
+3. [x] Review existing data definition standards and ontologies from the CGIAR, Academia, and development organizations like FAO for reuse in defining data exchange attributes for the **AgDxAPI**.
+4. [x] Create a draft version of the **AgDxAPI** standardized web service API specification for data exchange.
 5. [ ] Lead the review of the specification in a (virtual) workshop of all stakeholders. The workshop will provide feedback and provide input for the finalization of the first version of the specification.
 6. [ ] Document the **AgDxAPI** using widely accepted API documentation standards
 
