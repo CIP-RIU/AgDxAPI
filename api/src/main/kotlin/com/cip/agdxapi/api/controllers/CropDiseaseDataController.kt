@@ -38,11 +38,23 @@ class CropDiseaseDataController(val cropDiseaseDataService: CropDiseaseDataServi
         return ResponseEntity<Page<CropDiseaseEntity>>(diseaseData, HttpStatus.OK)
     }
 
-    @GetMapping("/{diseaseName}")
-    @Operation(summary = "Get details of specific disease", description = "", tags = ["crop-disease"])
-    fun getDiseaseByName(
+    @GetMapping("/{diseaseName}/common")
+    @Operation(summary = "Get details of specific disease using its common name", description = "", tags = ["crop-disease"])
+    fun getDiseaseByCommonName(
         @PathVariable diseaseName: String,
 //        @PageableAsQueryParam(par),
+        @Parameter(hidden = true) pageable: Pageable
+    ): ResponseEntity<Page<CropDiseaseEntity>> {
+
+        val diseaseData: Page<CropDiseaseEntity> = cropDiseaseDataService.getDiseaseData(pageable = pageable)
+
+        return ResponseEntity<Page<CropDiseaseEntity>>(diseaseData, HttpStatus.OK)
+    }
+
+    @GetMapping("/{diseaseName}/scientific")
+    @Operation(summary = "Get details of specific disease using its scientific name", description = "", tags = ["crop-disease"])
+    fun getDiseaseByScientificName(
+        @PathVariable diseaseName: String,
         @Parameter(hidden = true) pageable: Pageable
     ): ResponseEntity<Page<CropDiseaseEntity>> {
 
