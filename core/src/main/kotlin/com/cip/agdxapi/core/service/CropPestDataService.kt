@@ -10,10 +10,10 @@ import org.springframework.stereotype.Service
 
 
 @Service
-class PestDataService
+class CropPestDataService
 constructor(val cropPestRepo: CropPestRepo) {
 
-    private val logger = LoggerFactory.getLogger(PestDataService::class.java)
+    private val logger = LoggerFactory.getLogger(CropPestDataService::class.java)
 
     private val modelMapper = MyModelMapper.init()
 

@@ -19,7 +19,7 @@ class CropPestEntity : BaseEntity() {
      * Can be ISO2 or ISO3
      */
     @Column(name = "country_code", nullable = false)
-    @Schema(description = "Country code", example = "KE")
+    @Schema(description = "Can be ISO2(KE) or ISO3(KEN)", example = "KE")
     var countryCode: String? = null
 
     @Column(name = "lat", nullable = false)
@@ -341,14 +341,20 @@ class CropPestEntity : BaseEntity() {
     var visuallyIdentified: Boolean? = null
 
     /**
-     * In the case of data from an aggregator, the unique identifier from the original data set. Used in cases where two aggregators may encounter the same data.
+     * In the case of data from an aggregator,the unique identifier from the original data set.
+     * Used in cases where two aggregators may encounter the same data.
      */
     @Column(name = "original_system_id")
+    @Schema(
+        description = "In the case of data from an aggregator,the unique identifier from the original data set." +
+                "Used in cases where two aggregators may encounter the same data."
+    )
     var originalSystemId: String? = null
 
     /**
      * Unique identifier from system contributing data for followup and updating
      */
     @Column(name = "contributing_system_id")
+    @Schema(description = "Unique identifier from system contributing data for followup and updating")
     var contributingSystemId: String? = null
 }

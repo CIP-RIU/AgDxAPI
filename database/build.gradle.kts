@@ -31,6 +31,7 @@ dependencies {
 //    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 
     api("org.springdoc:springdoc-openapi-ui:${springDoc}")
+    api("org.springdoc:springdoc-openapi-data-rest:${springDoc}")
     api("org.springdoc:springdoc-openapi-kotlin:${springDoc}")
 
     runtimeOnly("com.h2database:h2")
