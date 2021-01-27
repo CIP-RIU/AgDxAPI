@@ -1,6 +1,7 @@
 package com.cip.agdxapi.api.controllers
 
 import com.cip.agdxapi.core.service.CropPestDataService
+import com.cip.agdxapi.database.entities.CropDiseaseEntity
 import com.cip.agdxapi.database.entities.CropPestEntity
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.Parameter
@@ -34,5 +35,30 @@ class CropPestDataController(private val cropPestDataService: CropPestDataServic
         val pestData: Page<CropPestEntity> = cropPestDataService.getPestData(pageable)
 
         return ResponseEntity<Page<CropPestEntity>>(pestData, HttpStatus.OK)
+    }
+
+    @GetMapping("/{pestName}/common")
+    @Operation(summary = "Get details of specific pest using its common name", description = "", tags = ["crop-pest"])
+    fun getPestByCommonName(
+        @PathVariable pestName: String,
+//        @PageableAsQueryParam(par),
+        @Parameter(hidden = true) pageable: Pageable
+    ): ResponseEntity<Page<CropPestEntity>> {
+
+        val diseaseData: Page<CropPestEntity> = cropPestDataService.getPestData(pageable = pageable)
+
+        return ResponseEntity<Page<CropPestEntity>>(diseaseData, HttpStatus.OK)
+    }
+
+    @GetMapping("/{pestName}/scientific")
+    @Operation(summary = "Get details of specific pest using its scientific name", description = "", tags = ["crop-pest"])
+    fun getPestByScientificName(
+        @PathVariable pestName: String,
+        @Parameter(hidden = true) pageable: Pageable
+    ): ResponseEntity<Page<CropPestEntity>> {
+
+        val diseaseData: Page<CropPestEntity> = cropPestDataService.getPestData(pageable = pageable)
+
+        return ResponseEntity<Page<CropPestEntity>>(diseaseData, HttpStatus.OK)
     }
 }

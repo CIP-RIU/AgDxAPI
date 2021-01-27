@@ -24,14 +24,14 @@ springdoc:
   show-actuator: true
   pathsToMatch: /api/v1/**
   api-docs:
-    path: /agdxapi
+    path: /agdx-api
   swagger-ui:
-#    tags-sorter: alpha
+    #    tags-sorter: alpha
     operations-sorter: alpha
 
 cip:
-  name: 'AgDxAPI'
-  version: '1.0.0'
+  name: 'AgDx API'
+  version: '1.0.1'
   desc: 'Description here'
-  externaldoc: '1.0.0'
-  license: '1.0.0'
+  externaldoc: '1.0.1'
+  license: '1.0.1'

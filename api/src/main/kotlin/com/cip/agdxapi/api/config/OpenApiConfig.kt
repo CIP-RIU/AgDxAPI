@@ -16,11 +16,14 @@ import javax.sql.DataSource
 @SecurityScheme(name = "api", scheme = "basic", type = SecuritySchemeType.HTTP, `in` = SecuritySchemeIn.HEADER)
 class OpenApiConfig() {
     @Bean
-    fun api(@Value("\${cip.version}") appVersion: String): OpenAPI {
+    fun api(
+        @Value("\${cip.version}") appVersion: String,
+        @Value("\${cip.name}") appName: String
+    ): OpenAPI {
         return OpenAPI()
             .info(
-                Info().title("AgDxAPI")
-                    .description("AgDxAPI facilitates sharing of crop pest and disease data between platforms and/or by providing links between complementary ICT tools where appropriate.")
+                Info().title(appName)
+                    .description("$appName facilitates sharing of crop pest and disease data between platforms and/or by providing links between complementary ICT tools where appropriate.")
                     .version(appVersion)
                     .license(License().name("Apache 2.0").url("http://springdoc.org"))
             )
