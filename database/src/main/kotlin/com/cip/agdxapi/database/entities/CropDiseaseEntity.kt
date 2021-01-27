@@ -1,11 +1,10 @@
 package com.cip.agdxapi.database.entities
 
 import com.cip.agdxapi.database.entities.BaseEntity
+import com.cip.agdxapi.enums.EnumStatus
 import java.math.BigDecimal
 import java.time.LocalDate
-import javax.persistence.Column
-import javax.persistence.Entity
-import javax.persistence.Table
+import javax.persistence.*
 
 /**
  * Pertains to crop disease data
@@ -40,19 +39,19 @@ class CropDiseaseEntity : BaseEntity() {
     /**
      * Province, district or region
      */
-    @Column(name = "location_level1")
+    @Column(name = "location_level1", columnDefinition = "TEXT")
     var locationLevel1: String? = null
 
     /**
      * municipality, district
      */
-    @Column(name = "location_level2")
+    @Column(name = "location_level2", columnDefinition = "TEXT")
     var locationLevel2: String? = null
 
     /**
      * Administrative leve i.e city,down
      */
-    @Column(name = "location_level3")
+    @Column(name = "location_level3", columnDefinition = "TEXT")
     var locationLevel3: String? = null
 
     /**
@@ -118,25 +117,26 @@ class CropDiseaseEntity : BaseEntity() {
     /**
      * This can contain multiple identification methods (PCR,ELISA)
      */
-    @Column(name = "pathogen_identification_method")
+    @Column(name = "pathogen_identification_method", columnDefinition = "TEXT")
     var pathogenIdentificationMethod: String? = null
 
     /**
      * This can contain multiple verification methods
      */
-    @Column(name = "pathogen_verification_method")
+    @Column(name = "pathogen_verification_method", columnDefinition = "TEXT")
     var pathogenVerificationMethod: String? = null
 
     /**
      * Status of the pathogen at time of recording (Treated, Untreated)
      */
-    @Column(name = "pathogen_status")
-    var pathogenStatus: String? = null
+    @Enumerated(EnumType.STRING)
+    @Column(name = "pathogen_status", columnDefinition = "TEXT")
+    var pathogenStatus: EnumStatus? = null
 
     /**
      * The basis of the occurrence (Human observation)
      */
-    @Column(name = "pathogen_record_basis")
+    @Column(name = "pathogen_record_basis", columnDefinition = "TEXT")
     var pathogenRecordBasis: String? = null
 
     @Column(name = "pathogen_verified")
@@ -187,13 +187,13 @@ class CropDiseaseEntity : BaseEntity() {
     /**
      * Source of the sample i.e Field, greenhouse, lab
      */
-    @Column(name = "sample_source")
+    @Column(name = "sample_source", columnDefinition = "TEXT")
     var sampleSource: String? = null
 
     /**
      * Description of the sample i.e roots, leaves
      */
-    @Column(name = "sample_desc")
+    @Column(name = "sample_desc", columnDefinition = "TEXT")
     var sampleDesc: String? = null
 
     @Column(name = "num_of_samples")
@@ -217,7 +217,7 @@ class CropDiseaseEntity : BaseEntity() {
     /**
      * Methodology/protocol used to take the data (Aerial survey)
      */
-    @Column(name = "data_collection_method")
+    @Column(name = "data_collection_method", columnDefinition = "TEXT")
     var dataCollectionMethod: String? = null
 
     /**
@@ -241,17 +241,18 @@ class CropDiseaseEntity : BaseEntity() {
     @Column(name = "reviewed_by")
     var reviewedBy: String? = null
 
-    @Column(name = "comments")
+    @Column(name = "comments", columnDefinition = "TEXT")
     var comments: String? = null
 
-    @Column(name = "identification_method")
+    @Column(name = "identification_method", columnDefinition = "TEXT")
     var identificationMethod: String? = null
 
     @Column(name = "visually_identified")
     var visuallyIdentified: Boolean? = null
 
     /**
-     * In the case of data from an aggregator,             the unique identifier from the original data set. Used in cases where two aggregators may encounter the same data.
+     * In the case of data from an aggregator,the unique identifier from the original data set.
+     * Used in cases where two aggregators may encounter the same data.
      */
     @Column(name = "original_system_id")
     var originalSystemId: String? = null

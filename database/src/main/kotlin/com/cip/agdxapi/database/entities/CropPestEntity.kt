@@ -7,9 +7,7 @@ import com.cip.agdxapi.enums.EnumStatus
 import io.swagger.v3.oas.annotations.media.Schema
 import java.math.BigDecimal
 import java.time.LocalDate
-import javax.persistence.Column
-import javax.persistence.Entity
-import javax.persistence.Table
+import javax.persistence.*
 
 /**
  * Pertains to crop pests data
@@ -50,21 +48,21 @@ class CropPestEntity : BaseEntity() {
     /**
      * Province, district or region
      */
-    @Column(name = "location_level1")
+    @Column(name = "location_level1", columnDefinition = "TEXT")
     @Schema(description = "Province, district or region", example = "Carroll, Ohio, United States")
     var locationLevel1: String? = null
 
     /**
      * municipality, district
      */
-    @Column(name = "location_level2")
+    @Column(name = "location_level2", columnDefinition = "TEXT")
     @Schema(description = "Municipality,district", example = "Victoria")
     var locationLevel2: String? = null
 
     /**
      * Administrative leve i.e city,down
      */
-    @Column(name = "location_level3")
+    @Column(name = "location_level3", columnDefinition = "TEXT")
     @Schema(description = "Administrative level i.e city,down", example = "CITY")
     var locationLevel3: String? = null
 
@@ -129,6 +127,7 @@ class CropPestEntity : BaseEntity() {
     /**
      * Detected, Undetected
      */
+    @Enumerated(EnumType.STRING)
     @Column(name = "pest_detection_status", columnDefinition = "TEXT")
     @Schema(description = "Pest detection status", example = "Detected")
     var pestDetectionStatus: EnumDetectionStatus? = null
@@ -157,6 +156,7 @@ class CropPestEntity : BaseEntity() {
     /**
      * Range of percent cover or description (low, medium, common, rare, etc.)
      */
+    @Enumerated(EnumType.STRING)
     @Column(name = "pest_density", columnDefinition = "TEXT")
     @Schema(description = "Range of percent cover or description (low, medium, common, rare, etc.)", example = "Common")
     var pestDensity: EnumDensity? = null
@@ -164,6 +164,7 @@ class CropPestEntity : BaseEntity() {
     /**
      * management status of the pest at time of recording (Treated, Untreated)
      */
+    @Enumerated(EnumType.STRING)
     @Column(name = "pest_status", columnDefinition = "TEXT")
     @Schema(description = "management status of the pest at time of recording (Treated, Untreated)", example = "Treated")
     var pestStatus: EnumStatus? = null
@@ -178,21 +179,21 @@ class CropPestEntity : BaseEntity() {
     /**
      * This can contain multiple identification methods (PCR,ELISA)
      */
-    @Column(name = "pest_identification_method")
+    @Column(name = "pest_identification_method", columnDefinition = "TEXT")
     @Schema(description = "This can contain multiple identification methods (PCR,ELISA)", example = "PCR")
     var pestIdentificationMethod: String? = null
 
     /**
      * This can contain multiple verification methods
      */
-    @Column(name = "pest_verification_method")
+    @Column(name = "pest_verification_method", columnDefinition = "TEXT")
     @Schema(description = "This can contain multiple verification methods", example = "Visual")
     var pestVerificationMethod: String? = null
 
     /**
      * The basis of the occurrence (Human observation)
      */
-    @Column(name = "pest_record_basis")
+    @Column(name = "pest_record_basis", columnDefinition = "TEXT")
     @Schema(description = "The basis of the occurrence (Human observation)", example = "Human observation")
     var pestRecordBasis: String? = null
 
@@ -231,7 +232,7 @@ class CropPestEntity : BaseEntity() {
     /**
      * Purpose of visit to area for collected data
      */
-    @Column(name = "visit_type")
+    @Column(name = "visit_type", columnDefinition = "TEXT")
     @Schema(description = "Purpose of visit to area for collected data", example = "Invasive Species Survey")
     var visitType: String? = null
 
@@ -245,28 +246,28 @@ class CropPestEntity : BaseEntity() {
     /**
      * Size of area sampled
      */
-    @Column(name = "sampled_area_size")
+    @Column(name = "sampled_area_size", columnDefinition = "decimal", scale = 2, precision = 3)
     @Schema(description = "Size of area sampled", example = "20.5")
     var sampledAreaSize: BigDecimal? = null
 
     /**
      * Size of area affected
      */
-    @Column(name = "affected_area_size")
+    @Column(name = "affected_area_size", columnDefinition = "decimal", scale = 2, precision = 3)
     @Schema(description = "Size of area affected", example = "15")
     var affectedAreaSize: BigDecimal? = null
 
     /**
      * Source of the sample i.e Field, greenhouse, lab
      */
-    @Column(name = "sample_source")
+    @Column(name = "sample_source", columnDefinition = "TEXT")
     @Schema(description = "Source of the sample i.e Field, greenhouse, lab", example = "Field")
     var sampleSource: String? = null
 
     /**
      * Description of the sample i.e roots, leaves
      */
-    @Column(name = "sample_desc")
+    @Column(name = "sample_desc", columnDefinition = "TEXT")
     @Schema(description = "Description of the sample i.e roots, leaves", example = "Roots")
     var sampleDesc: String? = null
 
@@ -303,7 +304,7 @@ class CropPestEntity : BaseEntity() {
     /**
      * Methodology/protocol used to take the data (Aerial survey)
      */
-    @Column(name = "data_collection_method")
+    @Column(name = "data_collection_method", columnDefinition = "TEXT")
     @Schema(description = "Methodology/protocol used to take the data (Aerial survey)", example = "Aerial survey")
     var dataCollectionMethod: String? = null
 
@@ -330,17 +331,17 @@ class CropPestEntity : BaseEntity() {
     @Column(name = "reviewed_by")
     var reviewedBy: String? = null
 
-    @Column(name = "comments")
+    @Column(name = "comments", columnDefinition = "TEXT")
     var comments: String? = null
 
-    @Column(name = "identification_method")
+    @Column(name = "identification_method", columnDefinition = "TEXT")
     var identificationMethod: String? = null
 
     @Column(name = "visually_identified")
     var visuallyIdentified: Boolean? = null
 
     /**
-     * In the case of data from an aggregator,             the unique identifier from the original data set. Used in cases where two aggregators may encounter the same data.
+     * In the case of data from an aggregator, the unique identifier from the original data set. Used in cases where two aggregators may encounter the same data.
      */
     @Column(name = "original_system_id")
     var originalSystemId: String? = null

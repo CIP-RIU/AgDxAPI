@@ -35,7 +35,7 @@
 
             <column name="location_level1" type="text" remarks="Province, district or region"/>
             <column name="location_level2" type="text" remarks="municipality, district"/>
-            <column name="location_level3" type="text" remarks="Administrative leve i.e city,down"/>
+            <column name="location_level3" type="text" remarks="Administrative level i.e city,down"/>
 
             <column name="date_observed" type="date" remarks="Date when it was detected"/>
             <column name="date_identified" type="date" remarks="Date when it was identified"/>
@@ -90,8 +90,9 @@
             <column name="identification_method" type="text"/>
             <column name="visually_identified" type="boolean"/>
 
-            <column name="original_system_id" type="varchar(255)" remarks="In the case of data from an aggregator,
-            the unique identifier from the original data set. Used in cases where two aggregators may encounter the same data."/>
+            <column name="original_system_id" type="varchar(255)"
+                    remarks="In the case of data from an aggregator,
+                    the unique identifier from the original data set. Used in cases where two aggregators may encounter the same data."/>
 
             <column name="contributing_system_id" type="varchar(255)"
                     remarks="Unique identifier from system contributing data for followup and updating">
