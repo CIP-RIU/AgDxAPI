@@ -20,9 +20,14 @@ spring:
       pageable:
         one-indexed-parameters: true
 
+
+    rest:
+      base-path: /api/v2/
+
+
 springdoc:
   show-actuator: true
-  pathsToMatch: /api/v1/**
+  pathsToMatch: /api/v2/**
   api-docs:
     path: /agdx-api
   swagger-ui:
