@@ -14,6 +14,9 @@ plugins {
     id("io.spring.dependency-management") version "1.0.10.RELEASE" apply false
     id("name.remal.check-updates") version "1.0.211" apply false
 
+    id("com.github.johnrengelman.processes") version "0.5.0" apply false
+    id("org.springdoc.openapi-gradle-plugin") version "1.3.0" apply false
+
 
     kotlin("jvm") version kotlinVersion apply false
     kotlin("plugin.spring") version kotlinVersion apply false
@@ -51,5 +54,7 @@ subprojects {
     apply {
         plugin("io.spring.dependency-management")
         plugin("name.remal.check-updates")
+        plugin("com.github.johnrengelman.processes")
+        plugin("org.springdoc.openapi-gradle-plugin")
     }
 }

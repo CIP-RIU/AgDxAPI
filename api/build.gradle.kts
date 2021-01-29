@@ -4,8 +4,17 @@ plugins {
     kotlin("plugin.spring")
 }
 
+
+openApi {
+    apiDocsUrl.set("http://localhost:9200/agdx-api")
+    outputDir.set(file("$projectDir/api-docs"))
+    outputFileName.set("swagger.json")
+    waitTimeInSeconds.set(60)
+    forkProperties.set("-Dserver.port=9200")
+}
+
 dependencies {
-    val swaggerVersion  = "3.0.0"
+    val swaggerVersion = "3.0.0"
 
 
     implementation(project(":core"))
@@ -32,5 +41,5 @@ dependencies {
     testImplementation("org.springframework.boot:spring-boot-starter-test") {
         exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
     }
-    testImplementation("org.springframework.security:spring-security-test")
+//    testImplementation("org.springframework.security:spring-security-test")
 }

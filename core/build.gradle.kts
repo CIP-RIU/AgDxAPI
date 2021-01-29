@@ -29,10 +29,9 @@ dependencies {
 
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-actuator")
+
     api("org.springframework.boot:spring-boot-starter-validation")
-    api("org.springframework.boot:spring-boot-starter-security")
-//    implementation("org.springframework.boot:spring-boot-starter-security")
-//    api("org.springframework.boot:spring-boot-starter-data-rest")
+//    api("org.springframework.boot:spring-boot-starter-security")
     api("com.fasterxml.jackson.module:jackson-module-kotlin")
 
     api("com.github.rozidan:modelmapper-spring-boot-starter:2.3.1")
