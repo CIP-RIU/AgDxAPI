@@ -19,6 +19,7 @@ dependencies {
 
     implementation(project(":core"))
     implementation(project(":database"))
+    implementation(project(":enums"))
 
     implementation(kotlin("reflect"))
     implementation(kotlin("stdlib"))

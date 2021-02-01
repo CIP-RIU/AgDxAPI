@@ -28,7 +28,7 @@ dependencies {
     implementation(kotlin("stdlib-jdk8"))
 
     api("org.springframework.boot:spring-boot-starter-data-jpa")
-    api("org.springframework.boot:spring-boot-starter-data-rest")
+//    api("org.springframework.boot:spring-boot-starter-data-rest")
 
     api("org.springdoc:springdoc-openapi-ui:${springDoc}")
     api("org.springdoc:springdoc-openapi-data-rest:${springDoc}")

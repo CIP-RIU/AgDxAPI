@@ -20,19 +20,23 @@ spring:
       pageable:
         one-indexed-parameters: true
 
-
-    rest:
-      base-path: /api/v2/
-
+  mvc:
+    format:
+      date: yyyy-MM-dd
+      date-time: yyyy-MM-dd HH:mm:ss
+      time: HH:mm:ss
 
 springdoc:
   show-actuator: true
-  pathsToMatch: /api/v2/**
+  default-produces-media-type: "application/json"
+  pathsToMatch: /api/v2/**, /actuator/**
   api-docs:
     path: /agdx-api
-  swagger-ui:
+    groups:
+      enabled: false
+#  swagger-ui:
     #    tags-sorter: alpha
-    operations-sorter: alpha
+#    operations-sorter: alpha
 
 cip:
   name: 'AgDx API'

@@ -8,8 +8,7 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource
 import org.springframework.stereotype.Repository
 
 @Repository
-@RepositoryRestResource(collectionResourceRel = "crop-disease", path = "crop-disease")
-interface CropDiseaseRepo : PagingAndSortingRepository<CropDiseaseEntity, Long>{
+interface CropDiseaseRepo : PagingAndSortingRepository<CropDiseaseEntity, Long> {
     fun findByCountryCode(@Param("countryCode") countryCode: String): List<CropDiseaseEntity>
 
 }
