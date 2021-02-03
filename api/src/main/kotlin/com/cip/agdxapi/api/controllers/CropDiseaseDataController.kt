@@ -17,7 +17,7 @@ import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import java.time.LocalDate
 
-@RequestMapping("api/v2/crop/disease")
+@RequestMapping("api/v1/crop/disease")
 @RestController
 @Tag(name = "Crop disease data", description = "Operations pertaining crop disease data")
 //@SecurityRequirement(name = "api")
@@ -136,13 +136,21 @@ class CropDiseaseDataController(val cropDiseaseDataService: CropDiseaseDataServi
 
     //pathogens
 
-    @GetMapping("/pathogen")
-    @Operation(summary = "Get list of diseases by pathogens", description = "Search parameters are optional", tags = ["crop-disease"])
+    @GetMapping("/pathogen/{name}/common")
+    @Operation(summary = "Get list of diseases by common pathogen names", description = "Search parameters are optional", tags = ["crop-disease"])
     fun getDiseaseByCommonPathogen(
-        @Parameter name: String?,
-        @Parameter nameType: EnumNameType?,
-        @Parameter nativity: EnumNativity?,
-        @Parameter status: EnumStatus?,
+        @PathVariable name: String,
+        @Parameter(hidden = true) pageable: Pageable
+    ): ResponseEntity<Page<CropDiseaseEntity>> {
+
+        val diseaseData: Page<CropDiseaseEntity> = cropDiseaseDataService.getDiseaseData(pageable = pageable)
+        return ResponseEntity<Page<CropDiseaseEntity>>(diseaseData, HttpStatus.OK)
+    }
+
+    @GetMapping("/pathogen/{name}/scientific")
+    @Operation(summary = "Get list of diseases by scientific pathogen name ", description = "Search parameters are optional", tags = ["crop-disease"])
+    fun getDiseaseByScientificPathogen(
+        @PathVariable name: String,
         @Parameter(hidden = true) pageable: Pageable
     ): ResponseEntity<Page<CropDiseaseEntity>> {
 

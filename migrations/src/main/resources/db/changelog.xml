@@ -16,7 +16,12 @@
 
     <include file="changelog/20210125110308_create_crop_disease_table.xml" relativeToChangelogFile="true"/>
     <include file="changelog/20210125110309_create_crop_pests_table.xml" relativeToChangelogFile="true"/>
+
     <include file="changelog/20210125135123_rename_crop_disease_table.xml" relativeToChangelogFile="true"/>
+
+    <include file="changelog/20210203150254_create_crop_table.xml" relativeToChangelogFile="true"/>
+    <include file="changelog/20210203150302_create_crop_cultivar_table.xml" relativeToChangelogFile="true"/>
+    <include file="changelog/20210203153317_add_crop_fk_to_cultivar_table.xml" relativeToChangelogFile="true"/>
 
 
 </databaseChangeLog>
