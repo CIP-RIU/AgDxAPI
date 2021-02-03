@@ -3,6 +3,7 @@ package com.cip.agdxapi.database.entities
 import com.cip.agdxapi.database.entities.BaseEntity
 import com.cip.agdxapi.enums.EnumDensity
 import com.cip.agdxapi.enums.EnumDetectionStatus
+import com.cip.agdxapi.enums.EnumPestCategory
 import com.cip.agdxapi.enums.EnumStatus
 import io.swagger.v3.oas.annotations.media.Schema
 import java.math.BigDecimal
@@ -135,9 +136,10 @@ class CropPestEntity : BaseEntity() {
     /**
      * Virus, Bacteria, Nematode, Plant, Insect
      */
+    @Enumerated(EnumType.STRING)
     @Column(name = "pest_category", columnDefinition = "TEXT")
     @Schema(description = "Pest category", example = "Virus, Bacteria, Nematode, Plant, Insect")
-    var pestCategory: String? = null
+    var pestCategory: EnumPestCategory? = null
 
     /**
      * Forest, Soil

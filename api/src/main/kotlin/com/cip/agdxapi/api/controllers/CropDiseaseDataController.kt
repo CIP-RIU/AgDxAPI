@@ -41,10 +41,10 @@ class CropDiseaseDataController(val cropDiseaseDataService: CropDiseaseDataServi
         return ResponseEntity<Page<CropDiseaseEntity>>(diseaseData, HttpStatus.OK)
     }
 
-    @GetMapping("/common-disease-name")
+    @GetMapping("/{diseaseName}/common")
     @Operation(summary = "Get details of specific disease using its common name", description = "", tags = ["crop-disease"])
     fun getDiseaseByCommonName(
-        @Parameter diseaseName: String,
+        @PathVariable diseaseName: String,
         @Parameter(hidden = true) pageable: Pageable
     ): ResponseEntity<Page<CropDiseaseEntity>> {
 
@@ -53,10 +53,10 @@ class CropDiseaseDataController(val cropDiseaseDataService: CropDiseaseDataServi
         return ResponseEntity<Page<CropDiseaseEntity>>(diseaseData, HttpStatus.OK)
     }
 
-    @GetMapping("/scientific-disease-name")
+    @GetMapping("/{diseaseName}/scientific")
     @Operation(summary = "Get details of specific disease using its scientific name", description = "", tags = ["crop-disease"])
     fun getDiseaseByScientificName(
-        @Parameter diseaseName: String,
+        @PathVariable diseaseName: String,
         @Parameter(hidden = true) pageable: Pageable
     ): ResponseEntity<Page<CropDiseaseEntity>> {
 
@@ -65,11 +65,11 @@ class CropDiseaseDataController(val cropDiseaseDataService: CropDiseaseDataServi
         return ResponseEntity<Page<CropDiseaseEntity>>(diseaseData, HttpStatus.OK)
     }
 
-    @GetMapping("/observe-date/{fromDate}/to/{toDate}")
+    @GetMapping("/observe-date")
     @Operation(summary = "Find crop disease by observation date range", description = "", tags = ["date-crop-disease"])
     fun getDiseaseByObservedDate(
-        @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) fromDate: LocalDate,
-        @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) toDate: LocalDate,
+        @Parameter @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) fromDate: LocalDate,
+        @Parameter @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) toDate: LocalDate,
         @Parameter(hidden = true) pageable: Pageable
     ): ResponseEntity<Page<CropDiseaseEntity>> {
 
@@ -78,11 +78,11 @@ class CropDiseaseDataController(val cropDiseaseDataService: CropDiseaseDataServi
         return ResponseEntity<Page<CropDiseaseEntity>>(diseaseData, HttpStatus.OK)
     }
 
-    @GetMapping("/reporting-date/{fromDate}/to/{toDate}")
+    @GetMapping("/reporting-date")
     @Operation(summary = "Find crop disease by reporting date range", description = "", tags = ["date-crop-disease"])
     fun getDiseaseByReportingDate(
-        @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) fromDate: LocalDate,
-        @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) toDate: LocalDate,
+        @Parameter @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) fromDate: LocalDate,
+        @Parameter @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) toDate: LocalDate,
         @Parameter(hidden = true) pageable: Pageable
     ): ResponseEntity<Page<CropDiseaseEntity>> {
 
@@ -91,11 +91,11 @@ class CropDiseaseDataController(val cropDiseaseDataService: CropDiseaseDataServi
         return ResponseEntity<Page<CropDiseaseEntity>>(diseaseData, HttpStatus.OK)
     }
 
-    @GetMapping("/record-date/{fromDate}/to/{toDate}")
+    @GetMapping("/record-date")
     @Operation(summary = "Find crop disease by recording date range", description = "", tags = ["date-crop-disease"])
     fun getDiseaseByRecordingDate(
-        @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) fromDate: LocalDate,
-        @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) toDate: LocalDate,
+        @Parameter @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) fromDate: LocalDate,
+        @Parameter @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) toDate: LocalDate,
         @Parameter(hidden = true) pageable: Pageable
     ): ResponseEntity<Page<CropDiseaseEntity>> {
 
@@ -150,8 +150,8 @@ class CropDiseaseDataController(val cropDiseaseDataService: CropDiseaseDataServi
         return ResponseEntity<Page<CropDiseaseEntity>>(diseaseData, HttpStatus.OK)
     }
 
-    @GetMapping("/genbank/{accessionNumber}")
-    @Operation(summary = "Get list of diseases by genbank number", description = "Search can be partial", tags = ["gene-crop-disease"])
+    @GetMapping("/genebank/{accessionNumber}")
+    @Operation(summary = "Get list of diseases by genebank number", description = "Search can be partial", tags = ["gene-crop-disease"])
     fun getDiseaseByGeneBankNumber(
         @PathVariable accessionNumber: String,
         @Parameter(hidden = true) pageable: Pageable

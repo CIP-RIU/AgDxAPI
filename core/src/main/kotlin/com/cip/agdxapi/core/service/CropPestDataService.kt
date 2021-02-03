@@ -17,8 +17,11 @@ constructor(val cropPestRepo: CropPestRepo) {
 
     private val modelMapper = MyModelMapper.init()
 
+    fun getPest(): CropPestEntity {
+        return CropPestEntity()
+    }
 
-    fun getPestData(pageable: Pageable): Page<CropPestEntity> {
+    fun getPests(pageable: Pageable): Page<CropPestEntity> {
         logger.info("Fetching crop pest data")
         return cropPestRepo.findAll(pageable)
 //        return cropPestList.map { dataEntity ->
@@ -28,7 +31,7 @@ constructor(val cropPestRepo: CropPestRepo) {
     }
 
 
-    fun addPestData(pestEntity: CropPestEntity): CropPestEntity {
+    fun addPest(pestEntity: CropPestEntity): CropPestEntity {
         val cropPestEntity = modelMapper.map(pestEntity, CropPestEntity::class.java)
 
         val saved = cropPestRepo.save(cropPestEntity)

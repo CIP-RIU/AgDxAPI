@@ -4,7 +4,6 @@ trace: false
 server:
   port: 9100
 
-
 spring:
   jpa:
     open-in-view: false
@@ -29,19 +28,19 @@ spring:
 springdoc:
   show-actuator: true
   default-produces-media-type: "application/json"
-#  pathsToMatch: /api/v2/**, /actuator/**
-  pathsToMatch: /api/v2/**
+  #  pathsToMatch: /api/v1/**, /actuator/**
+  pathsToMatch: /api/v1/**
   api-docs:
     path: /agdx-api
     groups:
       enabled: false
   swagger-ui:
-        tags-sorter: alpha
+    tags-sorter: alpha
 #    operations-sorter: alpha
 
 cip:
   name: 'AgDx API'
-  version: '1.0.1'
+  version: '1.0.0'
   desc: 'Description here'
-  externaldoc: '1.0.1'
-  license: '1.0.1'
+  externaldoc: '1.0.0'
+  license: '1.0.0'
