@@ -29,13 +29,14 @@ spring:
 springdoc:
   show-actuator: true
   default-produces-media-type: "application/json"
-  pathsToMatch: /api/v2/**, /actuator/**
+#  pathsToMatch: /api/v2/**, /actuator/**
+  pathsToMatch: /api/v2/**
   api-docs:
     path: /agdx-api
     groups:
       enabled: false
-#  swagger-ui:
-    #    tags-sorter: alpha
+  swagger-ui:
+        tags-sorter: alpha
 #    operations-sorter: alpha
 
 cip:

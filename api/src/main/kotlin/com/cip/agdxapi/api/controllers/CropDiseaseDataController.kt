@@ -7,6 +7,7 @@ import com.cip.agdxapi.enums.EnumNativity
 import com.cip.agdxapi.enums.EnumStatus
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.Parameter
+import io.swagger.v3.oas.annotations.media.ExampleObject
 import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
@@ -40,11 +41,10 @@ class CropDiseaseDataController(val cropDiseaseDataService: CropDiseaseDataServi
         return ResponseEntity<Page<CropDiseaseEntity>>(diseaseData, HttpStatus.OK)
     }
 
-    @GetMapping("/disease-name")
-    @Operation(summary = "Get details of specific disease using its common/scientific name", description = "", tags = ["crop-disease"])
+    @GetMapping("/common-disease-name")
+    @Operation(summary = "Get details of specific disease using its common name", description = "", tags = ["crop-disease"])
     fun getDiseaseByCommonName(
         @Parameter diseaseName: String,
-        @Parameter nameType: EnumNameType,
         @Parameter(hidden = true) pageable: Pageable
     ): ResponseEntity<Page<CropDiseaseEntity>> {
 
@@ -53,10 +53,10 @@ class CropDiseaseDataController(val cropDiseaseDataService: CropDiseaseDataServi
         return ResponseEntity<Page<CropDiseaseEntity>>(diseaseData, HttpStatus.OK)
     }
 
-    @GetMapping("/country/{countryCode}")
-    @Operation(summary = "Find crop disease by country name", description = "", tags = ["crop-disease"])
-    fun getDiseaseByCountry(
-        @PathVariable countryCode: String,
+    @GetMapping("/scientific-disease-name")
+    @Operation(summary = "Get details of specific disease using its scientific name", description = "", tags = ["crop-disease"])
+    fun getDiseaseByScientificName(
+        @Parameter diseaseName: String,
         @Parameter(hidden = true) pageable: Pageable
     ): ResponseEntity<Page<CropDiseaseEntity>> {
 
@@ -66,7 +66,7 @@ class CropDiseaseDataController(val cropDiseaseDataService: CropDiseaseDataServi
     }
 
     @GetMapping("/observe-date/{fromDate}/to/{toDate}")
-    @Operation(summary = "Find crop disease by observation date range", description = "", tags = ["crop-disease"])
+    @Operation(summary = "Find crop disease by observation date range", description = "", tags = ["date-crop-disease"])
     fun getDiseaseByObservedDate(
         @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) fromDate: LocalDate,
         @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) toDate: LocalDate,
@@ -79,7 +79,7 @@ class CropDiseaseDataController(val cropDiseaseDataService: CropDiseaseDataServi
     }
 
     @GetMapping("/reporting-date/{fromDate}/to/{toDate}")
-    @Operation(summary = "Find crop disease by reporting date range", description = "", tags = ["crop-disease"])
+    @Operation(summary = "Find crop disease by reporting date range", description = "", tags = ["date-crop-disease"])
     fun getDiseaseByReportingDate(
         @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) fromDate: LocalDate,
         @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) toDate: LocalDate,
@@ -92,7 +92,7 @@ class CropDiseaseDataController(val cropDiseaseDataService: CropDiseaseDataServi
     }
 
     @GetMapping("/record-date/{fromDate}/to/{toDate}")
-    @Operation(summary = "Find crop disease by recording date range", description = "", tags = ["crop-disease"])
+    @Operation(summary = "Find crop disease by recording date range", description = "", tags = ["date-crop-disease"])
     fun getDiseaseByRecordingDate(
         @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) fromDate: LocalDate,
         @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) toDate: LocalDate,
@@ -115,7 +115,7 @@ class CropDiseaseDataController(val cropDiseaseDataService: CropDiseaseDataServi
     }
 
     @GetMapping("/cultivar/{cultivar}")
-    @Operation(summary = "Find crop disease by cultivar", description = "", tags = ["crop-disease"])
+    @Operation(summary = "Find crop disease by cultivar type", description = "", tags = ["crop-disease"])
     fun getDiseaseByCultivarName(
         @PathVariable cultivar: String,
         @Parameter(hidden = true) pageable: Pageable
@@ -137,16 +137,87 @@ class CropDiseaseDataController(val cropDiseaseDataService: CropDiseaseDataServi
     //pathogens
 
     @GetMapping("/pathogen")
-    @Operation(summary = "search disease using its pathogen attributes", description = "", tags = ["crop-disease"])
-    fun getDiseaseByCommonPathogenName(
+    @Operation(summary = "Get list of diseases by pathogens", description = "Search parameters are optional", tags = ["crop-disease"])
+    fun getDiseaseByCommonPathogen(
         @Parameter name: String?,
-        @Parameter(examples = [EnumNameType.COMMON]) nameType: EnumNameType?,
+        @Parameter nameType: EnumNameType?,
         @Parameter nativity: EnumNativity?,
         @Parameter status: EnumStatus?,
         @Parameter(hidden = true) pageable: Pageable
     ): ResponseEntity<Page<CropDiseaseEntity>> {
 
         val diseaseData: Page<CropDiseaseEntity> = cropDiseaseDataService.getDiseaseData(pageable = pageable)
+        return ResponseEntity<Page<CropDiseaseEntity>>(diseaseData, HttpStatus.OK)
+    }
+
+    @GetMapping("/genbank/{accessionNumber}")
+    @Operation(summary = "Get list of diseases by genbank number", description = "Search can be partial", tags = ["gene-crop-disease"])
+    fun getDiseaseByGeneBankNumber(
+        @PathVariable accessionNumber: String,
+        @Parameter(hidden = true) pageable: Pageable
+    ): ResponseEntity<Page<CropDiseaseEntity>> {
+
+        val diseaseData: Page<CropDiseaseEntity> = cropDiseaseDataService.getDiseaseData(pageable = pageable)
+        return ResponseEntity<Page<CropDiseaseEntity>>(diseaseData, HttpStatus.OK)
+    }
+
+
+    @GetMapping("/project/{project}")
+    @Operation(summary = "Get list of diseases by project name", description = "", tags = ["gene-crop-disease"])
+    fun getDiseaseByProjectName(
+        @PathVariable project: String,
+        @Parameter(hidden = true) pageable: Pageable
+    ): ResponseEntity<Page<CropDiseaseEntity>> {
+
+        val diseaseData: Page<CropDiseaseEntity> = cropDiseaseDataService.getDiseaseData(pageable = pageable)
+        return ResponseEntity<Page<CropDiseaseEntity>>(diseaseData, HttpStatus.OK)
+    }
+
+    @GetMapping("/country/{countryCode}")
+    @Operation(summary = "Find crop diseases by country code", description = "", tags = ["location-crop-disease"])
+    fun getDiseaseByCountry(
+        @PathVariable countryCode: String,
+        @Parameter(hidden = true) pageable: Pageable
+    ): ResponseEntity<Page<CropDiseaseEntity>> {
+
+        val diseaseData: Page<CropDiseaseEntity> = cropDiseaseDataService.getDiseaseData(pageable = pageable)
+
+        return ResponseEntity<Page<CropDiseaseEntity>>(diseaseData, HttpStatus.OK)
+    }
+
+    @GetMapping("/admin-level/{adminName}/one")
+    @Operation(summary = "Find crop diseases by administration levels", description = "", tags = ["location-crop-disease"])
+    fun getDiseaseByAdminLevelOne(
+        @PathVariable adminName: String,
+        @Parameter(hidden = true) pageable: Pageable
+    ): ResponseEntity<Page<CropDiseaseEntity>> {
+
+        val diseaseData: Page<CropDiseaseEntity> = cropDiseaseDataService.getDiseaseData(pageable = pageable)
+
+        return ResponseEntity<Page<CropDiseaseEntity>>(diseaseData, HttpStatus.OK)
+    }
+
+    @GetMapping("/admin-level/{adminName}/two")
+    @Operation(summary = "Find crop diseases by administration levels", description = "", tags = ["location-crop-disease"])
+    fun getDiseaseByAdminLevelTwo(
+        @PathVariable adminName: String,
+        @Parameter(hidden = true) pageable: Pageable
+    ): ResponseEntity<Page<CropDiseaseEntity>> {
+
+        val diseaseData: Page<CropDiseaseEntity> = cropDiseaseDataService.getDiseaseData(pageable = pageable)
+
+        return ResponseEntity<Page<CropDiseaseEntity>>(diseaseData, HttpStatus.OK)
+    }
+
+    @GetMapping("/admin-level/{adminName}/three")
+    @Operation(summary = "Find crop diseases by administration levels", description = "", tags = ["location-crop-disease"])
+    fun getDiseaseByAdminLevelThree(
+        @PathVariable adminName: String,
+        @Parameter(hidden = true) pageable: Pageable
+    ): ResponseEntity<Page<CropDiseaseEntity>> {
+
+        val diseaseData: Page<CropDiseaseEntity> = cropDiseaseDataService.getDiseaseData(pageable = pageable)
+
         return ResponseEntity<Page<CropDiseaseEntity>>(diseaseData, HttpStatus.OK)
     }
 
