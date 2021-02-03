@@ -22,7 +22,7 @@
 
             <column name="ontology_id" type="varchar(10)"/>
 
-            
+
             <column name="genus" type="varchar(150)"/>
 
             <column name="family" type="varchar(150)"/>
