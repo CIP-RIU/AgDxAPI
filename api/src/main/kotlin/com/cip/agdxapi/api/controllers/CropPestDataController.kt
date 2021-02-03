@@ -22,7 +22,7 @@ import java.time.LocalDate
 //@SecurityRequirement(name = "api")
 class CropPestDataController(private val cropPestDataService: CropPestDataService) {
 
-    @PostMapping
+    @PostMapping("/add")
     @Operation(summary = "Add new pest", description = "", tags = ["crop-pest"])
     fun addPestData(@RequestBody pestEntity: CropPestEntity): ResponseEntity<CropPestEntity> {
         val pestData = cropPestDataService.addPest(pestEntity = pestEntity)
@@ -141,7 +141,7 @@ class CropPestDataController(private val cropPestDataService: CropPestDataServic
     }
 
     @GetMapping("/detection-status/{status}")
-    @Operation(summary = "Get pests by detection status", description = "", tags = ["status"])
+    @Operation(summary = "Get pests by detection status", description = "", tags = ["status", "detection"])
     fun getPestByDetectionStatus(
         @PathVariable status: EnumDetectionStatus,
         @Parameter(hidden = true) pageable: Pageable
@@ -152,7 +152,7 @@ class CropPestDataController(private val cropPestDataService: CropPestDataServic
 
 
     @GetMapping("/management-status/{status}")
-    @Operation(summary = "Get pests by management status", description = "", tags = ["status"])
+    @Operation(summary = "Get pests by management status", description = "", tags = ["status", "managment"])
     fun getPestByManagementStatus(
         @PathVariable status: EnumStatus,
         @Parameter(hidden = true) pageable: Pageable
@@ -165,6 +165,36 @@ class CropPestDataController(private val cropPestDataService: CropPestDataServic
     @Operation(summary = "Get pests by vector", description = "", tags = ["crop-pest"])
     fun getPestByVector(
         @PathVariable vector: String,
+        @Parameter(hidden = true) pageable: Pageable
+    ): ResponseEntity<Page<CropPestEntity>> {
+        val pestData: Page<CropPestEntity> = Page.empty()
+        return ResponseEntity<Page<CropPestEntity>>(pestData, HttpStatus.OK)
+    }
+
+    @GetMapping("/admin-level/{adminName}/one")
+    @Operation(summary = "Find crop pest by administration levels", description = "", tags = ["location-crop-pest"])
+    fun getDiseaseByAdminLevelOne(
+        @PathVariable adminName: String,
+        @Parameter(hidden = true) pageable: Pageable
+    ): ResponseEntity<Page<CropPestEntity>> {
+        val pestData: Page<CropPestEntity> = Page.empty()
+        return ResponseEntity<Page<CropPestEntity>>(pestData, HttpStatus.OK)
+    }
+
+    @GetMapping("/admin-level/{adminName}/two")
+    @Operation(summary = "Find crop pest by administration levels", description = "", tags = ["location-crop-pest"])
+    fun getDiseaseByAdminLevelTwo(
+        @PathVariable adminName: String,
+        @Parameter(hidden = true) pageable: Pageable
+    ): ResponseEntity<Page<CropPestEntity>> {
+        val pestData: Page<CropPestEntity> = Page.empty()
+        return ResponseEntity<Page<CropPestEntity>>(pestData, HttpStatus.OK)
+    }
+
+    @GetMapping("/admin-level/{adminName}/three")
+    @Operation(summary = "Find crop pest by administration levels", description = "", tags = ["location-crop-pest"])
+    fun getDiseaseByAdminLevelThree(
+        @PathVariable adminName: String,
         @Parameter(hidden = true) pageable: Pageable
     ): ResponseEntity<Page<CropPestEntity>> {
         val pestData: Page<CropPestEntity> = Page.empty()

@@ -29,8 +29,8 @@ class OpenApiConfig() {
             )
             .externalDocs(
                 ExternalDocumentation()
-                    .description("AgDxAPI Wiki Documentation")
-                    .url("https://springshop.wiki.github.org/docs")
+                    .description("$appName Wiki Documentation")
+                    .url("#")
             )
     }
 }

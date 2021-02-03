@@ -24,7 +24,7 @@ plugins {
 }
 allprojects {
     group = "com.cip"
-    version = "1.0.0"
+    version = "1.0.0-beta1"
 
     tasks.withType<JavaCompile> {
         sourceCompatibility = "14"
