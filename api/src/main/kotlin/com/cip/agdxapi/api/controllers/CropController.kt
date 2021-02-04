@@ -22,9 +22,7 @@ class CropController() {
     @Operation(summary = "Add new crop", description = "", tags = ["add-crop"])
     fun addCropData(@RequestBody cropData: CropEntity): ResponseEntity<CropEntity> {
 
-        val cropData = CropEntity()
-
-        return ResponseEntity<CropEntity>(cropData, HttpStatus.OK)
+        return ResponseEntity<CropEntity>(CropEntity(), HttpStatus.OK)
     }
 
     @SecurityRequirement(name = "api")
