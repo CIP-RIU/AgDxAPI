@@ -102,8 +102,6 @@ Change the path according to your JDK installation
 
 ### Swagger
 
-To explore the api endpoints refer to this link (just for reference requests might not get sent due to security restrictions)
-[**API Documentation**](https://app.swaggerhub.com/apis/masgeek/agdxapi)
-option.
+To explore the api endpoints refer to this [**LINK**](https://app.swaggerhub.com/apis/masgeek/agdxapi).
 
 ### Apiary
