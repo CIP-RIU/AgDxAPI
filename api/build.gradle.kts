@@ -14,8 +14,6 @@ openApi {
 }
 
 dependencies {
-    val swaggerVersion = "3.0.0"
-
 
     implementation(project(":core"))
     implementation(project(":database"))
