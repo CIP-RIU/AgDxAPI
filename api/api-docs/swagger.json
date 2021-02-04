@@ -1,17 +1,6 @@
 {
   "components": {
     "schemas": {
-      "AbstractJsonSchemaPropertyObject": {
-        "type": "object",
-        "properties": {
-          "readOnly": {
-            "type": "boolean"
-          },
-          "title": {
-            "type": "string"
-          }
-        }
-      },
       "CropPestEntity": {
         "type": "object",
         "properties": {
@@ -104,6 +93,10 @@
           "pestNativity": {
             "description": "Pest nativity status",
             "type": "string",
+            "enum": [
+              "Introduced",
+              "Native"
+            ],
             "example": "Native"
           },
           "pestDetectionStatus": {
@@ -219,8 +212,11 @@
             "description": "Range of percent cover or description (low, medium, common, rare, etc.)",
             "type": "string",
             "enum": [
-              "Undetected",
-              "Detected"
+              "Low",
+              "Medium",
+              "High",
+              "Common",
+              "Rare"
             ],
             "example": "Common"
           },
@@ -247,14 +243,21 @@
           "pestCategory": {
             "description": "Pest category",
             "type": "string",
-            "example": "Virus, Bacteria, Nematode, Plant, Insect"
+            "enum": [
+              "Virus",
+              "Bacteria",
+              "Nematode",
+              "Plant",
+              "Insect"
+            ],
+            "example": "Insect"
           },
-          "pestStatus": {
+          "pestTreatmentStatus": {
             "description": "management status of the pest at time of recording (Treated, Untreated)",
             "type": "string",
             "enum": [
-              "Undetected",
-              "Detected"
+              "Treated",
+              "Untreated"
             ],
             "example": "Treated"
           },
@@ -313,38 +316,84 @@
           }
         }
       },
-      "JsonSchema": {
+      "Pageable": {
         "type": "object",
         "properties": {
-          "requiredProperties": {
+          "size": {
+            "format": "int32",
+            "type": "integer",
+            "minimum": 1
+          },
+          "page": {
+            "format": "int32",
+            "type": "integer",
+            "minimum": 0
+          },
+          "sort": {
             "type": "array",
             "items": {
               "type": "string"
             }
+          }
+        }
+      },
+      "PageCropPestEntity": {
+        "type": "object",
+        "properties": {
+          "number": {
+            "format": "int32",
+            "type": "integer"
           },
-          "$schema": {
-            "type": "string"
+          "size": {
+            "format": "int32",
+            "type": "integer"
           },
-          "description": {
-            "type": "string"
+          "last": {
+            "type": "boolean"
           },
-          "title": {
-            "type": "string"
+          "numberOfElements": {
+            "format": "int32",
+            "type": "integer"
           },
-          "type": {
-            "type": "string"
+          "totalPages": {
+            "format": "int32",
+            "type": "integer"
           },
-          "definitions": {
-            "additionalProperties": {
-              "$ref": "#/components/schemas/Item"
-            },
-            "type": "object"
+          "pageable": {
+            "$ref": "#/components/schemas/Pageable"
           },
-          "properties": {
-            "additionalProperties": {
-              "$ref": "#/components/schemas/AbstractJsonSchemaPropertyObject"
-            },
-            "type": "object"
+          "sort": {
+            "$ref": "#/components/schemas/Sort"
+          },
+          "content": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CropPestEntity"
+            }
+          },
+          "first": {
+            "type": "boolean"
+          },
+          "totalElements": {
+            "format": "int64",
+            "type": "integer"
+          },
+          "empty": {
+            "type": "boolean"
+          }
+        }
+      },
+      "Sort": {
+        "type": "object",
+        "properties": {
+          "unsorted": {
+            "type": "boolean"
+          },
+          "sorted": {
+            "type": "boolean"
+          },
+          "empty": {
+            "type": "boolean"
           }
         }
       },
@@ -422,6 +471,15 @@
           "visuallyIdentified": {
             "type": "boolean"
           },
+          "pathogenTreatmentStatus": {
+            "description": "management status of the pathogen at time of recording (Treated, Untreated)",
+            "type": "string",
+            "enum": [
+              "Treated",
+              "Untreated"
+            ],
+            "example": "Treated"
+          },
           "pathogenRecordBasis": {
             "description": "The basis of the occurrence (Human observation)",
             "type": "string",
@@ -455,7 +513,14 @@
           "pathogenCategory": {
             "description": "Pathogen category",
             "type": "string",
-            "example": "Virus, Bacteria, Nematode, Plant, Insect"
+            "enum": [
+              "Virus",
+              "Bacteria",
+              "Fungi",
+              "Protozoa",
+              "Plants"
+            ],
+            "example": "Virus"
           },
           "dateIdentified": {
             "format": "date",
@@ -477,6 +542,10 @@
           "pathogenNativity": {
             "description": "Pest nativity status",
             "type": "string",
+            "enum": [
+              "Introduced",
+              "Native"
+            ],
             "example": "Introduced"
           },
           "lon": {
@@ -488,15 +557,6 @@
             "description": "Common pest name",
             "type": "string",
             "example": "BXW"
-          },
-          "pathogenStatus": {
-            "description": "management status of the pathogen at time of recording (Treated, Untreated)",
-            "type": "string",
-            "enum": [
-              "Undetected",
-              "Detected"
-            ],
-            "example": "Treated"
           },
           "hasVisualSymptoms": {
             "description": "Specimens portrayed visual symptoms related to the disease",
@@ -614,957 +674,49 @@
           }
         }
       },
-      "EntityModelCropDiseaseEntity": {
+      "PageCropDiseaseEntity": {
         "type": "object",
         "properties": {
-          "areaUnit": {
-            "description": "Area measurement unit ha,acre,sqm",
-            "type": "string",
-            "example": "ha"
-          },
-          "originalSystemId": {
-            "description": "In the case of data from an aggregator,the unique identifier from the original data set.Used in cases where two aggregators may encounter the same data.",
-            "type": "string"
-          },
-          "_links": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Link"
-            }
-          },
-          "accuracy": {
-            "description": "Accuracy of GPS location in meters",
-            "type": "number",
-            "example": 1
-          },
-          "severityRangeScale": {
-            "description": "Severity scale on an range level",
-            "type": "string",
-            "example": "1-5"
-          },
-          "labSampleId": {
-            "description": "Lab sample identifier",
-            "type": "string",
-            "example": "SMPL-100"
-          },
-          "sampleSource": {
-            "description": "Source of the sample i.e Field, greenhouse, lab",
-            "type": "string",
-            "example": "Field"
-          },
-          "pathogenScientificName": {
-            "description": "Scientific pest name",
-            "type": "string",
-            "example": "Xanthomonas wilt of banana"
-          },
-          "affectedAreaSize": {
-            "description": "Size of area affected",
-            "type": "number",
-            "example": 15
-          },
-          "numOfSamples": {
+          "number": {
             "format": "int32",
-            "description": "Number of samples collected",
-            "type": "integer",
-            "example": 500
+            "type": "integer"
           },
-          "pathogenVerified": {
-            "description": "Observed pathogen has been verified",
+          "size": {
+            "format": "int32",
+            "type": "integer"
+          },
+          "last": {
             "type": "boolean"
           },
-          "id": {
+          "numberOfElements": {
+            "format": "int32",
+            "type": "integer"
+          },
+          "totalPages": {
+            "format": "int32",
+            "type": "integer"
+          },
+          "pageable": {
+            "$ref": "#/components/schemas/Pageable"
+          },
+          "sort": {
+            "$ref": "#/components/schemas/Sort"
+          },
+          "content": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CropDiseaseEntity"
+            }
+          },
+          "first": {
+            "type": "boolean"
+          },
+          "totalElements": {
             "format": "int64",
             "type": "integer"
           },
-          "genbankAccessionNumber": {
-            "description": "GeneBank number for identification and confirmation ofr the disease",
-            "type": "string",
-            "example": "LC.789546"
-          },
-          "lat": {
-            "description": "GPS lat",
-            "type": "number",
-            "example": 36.821945
-          },
-          "sampledAreaSize": {
-            "description": "Size of area sampled",
-            "type": "number",
-            "example": 20.5
-          },
-          "visuallyIdentified": {
+          "empty": {
             "type": "boolean"
-          },
-          "pathogenRecordBasis": {
-            "description": "The basis of the occurrence (Human observation)",
-            "type": "string",
-            "example": "Human observation"
-          },
-          "alt": {
-            "description": "Identification Altitude above sea level",
-            "type": "number",
-            "example": 1200
-          },
-          "pathogenDetectionStatus": {
-            "description": "Pathogen detection status",
-            "type": "string",
-            "enum": [
-              "Undetected",
-              "Detected"
-            ],
-            "example": "Detected"
-          },
-          "reportedBy": {
-            "type": "string"
-          },
-          "reviewedBy": {
-            "type": "string"
-          },
-          "pathogenVector": {
-            "description": "Pathogen vector",
-            "type": "string",
-            "example": "Aphids, Equipment"
-          },
-          "pathogenCategory": {
-            "description": "Pathogen category",
-            "type": "string",
-            "example": "Virus, Bacteria, Nematode, Plant, Insect"
-          },
-          "dateIdentified": {
-            "format": "date",
-            "description": "Date when it was identified",
-            "type": "string",
-            "example": "2021-01-13"
-          },
-          "projectName": {
-            "description": "Name of the project as the source of data",
-            "type": "string",
-            "example": "CIAT"
-          },
-          "numOfAffectedSamples": {
-            "format": "int32",
-            "description": "Number of affected samples collected",
-            "type": "integer",
-            "example": 350
-          },
-          "pathogenNativity": {
-            "description": "Pest nativity status",
-            "type": "string",
-            "example": "Introduced"
-          },
-          "lon": {
-            "description": "GPS lon",
-            "type": "number",
-            "example": -1.292066
-          },
-          "pathogenCommonName": {
-            "description": "Common pest name",
-            "type": "string",
-            "example": "BXW"
-          },
-          "pathogenStatus": {
-            "description": "management status of the pathogen at time of recording (Treated, Untreated)",
-            "type": "string",
-            "enum": [
-              "Undetected",
-              "Detected"
-            ],
-            "example": "Treated"
-          },
-          "hasVisualSymptoms": {
-            "description": "Specimens portrayed visual symptoms related to the disease",
-            "type": "boolean"
-          },
-          "contributingSystemId": {
-            "description": "Unique identifier from system contributing data for followup and updating",
-            "type": "string"
-          },
-          "countryCode": {
-            "description": "Can be ISO2(KE) or ISO3(KEN)",
-            "type": "string",
-            "example": "KE"
-          },
-          "locationLevel2": {
-            "description": "Municipality,district",
-            "type": "string",
-            "example": "Victoria"
-          },
-          "locationLevel1": {
-            "description": "Province, district or region",
-            "type": "string",
-            "example": "Carroll, Ohio, United States"
-          },
-          "sampleDesc": {
-            "description": "Description of the sample i.e roots, leaves",
-            "type": "string",
-            "example": "Roots"
-          },
-          "identifiedBy": {
-            "type": "string"
-          },
-          "locationLevel3": {
-            "description": "Administrative level i.e city,down",
-            "type": "string",
-            "example": "CITY"
-          },
-          "cultivarName": {
-            "description": "Crop cultivar",
-            "type": "string",
-            "example": "TMS 90257"
-          },
-          "dateObserved": {
-            "format": "date",
-            "description": "Date when it was detected",
-            "type": "string",
-            "example": "2021-01-01"
-          },
-          "severityNumberScale": {
-            "format": "int32",
-            "description": "Severity scale on an number level (5)",
-            "type": "integer",
-            "example": 5
-          },
-          "comments": {
-            "type": "string"
-          },
-          "pathogenIncidence": {
-            "description": "Number of measure for disease occurrence on subject population",
-            "type": "string",
-            "example": "50 Percent"
-          },
-          "cropName": {
-            "description": "Crop name",
-            "type": "string",
-            "example": "Banana"
-          },
-          "severityPercentageScale": {
-            "description": "Severity scale on an percentage level",
-            "type": "number",
-            "example": 0.5
-          },
-          "dataCollectionMethod": {
-            "description": "Methodology/protocol used to take the data (Field visit)",
-            "type": "string",
-            "example": "Field visit"
-          },
-          "geodeticDatum": {
-            "description": "North America Datum or World geodetic coordinate system",
-            "type": "string",
-            "example": "NAD83"
-          },
-          "dateUpdated": {
-            "format": "date",
-            "description": "Date the record was updated",
-            "type": "string",
-            "example": "2021-01-13"
-          },
-          "recordedBy": {
-            "type": "string"
-          },
-          "dateRecorded": {
-            "format": "date",
-            "description": "Date when it was recorded into the system",
-            "type": "string",
-            "example": "2021-01-13"
-          },
-          "pathogenVerificationMethod": {
-            "description": "This can contain multiple verification methods",
-            "type": "string",
-            "example": "Visual"
-          },
-          "identificationMethod": {
-            "type": "string"
-          },
-          "pathogenIdentificationMethod": {
-            "description": "This can contain multiple identification methods (PCR,ELISA)",
-            "type": "string",
-            "example": "PCR"
-          },
-          "sampleUnits": {
-            "description": "Unit of measure (individuals, pieces, grams, etc.)",
-            "type": "string",
-            "example": "grams"
-          }
-        }
-      },
-      "EntityModelCommonDataEntity": {
-        "type": "object",
-        "properties": {
-          "areaUnit": {
-            "type": "string"
-          },
-          "commonName": {
-            "type": "string"
-          },
-          "scientificName": {
-            "type": "string"
-          },
-          "_links": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Link"
-            }
-          },
-          "accuracy": {
-            "type": "number"
-          },
-          "lon": {
-            "type": "number"
-          },
-          "sampleSize": {
-            "format": "int32",
-            "type": "integer"
-          },
-          "sampleSource": {
-            "type": "string"
-          },
-          "affectedSampleSize": {
-            "format": "int32",
-            "type": "integer"
-          },
-          "occurrenceStatus": {
-            "type": "string"
-          },
-          "countryCode": {
-            "type": "string"
-          },
-          "imageUrl": {
-            "type": "string"
-          },
-          "locationLevel2": {
-            "type": "string"
-          },
-          "dateReported": {
-            "format": "date",
-            "type": "string"
-          },
-          "ontologyName": {
-            "type": "string"
-          },
-          "locationLevel1": {
-            "type": "string"
-          },
-          "dateReviewed": {
-            "format": "date",
-            "type": "string"
-          },
-          "sampleDesc": {
-            "type": "string"
-          },
-          "id": {
-            "format": "int64",
-            "type": "integer"
-          },
-          "identifiedBy": {
-            "type": "string"
-          },
-          "lat": {
-            "type": "number"
-          },
-          "locationLevel3": {
-            "type": "string"
-          },
-          "areaSampled": {
-            "type": "number"
-          },
-          "severity": {
-            "format": "int32",
-            "type": "integer"
-          },
-          "comments": {
-            "type": "string"
-          },
-          "visuallyIdentified": {
-            "type": "boolean"
-          },
-          "alt": {
-            "type": "number"
-          },
-          "dataCollectionMethod": {
-            "type": "string"
-          },
-          "dateUpdated": {
-            "format": "date",
-            "type": "string"
-          },
-          "affectedArea": {
-            "type": "number"
-          },
-          "identificationMethod": {
-            "type": "string"
-          },
-          "countryName": {
-            "type": "string"
-          }
-        }
-      },
-      "RepresentationModelCommonDataEntity": {
-        "type": "object",
-        "properties": {
-          "_links": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Link"
-            }
-          }
-        }
-      },
-      "CollectionModelCommonDataEntity": {
-        "type": "object",
-        "properties": {
-          "_embedded": {
-            "type": "object",
-            "properties": {
-              "commonDataEntities": {
-                "type": "array",
-                "items": {
-                  "$ref": "#/components/schemas/CommonDataEntity"
-                }
-              }
-            }
-          },
-          "_links": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Link"
-            }
-          }
-        }
-      },
-      "Item": {
-        "type": "object",
-        "properties": {
-          "requiredProperties": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "type": {
-            "type": "string"
-          },
-          "properties": {
-            "additionalProperties": {
-              "$ref": "#/components/schemas/AbstractJsonSchemaPropertyObject"
-            },
-            "type": "object"
-          }
-        }
-      },
-      "RepresentationModelObject": {
-        "type": "object",
-        "properties": {
-          "_links": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Link"
-            }
-          }
-        }
-      },
-      "CommonDataEntity": {
-        "type": "object",
-        "properties": {
-          "areaUnit": {
-            "type": "string"
-          },
-          "commonName": {
-            "type": "string"
-          },
-          "scientificName": {
-            "type": "string"
-          },
-          "accuracy": {
-            "type": "number"
-          },
-          "lon": {
-            "type": "number"
-          },
-          "sampleSize": {
-            "format": "int32",
-            "type": "integer"
-          },
-          "sampleSource": {
-            "type": "string"
-          },
-          "affectedSampleSize": {
-            "format": "int32",
-            "type": "integer"
-          },
-          "occurrenceStatus": {
-            "type": "string"
-          },
-          "countryCode": {
-            "type": "string"
-          },
-          "imageUrl": {
-            "type": "string"
-          },
-          "locationLevel2": {
-            "type": "string"
-          },
-          "dateReported": {
-            "format": "date",
-            "type": "string"
-          },
-          "ontologyName": {
-            "type": "string"
-          },
-          "locationLevel1": {
-            "type": "string"
-          },
-          "dateReviewed": {
-            "format": "date",
-            "type": "string"
-          },
-          "sampleDesc": {
-            "type": "string"
-          },
-          "id": {
-            "format": "int64",
-            "type": "integer"
-          },
-          "identifiedBy": {
-            "type": "string"
-          },
-          "lat": {
-            "type": "number"
-          },
-          "locationLevel3": {
-            "type": "string"
-          },
-          "areaSampled": {
-            "type": "number"
-          },
-          "severity": {
-            "format": "int32",
-            "type": "integer"
-          },
-          "comments": {
-            "type": "string"
-          },
-          "visuallyIdentified": {
-            "type": "boolean"
-          },
-          "alt": {
-            "type": "number"
-          },
-          "dataCollectionMethod": {
-            "type": "string"
-          },
-          "dateUpdated": {
-            "format": "date",
-            "type": "string"
-          },
-          "affectedArea": {
-            "type": "number"
-          },
-          "identificationMethod": {
-            "type": "string"
-          },
-          "countryName": {
-            "type": "string"
-          }
-        }
-      },
-      "CollectionModelCropPestEntity": {
-        "type": "object",
-        "properties": {
-          "_embedded": {
-            "type": "object",
-            "properties": {
-              "cropPestEntities": {
-                "type": "array",
-                "items": {
-                  "$ref": "#/components/schemas/CropPestEntity"
-                }
-              }
-            }
-          },
-          "_links": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Link"
-            }
-          }
-        }
-      },
-      "RepresentationModelCropPestEntity": {
-        "type": "object",
-        "properties": {
-          "_links": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Link"
-            }
-          }
-        }
-      },
-      "RepresentationModelCropDiseaseEntity": {
-        "type": "object",
-        "properties": {
-          "_links": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Link"
-            }
-          }
-        }
-      },
-      "CollectionModelCropDiseaseEntity": {
-        "type": "object",
-        "properties": {
-          "_embedded": {
-            "type": "object",
-            "properties": {
-              "crop-disease": {
-                "type": "array",
-                "items": {
-                  "$ref": "#/components/schemas/CropDiseaseEntity"
-                }
-              }
-            }
-          },
-          "_links": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Link"
-            }
-          }
-        }
-      },
-      "EntityModelCropPestEntity": {
-        "type": "object",
-        "properties": {
-          "areaUnit": {
-            "description": "Area measurement unit ha,acre,sqm",
-            "type": "string",
-            "example": "ha"
-          },
-          "originalSystemId": {
-            "description": "In the case of data from an aggregator,the unique identifier from the original data set.Used in cases where two aggregators may encounter the same data.",
-            "type": "string"
-          },
-          "_links": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Link"
-            }
-          },
-          "accuracy": {
-            "description": "Accuracy of GPS location in meters",
-            "type": "number",
-            "example": 1
-          },
-          "severityRangeScale": {
-            "description": "Severity scale on an range level",
-            "type": "string",
-            "example": "1-5"
-          },
-          "labSampleId": {
-            "description": "Lab sample identifier",
-            "type": "string",
-            "example": "SMPL-567"
-          },
-          "sampleSource": {
-            "description": "Source of the sample i.e Field, greenhouse, lab",
-            "type": "string",
-            "example": "Field"
-          },
-          "pestVerified": {
-            "description": "Observed pest has been verified",
-            "type": "boolean"
-          },
-          "affectedAreaSize": {
-            "description": "Size of area affected",
-            "type": "number",
-            "example": 15
-          },
-          "numOfSamples": {
-            "format": "int32",
-            "description": "Number of samples collected",
-            "type": "integer",
-            "example": 500
-          },
-          "pestHabitat": {
-            "description": "Pest habitat",
-            "type": "string",
-            "example": "Forest, Soil"
-          },
-          "id": {
-            "format": "int64",
-            "type": "integer"
-          },
-          "genbankAccessionNumber": {
-            "description": "GeneBank number for identification and confirmation",
-            "type": "string",
-            "example": "LC.5656951"
-          },
-          "lat": {
-            "description": "GPS lat",
-            "type": "number",
-            "example": 36.821945
-          },
-          "pestAbundance": {
-            "description": "Pest abundance",
-            "type": "string",
-            "example": "Single plant"
-          },
-          "sampledAreaSize": {
-            "description": "Size of area sampled",
-            "type": "number",
-            "example": 20.5
-          },
-          "visuallyIdentified": {
-            "type": "boolean"
-          },
-          "pestIdentificationMethod": {
-            "description": "This can contain multiple identification methods (PCR,ELISA)",
-            "type": "string",
-            "example": "PCR"
-          },
-          "alt": {
-            "description": "Identification Altitude above sea level",
-            "type": "number",
-            "example": 1200
-          },
-          "pestNativity": {
-            "description": "Pest nativity status",
-            "type": "string",
-            "example": "Native"
-          },
-          "pestDetectionStatus": {
-            "description": "Pest detection status",
-            "type": "string",
-            "enum": [
-              "Undetected",
-              "Detected"
-            ],
-            "example": "Detected"
-          },
-          "reportedBy": {
-            "type": "string"
-          },
-          "reviewedBy": {
-            "type": "string"
-          },
-          "visitType": {
-            "description": "Purpose of visit to area for collected data",
-            "type": "string",
-            "example": "Invasive Species Survey"
-          },
-          "dateIdentified": {
-            "format": "date",
-            "description": "Date when it was identified",
-            "type": "string",
-            "example": "2021-01-13"
-          },
-          "dateUncertaintyInDays": {
-            "format": "int32",
-            "description": "Date Accuracy in Days",
-            "type": "integer",
-            "example": 1
-          },
-          "projectName": {
-            "description": "Name of the project as the source of data",
-            "type": "string",
-            "example": "EDDMAPS"
-          },
-          "numOfAffectedSamples": {
-            "format": "int32",
-            "description": "Number of affected samples collected",
-            "type": "integer",
-            "example": 350
-          },
-          "lon": {
-            "description": "GPS lon",
-            "type": "number",
-            "example": -1.292066
-          },
-          "pestVerificationMethod": {
-            "description": "This can contain multiple verification methods",
-            "type": "string",
-            "example": "Visual"
-          },
-          "hasVisualSymptoms": {
-            "description": "Specimens portrayed visual symptoms related to the pest",
-            "type": "boolean"
-          },
-          "contributingSystemId": {
-            "description": "Unique identifier from system contributing data for followup and updating",
-            "type": "string"
-          },
-          "countryCode": {
-            "description": "Can be ISO2(KE) or ISO3(KEN)",
-            "type": "string",
-            "example": "KE"
-          },
-          "pestIncidence": {
-            "description": "Number of measure for disease occurrence on subject population",
-            "type": "string",
-            "example": "50 Percent"
-          },
-          "locationLevel2": {
-            "description": "Municipality,district",
-            "type": "string",
-            "example": "Victoria"
-          },
-          "locationLevel1": {
-            "description": "Province, district or region",
-            "type": "string",
-            "example": "Carroll, Ohio, United States"
-          },
-          "sampleDesc": {
-            "description": "Description of the sample i.e roots, leaves",
-            "type": "string",
-            "example": "Roots"
-          },
-          "pestCommonName": {
-            "description": "Common pest name",
-            "type": "string",
-            "example": "aphid"
-          },
-          "identifiedBy": {
-            "type": "string"
-          },
-          "pestRecordBasis": {
-            "description": "The basis of the occurrence (Human observation)",
-            "type": "string",
-            "example": "Human observation"
-          },
-          "locationLevel3": {
-            "description": "Administrative level i.e city,down",
-            "type": "string",
-            "example": "CITY"
-          },
-          "cultivarName": {
-            "description": "Crop cultivar",
-            "type": "string",
-            "example": "TMS 90257"
-          },
-          "pestDensity": {
-            "description": "Range of percent cover or description (low, medium, common, rare, etc.)",
-            "type": "string",
-            "enum": [
-              "Undetected",
-              "Detected"
-            ],
-            "example": "Common"
-          },
-          "dateObserved": {
-            "format": "date",
-            "description": "Date when it was detected",
-            "type": "string",
-            "example": "2021-01-13"
-          },
-          "pestVector": {
-            "description": "Vector of the pest",
-            "type": "string",
-            "example": "Pied Crow"
-          },
-          "severityNumberScale": {
-            "format": "int32",
-            "description": "Severity scale on an number level (5)",
-            "type": "integer",
-            "example": 5
-          },
-          "comments": {
-            "type": "string"
-          },
-          "pestCategory": {
-            "description": "Pest category",
-            "type": "string",
-            "example": "Virus, Bacteria, Nematode, Plant, Insect"
-          },
-          "pestStatus": {
-            "description": "management status of the pest at time of recording (Treated, Untreated)",
-            "type": "string",
-            "enum": [
-              "Undetected",
-              "Detected"
-            ],
-            "example": "Treated"
-          },
-          "cropName": {
-            "description": "Crop name",
-            "type": "string",
-            "example": "Cassava"
-          },
-          "pestScientificName": {
-            "description": "Scientific pest name",
-            "type": "string",
-            "example": "Acuticauda solidaginifoliae"
-          },
-          "severityPercentageScale": {
-            "description": "Severity scale on an percentage level",
-            "type": "number",
-            "example": 0.5
-          },
-          "dataCollectionMethod": {
-            "description": "Methodology/protocol used to take the data (Aerial survey)",
-            "type": "string",
-            "example": "Aerial survey"
-          },
-          "geodeticDatum": {
-            "description": "North America Datum or World geodetic coordinate system",
-            "type": "string",
-            "example": "NAD83"
-          },
-          "approximateQuantity": {
-            "description": "Approximate or range of subjects observed or biocontrol agents released (15, 15-20)",
-            "type": "string",
-            "example": "15"
-          },
-          "dateUpdated": {
-            "format": "date",
-            "description": "Date the record was updated",
-            "type": "string",
-            "example": "2021-01-13"
-          },
-          "recordedBy": {
-            "type": "string"
-          },
-          "dateRecorded": {
-            "format": "date",
-            "description": "Date when it was recorded into the system",
-            "type": "string",
-            "example": "2021-01-13"
-          },
-          "identificationMethod": {
-            "type": "string"
-          },
-          "sampleUnits": {
-            "description": "Unit of measure (individuals, adults, grams, etc.)",
-            "type": "string",
-            "example": "adults"
-          }
-        }
-      },
-      "Link": {
-        "type": "object",
-        "properties": {
-          "hreflang": {
-            "type": "string"
-          },
-          "templated": {
-            "type": "boolean"
-          },
-          "profile": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "href": {
-            "type": "string"
-          },
-          "title": {
-            "type": "string"
-          },
-          "type": {
-            "type": "string"
-          },
-          "deprecation": {
-            "type": "string"
           }
         }
       }
@@ -1578,64 +730,20 @@
   ],
   "openapi": "3.0.1",
   "paths": {
-    "/api/v2/cropPestEntities/{id}": {
-      "patch": {
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CropPestEntity"
-              }
-            }
-          }
-        },
-        "description": "patch-croppestentity",
-        "operationId": "patchItemResource-croppestentity-patch",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/hal+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/RepresentationModelCropPestEntity"
-                }
-              }
-            }
-          },
-          "204": {
-            "description": "No Content"
-          }
-        },
-        "parameters": [
-          {
-            "schema": {
-              "type": "string"
-            },
-            "in": "path",
-            "name": "id",
-            "required": true
-          }
-        ],
-        "tags": [
-          "crop-pest-entity-entity-controller"
-        ]
-      },
+    "/api/v1/crop/disease/cultivar/{cultivar}": {
       "get": {
-        "description": "get-croppestentity",
-        "operationId": "getItemResource-croppestentity-get",
+        "summary": "Find crop disease by cultivar type",
+        "operationId": "getDiseaseByCultivarName",
         "responses": {
           "200": {
             "description": "OK",
             "content": {
-              "application/hal+json": {
+              "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/EntityModelCropPestEntity"
+                  "$ref": "#/components/schemas/PageCropDiseaseEntity"
                 }
               }
             }
-          },
-          "404": {
-            "description": "Not Found"
           }
         },
         "parameters": [
@@ -1644,356 +752,189 @@
               "type": "string"
             },
             "in": "path",
-            "name": "id",
+            "name": "cultivar",
             "required": true
           }
         ],
         "tags": [
-          "crop-pest-entity-entity-controller"
-        ]
-      },
-      "delete": {
-        "description": "delete-croppestentity",
-        "operationId": "deleteItemResource-croppestentity-delete",
-        "responses": {
-          "204": {
-            "description": "No Content"
-          },
-          "404": {
-            "description": "Not Found"
-          }
-        },
-        "parameters": [
-          {
-            "schema": {
-              "type": "string"
-            },
-            "in": "path",
-            "name": "id",
-            "required": true
-          }
-        ],
-        "tags": [
-          "crop-pest-entity-entity-controller"
-        ]
-      },
-      "put": {
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CropPestEntity"
-              }
-            }
-          }
-        },
-        "description": "update-croppestentity",
-        "operationId": "putItemResource-croppestentity-put",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/hal+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/RepresentationModelCropPestEntity"
-                }
-              }
-            }
-          },
-          "201": {
-            "description": "Created",
-            "content": {
-              "application/hal+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/RepresentationModelCropPestEntity"
-                }
-              }
-            }
-          },
-          "204": {
-            "description": "No Content"
-          }
-        },
-        "parameters": [
-          {
-            "schema": {
-              "type": "string"
-            },
-            "in": "path",
-            "name": "id",
-            "required": true
-          }
-        ],
-        "tags": [
-          "crop-pest-entity-entity-controller"
+          "Crop disease data"
         ]
       }
     },
-    "/api/v2/profile/commonDataEntities": {
+    "/api/v1/crop/disease/reporting-date": {
       "get": {
-        "operationId": "descriptor_1",
+        "summary": "Find crop disease by reporting date range",
+        "operationId": "getDiseaseByReportingDate",
         "responses": {
           "200": {
             "description": "OK",
             "content": {
-              "application/schema+json": {
+              "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/JsonSchema"
-                }
-              },
-              "*/*": {
-                "schema": {
-                  "type": "string"
-                }
-              },
-              "application/alps+json": {
-                "schema": {
-                  "type": "string"
+                  "$ref": "#/components/schemas/PageCropDiseaseEntity"
                 }
               }
             }
-          }
-        },
-        "tags": [
-          "profile-controller"
-        ]
-      }
-    },
-    "/api/v2/profile": {
-      "get": {
-        "operationId": "listAllFormsOfMetadata_1",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/hal+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/RepresentationModelObject"
-                }
-              }
-            }
-          }
-        },
-        "tags": [
-          "profile-controller"
-        ]
-      }
-    },
-    "/api/v2/commonDataEntities/{id}": {
-      "patch": {
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CommonDataEntity"
-              }
-            }
-          }
-        },
-        "description": "patch-commondataentity",
-        "operationId": "patchItemResource-commondataentity-patch",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/hal+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/RepresentationModelCommonDataEntity"
-                }
-              }
-            }
-          },
-          "204": {
-            "description": "No Content"
           }
         },
         "parameters": [
           {
             "schema": {
-              "type": "string"
-            },
-            "in": "path",
-            "name": "id",
-            "required": true
-          }
-        ],
-        "tags": [
-          "common-data-entity-entity-controller"
-        ]
-      },
-      "get": {
-        "description": "get-commondataentity",
-        "operationId": "getItemResource-commondataentity-get",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/hal+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/EntityModelCommonDataEntity"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not Found"
-          }
-        },
-        "parameters": [
-          {
-            "schema": {
-              "type": "string"
-            },
-            "in": "path",
-            "name": "id",
-            "required": true
-          }
-        ],
-        "tags": [
-          "common-data-entity-entity-controller"
-        ]
-      },
-      "delete": {
-        "description": "delete-commondataentity",
-        "operationId": "deleteItemResource-commondataentity-delete",
-        "responses": {
-          "204": {
-            "description": "No Content"
-          },
-          "404": {
-            "description": "Not Found"
-          }
-        },
-        "parameters": [
-          {
-            "schema": {
-              "type": "string"
-            },
-            "in": "path",
-            "name": "id",
-            "required": true
-          }
-        ],
-        "tags": [
-          "common-data-entity-entity-controller"
-        ]
-      },
-      "put": {
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CommonDataEntity"
-              }
-            }
-          }
-        },
-        "description": "update-commondataentity",
-        "operationId": "putItemResource-commondataentity-put",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/hal+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/RepresentationModelCommonDataEntity"
-                }
-              }
-            }
-          },
-          "201": {
-            "description": "Created",
-            "content": {
-              "application/hal+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/RepresentationModelCommonDataEntity"
-                }
-              }
-            }
-          },
-          "204": {
-            "description": "No Content"
-          }
-        },
-        "parameters": [
-          {
-            "schema": {
-              "type": "string"
-            },
-            "in": "path",
-            "name": "id",
-            "required": true
-          }
-        ],
-        "tags": [
-          "common-data-entity-entity-controller"
-        ]
-      }
-    },
-    "/api/v2/profile/cropPestEntities": {
-      "get": {
-        "operationId": "descriptor_3",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/schema+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/JsonSchema"
-                }
-              },
-              "*/*": {
-                "schema": {
-                  "type": "string"
-                }
-              },
-              "application/alps+json": {
-                "schema": {
-                  "type": "string"
-                }
-              }
-            }
-          }
-        },
-        "tags": [
-          "profile-controller"
-        ]
-      }
-    },
-    "/api/v2/crop-disease/search/findByCountryCode": {
-      "get": {
-        "operationId": "executeSearch-cropdiseaseentity-get",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/hal+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CollectionModelCropDiseaseEntity"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not Found"
-          }
-        },
-        "parameters": [
-          {
-            "schema": {
+              "format": "date",
               "type": "string"
             },
             "in": "query",
-            "name": "countryCode"
+            "name": "fromDate",
+            "required": true
+          },
+          {
+            "schema": {
+              "format": "date",
+              "type": "string"
+            },
+            "in": "query",
+            "name": "toDate",
+            "required": true
           }
         ],
         "tags": [
-          "crop-disease-entity-search-controller"
+          "Crop disease data"
         ]
       }
     },
-    "/api/v2/crop-disease/{id}": {
-      "patch": {
+    "/api/v1/crop/disease/admin-level/{adminName}/two": {
+      "get": {
+        "summary": "Find crop diseases by administration levels",
+        "operationId": "getDiseaseByAdminLevelTwo_1",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageCropDiseaseEntity"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "adminName",
+            "required": true
+          }
+        ],
+        "tags": [
+          "Crop disease data"
+        ]
+      }
+    },
+    "/api/v1/crop/pest/{pestName}/scientific": {
+      "get": {
+        "summary": "Get details of specific pest using its scientific name",
+        "operationId": "getPestByScientificName",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CropPestEntity"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "pestName",
+            "required": true
+          }
+        ],
+        "tags": [
+          "Crop pest data"
+        ]
+      }
+    },
+    "/api/v1/crop/pest/admin-level/{adminName}/one": {
+      "get": {
+        "summary": "Find crop pest by administration levels",
+        "operationId": "getDiseaseByAdminLevelOne",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageCropPestEntity"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "adminName",
+            "required": true
+          }
+        ],
+        "tags": [
+          "Crop pest data"
+        ]
+      }
+    },
+    "/api/v1/crop/disease/pathogen/{name}/scientific": {
+      "get": {
+        "summary": "Get list of diseases by scientific pathogen name ",
+        "description": "Search parameters are optional",
+        "operationId": "getDiseaseByScientificPathogen",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageCropDiseaseEntity"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "name",
+            "required": true
+          }
+        ],
+        "tags": [
+          "Crop disease data"
+        ]
+      }
+    },
+    "/api/v1/crop/disease/update/{id}": {
+      "put": {
+        "summary": "Update crop disease record",
+        "security": [
+          {
+            "api": []
+          }
+        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -2001,29 +942,27 @@
                 "$ref": "#/components/schemas/CropDiseaseEntity"
               }
             }
-          }
+          },
+          "required": true
         },
-        "description": "patch-cropdiseaseentity",
-        "operationId": "patchItemResource-cropdiseaseentity-patch",
+        "operationId": "updatePestData_1",
         "responses": {
           "200": {
             "description": "OK",
             "content": {
-              "application/hal+json": {
+              "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/RepresentationModelCropDiseaseEntity"
+                  "$ref": "#/components/schemas/CropDiseaseEntity"
                 }
               }
             }
-          },
-          "204": {
-            "description": "No Content"
           }
         },
         "parameters": [
           {
             "schema": {
-              "type": "string"
+              "format": "int64",
+              "type": "integer"
             },
             "in": "path",
             "name": "id",
@@ -2031,25 +970,55 @@
           }
         ],
         "tags": [
-          "crop-disease-entity-entity-controller"
+          "Crop disease data"
         ]
-      },
+      }
+    },
+    "/api/v1/crop/disease/add": {
+      "post": {
+        "summary": "Add new crop pest record",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CropDiseaseEntity"
+              }
+            }
+          },
+          "required": true
+        },
+        "operationId": "addPestData_1",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CropDiseaseEntity"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Crop disease data"
+        ]
+      }
+    },
+    "/api/v1/crop/disease/country/{countryCode}": {
       "get": {
-        "description": "get-cropdiseaseentity",
-        "operationId": "getItemResource-cropdiseaseentity-get",
+        "summary": "Find crop diseases by country code",
+        "operationId": "getDiseaseByCountry",
         "responses": {
           "200": {
             "description": "OK",
             "content": {
-              "application/hal+json": {
+              "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/EntityModelCropDiseaseEntity"
+                  "$ref": "#/components/schemas/PageCropDiseaseEntity"
                 }
               }
             }
-          },
-          "404": {
-            "description": "Not Found"
           }
         },
         "parameters": [
@@ -2058,23 +1027,29 @@
               "type": "string"
             },
             "in": "path",
-            "name": "id",
+            "name": "countryCode",
             "required": true
           }
         ],
         "tags": [
-          "crop-disease-entity-entity-controller"
+          "Crop disease data"
         ]
-      },
-      "delete": {
-        "description": "delete-cropdiseaseentity",
-        "operationId": "deleteItemResource-cropdiseaseentity-delete",
+      }
+    },
+    "/api/v1/crop/disease/admin-level/{adminName}/three": {
+      "get": {
+        "summary": "Find crop diseases by administration levels",
+        "operationId": "getDiseaseByAdminLevelThree_1",
         "responses": {
-          "204": {
-            "description": "No Content"
-          },
-          "404": {
-            "description": "Not Found"
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageCropDiseaseEntity"
+                }
+              }
+            }
           }
         },
         "parameters": [
@@ -2083,288 +1058,261 @@
               "type": "string"
             },
             "in": "path",
-            "name": "id",
+            "name": "adminName",
             "required": true
           }
         ],
         "tags": [
-          "crop-disease-entity-entity-controller"
+          "Crop disease data"
         ]
-      },
+      }
+    },
+    "/api/v1/crop/pest/crop-name/{cropName}": {
+      "get": {
+        "summary": "Find crop disease by crop name",
+        "operationId": "getPestsByCropName",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageCropPestEntity"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "cropName",
+            "required": true
+          }
+        ],
+        "tags": [
+          "Crop pest data"
+        ]
+      }
+    },
+    "/api/v1/crop/pest/category/{category}": {
+      "get": {
+        "summary": "Get pest by category",
+        "operationId": "getPestByCategory",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageCropPestEntity"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "Virus",
+                  "Bacteria",
+                  "Nematode",
+                  "Plant",
+                  "Insect"
+                ]
+              }
+            },
+            "in": "path",
+            "name": "category",
+            "required": true
+          }
+        ],
+        "tags": [
+          "Crop pest data"
+        ]
+      }
+    },
+    "/api/v1/crop/pest/cultivar/{cultivar}": {
+      "get": {
+        "summary": "Find crop disease by cultivar type",
+        "operationId": "getPestsByCultivarName",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageCropPestEntity"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "cultivar",
+            "required": true
+          }
+        ],
+        "tags": [
+          "Crop pest data"
+        ]
+      }
+    },
+    "/api/v1/crop/disease/record-date": {
+      "get": {
+        "summary": "Find crop disease by recording date range",
+        "operationId": "getDiseaseByRecordingDate",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageCropDiseaseEntity"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "schema": {
+              "format": "date",
+              "type": "string"
+            },
+            "in": "query",
+            "name": "fromDate",
+            "required": true
+          },
+          {
+            "schema": {
+              "format": "date",
+              "type": "string"
+            },
+            "in": "query",
+            "name": "toDate",
+            "required": true
+          }
+        ],
+        "tags": [
+          "Crop disease data"
+        ]
+      }
+    },
+    "/api/v1/crop/disease/pathogen/{name}/common": {
+      "get": {
+        "summary": "Get list of diseases by common pathogen names",
+        "description": "Search parameters are optional",
+        "operationId": "getDiseaseByCommonPathogen",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageCropDiseaseEntity"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "name",
+            "required": true
+          }
+        ],
+        "tags": [
+          "Crop disease data"
+        ]
+      }
+    },
+    "/api/v1/crop/pest/habitat/{habitat}": {
+      "get": {
+        "summary": "Get pests by habitat",
+        "operationId": "getPestByHabitat",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageCropPestEntity"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "habitat",
+            "required": true
+          }
+        ],
+        "tags": [
+          "Crop pest data"
+        ]
+      }
+    },
+    "/api/v1/crop/disease/{diseaseName}/common": {
+      "get": {
+        "summary": "Get details of specific disease using its common name",
+        "operationId": "getDiseaseByCommonName",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageCropDiseaseEntity"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "diseaseName",
+            "required": true
+          }
+        ],
+        "tags": [
+          "Crop disease data"
+        ]
+      }
+    },
+    "/api/v1/crop/pest/update/{id}": {
       "put": {
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CropDiseaseEntity"
-              }
-            }
-          }
-        },
-        "description": "update-cropdiseaseentity",
-        "operationId": "putItemResource-cropdiseaseentity-put",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/hal+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/RepresentationModelCropDiseaseEntity"
-                }
-              }
-            }
-          },
-          "201": {
-            "description": "Created",
-            "content": {
-              "application/hal+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/RepresentationModelCropDiseaseEntity"
-                }
-              }
-            }
-          },
-          "204": {
-            "description": "No Content"
-          }
-        },
-        "parameters": [
+        "summary": "Update crop pest record",
+        "security": [
           {
-            "schema": {
-              "type": "string"
-            },
-            "in": "path",
-            "name": "id",
-            "required": true
+            "api": []
           }
         ],
-        "tags": [
-          "crop-disease-entity-entity-controller"
-        ]
-      }
-    },
-    "/api/v2/crop-disease": {
-      "post": {
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CropDiseaseEntity"
-              }
-            }
-          }
-        },
-        "description": "create-cropdiseaseentity",
-        "operationId": "postCollectionResource-cropdiseaseentity-post",
-        "responses": {
-          "201": {
-            "description": "Created",
-            "content": {
-              "application/hal+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/RepresentationModelCropDiseaseEntity"
-                }
-              }
-            }
-          }
-        },
-        "tags": [
-          "crop-disease-entity-entity-controller"
-        ]
-      },
-      "get": {
-        "description": "get-cropdiseaseentity",
-        "operationId": "getCollectionResource-cropdiseaseentity-get_1",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/hal+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CollectionModelCropDiseaseEntity"
-                }
-              },
-              "text/uri-list": {
-                "schema": {
-                  "$ref": "#/components/schemas/CollectionModelCropDiseaseEntity"
-                }
-              },
-              "application/x-spring-data-compact+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CollectionModelCropDiseaseEntity"
-                }
-              }
-            }
-          }
-        },
-        "parameters": [
-          {
-            "schema": {
-              "default": "0",
-              "type": "integer",
-              "minimum": 0
-            },
-            "in": "query",
-            "name": "page",
-            "description": "Zero-based page index (0..N)",
-            "required": false
-          },
-          {
-            "schema": {
-              "default": "20",
-              "type": "integer",
-              "minimum": 1
-            },
-            "in": "query",
-            "name": "size",
-            "description": "The size of the page to be returned",
-            "required": false
-          },
-          {
-            "schema": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            },
-            "in": "query",
-            "name": "sort",
-            "description": "Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.",
-            "required": false
-          }
-        ],
-        "tags": [
-          "crop-disease-entity-entity-controller"
-        ]
-      }
-    },
-    "/api/v2/profile/crop-disease": {
-      "get": {
-        "operationId": "descriptor_2",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/schema+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/JsonSchema"
-                }
-              },
-              "*/*": {
-                "schema": {
-                  "type": "string"
-                }
-              },
-              "application/alps+json": {
-                "schema": {
-                  "type": "string"
-                }
-              }
-            }
-          }
-        },
-        "tags": [
-          "profile-controller"
-        ]
-      }
-    },
-    "/api/v2/commonDataEntities": {
-      "post": {
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CommonDataEntity"
-              }
-            }
-          }
-        },
-        "description": "create-commondataentity",
-        "operationId": "postCollectionResource-commondataentity-post",
-        "responses": {
-          "201": {
-            "description": "Created",
-            "content": {
-              "application/hal+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/RepresentationModelCommonDataEntity"
-                }
-              }
-            }
-          }
-        },
-        "tags": [
-          "common-data-entity-entity-controller"
-        ]
-      },
-      "get": {
-        "description": "get-commondataentity",
-        "operationId": "getCollectionResource-commondataentity-get_1",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/hal+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CollectionModelCommonDataEntity"
-                }
-              },
-              "text/uri-list": {
-                "schema": {
-                  "$ref": "#/components/schemas/CollectionModelCommonDataEntity"
-                }
-              },
-              "application/x-spring-data-compact+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CollectionModelCommonDataEntity"
-                }
-              }
-            }
-          }
-        },
-        "parameters": [
-          {
-            "schema": {
-              "default": "0",
-              "type": "integer",
-              "minimum": 0
-            },
-            "in": "query",
-            "name": "page",
-            "description": "Zero-based page index (0..N)",
-            "required": false
-          },
-          {
-            "schema": {
-              "default": "20",
-              "type": "integer",
-              "minimum": 1
-            },
-            "in": "query",
-            "name": "size",
-            "description": "The size of the page to be returned",
-            "required": false
-          },
-          {
-            "schema": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            },
-            "in": "query",
-            "name": "sort",
-            "description": "Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.",
-            "required": false
-          }
-        ],
-        "tags": [
-          "common-data-entity-entity-controller"
-        ]
-      }
-    },
-    "/api/v2/cropPestEntities": {
-      "post": {
         "requestBody": {
           "content": {
             "application/json": {
@@ -2372,46 +1320,17 @@
                 "$ref": "#/components/schemas/CropPestEntity"
               }
             }
-          }
+          },
+          "required": true
         },
-        "description": "create-croppestentity",
-        "operationId": "postCollectionResource-croppestentity-post",
-        "responses": {
-          "201": {
-            "description": "Created",
-            "content": {
-              "application/hal+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/RepresentationModelCropPestEntity"
-                }
-              }
-            }
-          }
-        },
-        "tags": [
-          "crop-pest-entity-entity-controller"
-        ]
-      },
-      "get": {
-        "description": "get-croppestentity",
-        "operationId": "getCollectionResource-croppestentity-get_1",
+        "operationId": "updatePestData",
         "responses": {
           "200": {
             "description": "OK",
             "content": {
-              "application/hal+json": {
+              "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/CollectionModelCropPestEntity"
-                }
-              },
-              "text/uri-list": {
-                "schema": {
-                  "$ref": "#/components/schemas/CollectionModelCropPestEntity"
-                }
-              },
-              "application/x-spring-data-compact+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CollectionModelCropPestEntity"
+                  "$ref": "#/components/schemas/CropPestEntity"
                 }
               }
             }
@@ -2420,26 +1339,592 @@
         "parameters": [
           {
             "schema": {
-              "default": "0",
-              "type": "integer",
-              "minimum": 0
+              "format": "int64",
+              "type": "integer"
+            },
+            "in": "path",
+            "name": "id",
+            "required": true
+          }
+        ],
+        "tags": [
+          "Crop pest data"
+        ]
+      }
+    },
+    "/api/v1/crop/pest/{pestName}/common": {
+      "get": {
+        "summary": "Get details of specific pest using its common name",
+        "operationId": "getPestByCommonName",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageCropPestEntity"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "pestName",
+            "required": true
+          }
+        ],
+        "tags": [
+          "Crop pest data"
+        ]
+      }
+    },
+    "/api/v1/crop/pest/admin-level/{adminName}/two": {
+      "get": {
+        "summary": "Find crop pest by administration levels",
+        "operationId": "getDiseaseByAdminLevelTwo",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageCropPestEntity"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "adminName",
+            "required": true
+          }
+        ],
+        "tags": [
+          "Crop pest data"
+        ]
+      }
+    },
+    "/api/v1/crop/pest/add": {
+      "post": {
+        "summary": "Add new pest",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CropPestEntity"
+              }
+            }
+          },
+          "required": true
+        },
+        "operationId": "addPestData",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CropPestEntity"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Crop pest data"
+        ]
+      }
+    },
+    "/api/v1/crop/disease/crop-name/{cropName}": {
+      "get": {
+        "summary": "Find crop disease by crop name",
+        "operationId": "getDiseaseByCropName",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageCropDiseaseEntity"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "cropName",
+            "required": true
+          }
+        ],
+        "tags": [
+          "Crop disease data"
+        ]
+      }
+    },
+    "/api/v1/crop/pest/observe-date": {
+      "get": {
+        "summary": "Find crop pests by observation date range",
+        "operationId": "getPestsByObservedDate",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageCropPestEntity"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "schema": {
+              "format": "date",
+              "type": "string"
             },
             "in": "query",
-            "name": "page",
-            "description": "Zero-based page index (0..N)",
-            "required": false
+            "name": "fromDate",
+            "required": true
           },
           {
             "schema": {
-              "default": "20",
-              "type": "integer",
-              "minimum": 1
+              "format": "date",
+              "type": "string"
             },
             "in": "query",
-            "name": "size",
-            "description": "The size of the page to be returned",
-            "required": false
+            "name": "toDate",
+            "required": true
+          }
+        ],
+        "tags": [
+          "Crop pest data"
+        ]
+      }
+    },
+    "/api/v1/crop/pest": {
+      "get": {
+        "summary": "Return list of all pests",
+        "operationId": "getPests",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageCropPestEntity"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Crop pest data"
+        ]
+      }
+    },
+    "/api/v1/crop/disease/{diseaseName}/scientific": {
+      "get": {
+        "summary": "Get details of specific disease using its scientific name",
+        "operationId": "getDiseaseByScientificName",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageCropDiseaseEntity"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "diseaseName",
+            "required": true
+          }
+        ],
+        "tags": [
+          "Crop disease data"
+        ]
+      }
+    },
+    "/api/v1/crop/pest/vector/{vector}": {
+      "get": {
+        "summary": "Get pests by vector",
+        "operationId": "getPestByVector",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageCropPestEntity"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "vector",
+            "required": true
+          }
+        ],
+        "tags": [
+          "Crop pest data"
+        ]
+      }
+    },
+    "/api/v1/crop/disease/genebank/{accessionNumber}": {
+      "get": {
+        "summary": "Get list of diseases by genebank number",
+        "description": "Search can be partial",
+        "operationId": "getDiseaseByGeneBankNumber",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageCropDiseaseEntity"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "accessionNumber",
+            "required": true
+          }
+        ],
+        "tags": [
+          "Crop disease data"
+        ]
+      }
+    },
+    "/api/v1/crop/pest/record-date": {
+      "get": {
+        "summary": "Find crop disease by recording date range",
+        "operationId": "getPestsByRecordingDate",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageCropPestEntity"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "schema": {
+              "format": "date",
+              "type": "string"
+            },
+            "in": "query",
+            "name": "fromDate",
+            "required": true
           },
+          {
+            "schema": {
+              "format": "date",
+              "type": "string"
+            },
+            "in": "query",
+            "name": "toDate",
+            "required": true
+          }
+        ],
+        "tags": [
+          "Crop pest data"
+        ]
+      }
+    },
+    "/api/v1/crop/pest/admin-level/{adminName}/three": {
+      "get": {
+        "summary": "Find crop pest by administration levels",
+        "operationId": "getDiseaseByAdminLevelThree",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageCropPestEntity"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "adminName",
+            "required": true
+          }
+        ],
+        "tags": [
+          "Crop pest data"
+        ]
+      }
+    },
+    "/api/v1/crop/disease": {
+      "get": {
+        "summary": "Return list of all diseases",
+        "operationId": "getDiseaseList",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageCropDiseaseEntity"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Crop disease data"
+        ]
+      }
+    },
+    "/api/v1/crop/pest/detection-status/{status}": {
+      "get": {
+        "summary": "Get pests by detection status",
+        "operationId": "getPestByDetectionStatus",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageCropPestEntity"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "enum": [
+                "Undetected",
+                "Detected"
+              ]
+            },
+            "in": "path",
+            "name": "status",
+            "required": true
+          }
+        ],
+        "tags": [
+          "Crop pest data"
+        ]
+      }
+    },
+    "/api/v1/crop/pest/reporting-date": {
+      "get": {
+        "summary": "Find crop pests by reporting date range",
+        "operationId": "getPestsByReportingDate",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageCropPestEntity"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "schema": {
+              "format": "date",
+              "type": "string"
+            },
+            "in": "query",
+            "name": "fromDate",
+            "required": true
+          },
+          {
+            "schema": {
+              "format": "date",
+              "type": "string"
+            },
+            "in": "query",
+            "name": "toDate",
+            "required": true
+          }
+        ],
+        "tags": [
+          "Crop pest data"
+        ]
+      }
+    },
+    "/api/v1/crop/disease/observe-date": {
+      "get": {
+        "summary": "Find crop disease by observation date range",
+        "operationId": "getDiseaseByObservedDate",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageCropDiseaseEntity"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "schema": {
+              "format": "date",
+              "type": "string"
+            },
+            "in": "query",
+            "name": "fromDate",
+            "required": true
+          },
+          {
+            "schema": {
+              "format": "date",
+              "type": "string"
+            },
+            "in": "query",
+            "name": "toDate",
+            "required": true
+          }
+        ],
+        "tags": [
+          "Crop disease data"
+        ]
+      }
+    },
+    "/api/v1/crop/disease/admin-level/{adminName}/one": {
+      "get": {
+        "summary": "Find crop diseases by administration levels",
+        "operationId": "getDiseaseByAdminLevelOne_1",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageCropDiseaseEntity"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "adminName",
+            "required": true
+          }
+        ],
+        "tags": [
+          "Crop disease data"
+        ]
+      }
+    },
+    "/api/v1/crop/pest/management-status/{status}": {
+      "get": {
+        "summary": "Get pests by management status",
+        "operationId": "getPestByManagementStatus",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageCropPestEntity"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "enum": [
+                "Treated",
+                "Untreated"
+              ]
+            },
+            "in": "path",
+            "name": "status",
+            "required": true
+          }
+        ],
+        "tags": [
+          "Crop pest data"
+        ]
+      }
+    },
+    "/api/v1/crop/disease/verification-method/{verificationMethod}": {
+      "get": {
+        "summary": "Find crop disease by verification methods",
+        "operationId": "getDiseaseByVerificationMethod",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageCropDiseaseEntity"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
           {
             "schema": {
               "type": "array",
@@ -2447,21 +1932,51 @@
                 "type": "string"
               }
             },
-            "in": "query",
-            "name": "sort",
-            "description": "Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.",
-            "required": false
+            "in": "path",
+            "name": "verificationMethod",
+            "required": true
           }
         ],
         "tags": [
-          "crop-pest-entity-entity-controller"
+          "Crop disease data"
+        ]
+      }
+    },
+    "/api/v1/crop/disease/project/{project}": {
+      "get": {
+        "summary": "Get list of diseases by project name",
+        "operationId": "getDiseaseByProjectName",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageCropDiseaseEntity"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "project",
+            "required": true
+          }
+        ],
+        "tags": [
+          "Crop disease data"
         ]
       }
     }
   },
   "externalDocs": {
-    "description": "AgDxAPI Wiki Documentation",
-    "url": "https://springshop.wiki.github.org/docs"
+    "description": "AgDx API Wiki Documentation",
+    "url": "#"
   },
   "info": {
     "license": {
@@ -2470,6 +1985,16 @@
     },
     "description": "AgDx API facilitates sharing of crop pest and disease data between platforms and/or by providing links between complementary ICT tools where appropriate.",
     "title": "AgDx API",
-    "version": "1.0.1"
-  }
+    "version": "1.0.0-beta1"
+  },
+  "tags": [
+    {
+      "name": "Crop disease data",
+      "description": "Operations pertaining crop disease data"
+    },
+    {
+      "name": "Crop pest data",
+      "description": "Operations pertaining crop pest data"
+    }
+  ]
 }

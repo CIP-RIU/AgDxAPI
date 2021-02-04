@@ -7,8 +7,8 @@ buildscript {
 }
 
 plugins {
-    val kotlinVersion = "1.4.21"
-    val springVersion = "2.4.1"
+    val kotlinVersion = "1.4.30"
+    val springVersion = "2.4.2"
 
     id("org.springframework.boot") version springVersion apply false
     id("io.spring.dependency-management") version "1.0.10.RELEASE" apply false

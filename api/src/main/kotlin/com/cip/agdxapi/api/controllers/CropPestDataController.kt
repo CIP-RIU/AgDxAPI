@@ -7,6 +7,7 @@ import com.cip.agdxapi.enums.EnumPestCategory
 import com.cip.agdxapi.enums.EnumTreatmentStatus
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.Parameter
+import io.swagger.v3.oas.annotations.security.SecurityRequirement
 import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
@@ -28,6 +29,20 @@ class CropPestDataController(private val cropPestDataService: CropPestDataServic
         val pestData = cropPestDataService.addPest(pestEntity = pestEntity)
         return ResponseEntity<CropPestEntity>(pestData, HttpStatus.OK)
     }
+
+    @PutMapping("/update/{id}")
+    @SecurityRequirement(name = "api")
+    @Operation(summary = "Update crop pest record", description = "", tags = ["update-crop-pest"])
+    fun updatePestData(
+        @PathVariable id: Long,
+        @RequestBody pestEntity: CropPestEntity
+    ): ResponseEntity<CropPestEntity> {
+
+        val pestData = cropPestDataService.addPest(pestEntity = pestEntity)
+
+        return ResponseEntity<CropPestEntity>(pestData, HttpStatus.OK)
+    }
+
 
     @GetMapping
     @Operation(summary = "Return list of all pests", description = "", tags = ["crop-pest"])

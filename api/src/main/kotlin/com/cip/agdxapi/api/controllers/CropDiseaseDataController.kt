@@ -31,7 +31,7 @@ class CropDiseaseDataController(val cropDiseaseDataService: CropDiseaseDataServi
 
     @PutMapping("/update/{id}")
     @SecurityRequirement(name = "api")
-    @Operation(summary = "Update crop pest record", description = "", tags = ["update-crop-disease"])
+    @Operation(summary = "Update crop disease record", description = "", tags = ["update-crop-disease"])
     fun updatePestData(
         @PathVariable id: Long,
         @RequestBody cropDiseaseData: CropDiseaseEntity
