@@ -24,6 +24,8 @@
     <include file="changelog/20210203153317_add_crop_fk_to_cultivar_table.xml" relativeToChangelogFile="true"/>
 
     <include file="changelog/20210204091344_add_cultivar_id_column_to_crop_disease.xml" relativeToChangelogFile="true"/>
+    <include file="changelog/20210204114746_create_pests_table.xml" relativeToChangelogFile="true"/>
+    <include file="changelog/20210204120007_add_pest_id_to_crop_pest_table.xml" relativeToChangelogFile="true"/>
 
 
 </databaseChangeLog>

@@ -23,6 +23,7 @@ import java.time.LocalDate
 //@SecurityRequirement(name = "api")
 class CropPestDataController(private val cropPestDataService: CropPestDataService) {
 
+    @SecurityRequirement(name = "api")
     @PostMapping("/add")
     @Operation(summary = "Add new pest", description = "", tags = ["crop-pest"])
     fun addPestData(@RequestBody pestEntity: CropPestEntity): ResponseEntity<CropPestEntity> {
@@ -30,8 +31,8 @@ class CropPestDataController(private val cropPestDataService: CropPestDataServic
         return ResponseEntity<CropPestEntity>(pestData, HttpStatus.OK)
     }
 
-    @PutMapping("/update/{id}")
     @SecurityRequirement(name = "api")
+    @PutMapping("/update/{id}")
     @Operation(summary = "Update crop pest record", description = "", tags = ["update-crop-pest"])
     fun updatePestData(
         @PathVariable id: Long,
