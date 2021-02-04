@@ -3,9 +3,9 @@ package com.cip.agdxapi.enums
 import com.fasterxml.jackson.annotation.JsonProperty
 
 enum class EnumTreatmentStatus {
-    @JsonProperty("Undetected")
-    Undetected,
+    @JsonProperty("Treated")
+    Treated,
 
-    @JsonProperty("Detected")
-    Detected
+    @JsonProperty("Untreated")
+    Untreated
 }

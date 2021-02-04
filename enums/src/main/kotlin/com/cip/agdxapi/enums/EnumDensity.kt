@@ -3,9 +3,18 @@ package com.cip.agdxapi.enums
 import com.fasterxml.jackson.annotation.JsonProperty
 
 enum class EnumDensity {
-    @JsonProperty("Undetected")
-    UNDETECTED,
+    @JsonProperty("Low")
+    Low,
 
-    @JsonProperty("Detected")
-    DETECTED
+    @JsonProperty("Medium")
+    Medium,
+
+    @JsonProperty("High")
+    High,
+
+    @JsonProperty("Common")
+    Common,
+
+    @JsonProperty("Rare")
+    Rare
 }

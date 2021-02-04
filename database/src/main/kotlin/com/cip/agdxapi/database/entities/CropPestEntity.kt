@@ -1,9 +1,6 @@
 package com.cip.agdxapi.database.entities
 
-import com.cip.agdxapi.enums.EnumDensity
-import com.cip.agdxapi.enums.EnumDetectionStatus
-import com.cip.agdxapi.enums.EnumPestCategory
-import com.cip.agdxapi.enums.EnumTreatmentStatus
+import com.cip.agdxapi.enums.*
 import io.swagger.v3.oas.annotations.media.Schema
 import java.math.BigDecimal
 import java.time.LocalDate
@@ -120,9 +117,10 @@ class CropPestEntity : BaseEntity() {
     /**
      * Native or Introduced
      */
+    @Enumerated(EnumType.STRING)
     @Column(name = "pest_nativity")
     @Schema(description = "Pest nativity status", example = "Native")
-    var pestNativity: String? = null
+    var pestNativity: EnumNativity? = null
 
     /**
      * Detected, Undetected
@@ -137,7 +135,7 @@ class CropPestEntity : BaseEntity() {
      */
     @Enumerated(EnumType.STRING)
     @Column(name = "pest_category", columnDefinition = "TEXT")
-    @Schema(description = "Pest category", example = "Virus, Bacteria, Nematode, Plant, Insect")
+    @Schema(description = "Pest category", example = "Insect")
     var pestCategory: EnumPestCategory? = null
 
     /**

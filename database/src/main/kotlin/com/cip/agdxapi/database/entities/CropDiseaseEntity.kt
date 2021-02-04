@@ -1,6 +1,8 @@
 package com.cip.agdxapi.database.entities
 
 import com.cip.agdxapi.enums.EnumDetectionStatus
+import com.cip.agdxapi.enums.EnumNativity
+import com.cip.agdxapi.enums.EnumPathogenCategory
 import com.cip.agdxapi.enums.EnumTreatmentStatus
 import io.swagger.v3.oas.annotations.media.Schema
 import java.math.BigDecimal
@@ -106,9 +108,9 @@ class CropDiseaseEntity : BaseEntity() {
     @Deprecated("To be removed in the next update")
     var cultivarName: String? = null
 
-    @ManyToOne
-    @JoinColumn(name = "cultivar_id", nullable = false)
-    var cultivar: CropCultivarEntity? = null
+//    @ManyToOne
+//    @JoinColumn(name = "cultivar_id", nullable = false)
+//    var cultivar: CropCultivarEntity? = null
 
     @Column(name = "pathogen_common_name")
     @Schema(description = "Common pest name", example = "BXW")
@@ -121,9 +123,10 @@ class CropDiseaseEntity : BaseEntity() {
     /**
      * Native or Introduced
      */
+    @Enumerated(EnumType.STRING)
     @Column(name = "pathogen_nativity")
     @Schema(description = "Pest nativity status", example = "Introduced")
-    var pathogenNativity: String? = null
+    var pathogenNativity: EnumNativity? = null
 
     /**
      * Detected, Undetected
@@ -136,9 +139,10 @@ class CropDiseaseEntity : BaseEntity() {
     /**
      * Virus, Bacteria, Nematode
      */
+    @Enumerated(EnumType.STRING)
     @Column(name = "pathogen_category", columnDefinition = "TEXT")
-    @Schema(description = "Pathogen category", example = "Virus, Bacteria, Nematode, Plant, Insect")
-    var pathogenCategory: String? = null
+    @Schema(description = "Pathogen category", example = "Virus")
+    var pathogenCategory: EnumPathogenCategory? = null
 
     /**
      * Vector of the pathogen

@@ -4,6 +4,7 @@ trace: false
 server:
   port: 9100
 
+
 spring:
   jpa:
     open-in-view: false
@@ -18,7 +19,9 @@ spring:
     web:
       pageable:
         one-indexed-parameters: true
-
+  jackson:
+    mapper:
+      ACCEPT_CASE_INSENSITIVE_ENUMS: true
   mvc:
     format:
       date: yyyy-MM-dd
