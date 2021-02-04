@@ -89,18 +89,18 @@ class CropController(val cropDataService: CropDataService) {
 
         return ResponseEntity<Page<CropEntity>>(cropData, HttpStatus.OK)
     }
-
-    @GetMapping("/order/{order}")
-    @Operation(summary = "Get crops by order", description = "", tags = ["crop"])
-    fun getCropByOrder(
-        @PathVariable order: String,
-        @Parameter(hidden = true) pageable: Pageable
-    ): ResponseEntity<Page<CropEntity>> {
-
-        val cropData: Page<CropEntity> = cropDataService.getCrops(pageable)
-
-        return ResponseEntity<Page<CropEntity>>(cropData, HttpStatus.OK)
-    }
+//
+//    @GetMapping("/order/{order}")
+//    @Operation(summary = "Get crops by order", description = "", tags = ["crop"])
+//    fun getCropByOrder(
+//        @PathVariable order: String,
+//        @Parameter(hidden = true) pageable: Pageable
+//    ): ResponseEntity<Page<CropEntity>> {
+//
+//        val cropData: Page<CropEntity> = cropDataService.getCrops(pageable)
+//
+//        return ResponseEntity<Page<CropEntity>>(cropData, HttpStatus.OK)
+//    }
 
     @GetMapping("/family/{family}")
     @Operation(summary = "Get crops using family", description = "", tags = ["crop"])

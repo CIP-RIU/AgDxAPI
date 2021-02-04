@@ -69,7 +69,7 @@ class PestController {
 
     @GetMapping("/order/{order}")
     @Operation(summary = "Get pests using order", description = "", tags = ["pest"])
-    fun getCropByGenus(
+    fun getCropByOrder(
         @PathVariable order: String,
         @Parameter(hidden = true) pageable: Pageable
     ): ResponseEntity<Page<PestEntity>> {
@@ -83,6 +83,18 @@ class PestController {
     @Operation(summary = "Get pests using family", description = "", tags = ["pest"])
     fun getCropByFamily(
         @PathVariable family: String,
+        @Parameter(hidden = true) pageable: Pageable
+    ): ResponseEntity<Page<PestEntity>> {
+
+        val pestData: Page<PestEntity> = Page.empty()
+
+        return ResponseEntity<Page<PestEntity>>(pestData, HttpStatus.OK)
+    }
+
+    @GetMapping("/genus/{genus}")
+    @Operation(summary = "Get pests using genus", description = "", tags = ["pest"])
+    fun getCropByGenus(
+        @PathVariable genus: String,
         @Parameter(hidden = true) pageable: Pageable
     ): ResponseEntity<Page<PestEntity>> {
 
