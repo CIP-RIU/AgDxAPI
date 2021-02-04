@@ -9,7 +9,7 @@ openApi {
     apiDocsUrl.set("http://localhost:9200/agdx-api")
     outputDir.set(file("$projectDir/api-docs"))
     outputFileName.set("swagger.json")
-    waitTimeInSeconds.set(60)
+    waitTimeInSeconds.set(70)
     forkProperties.set("-Dserver.port=9200")
 }
 
