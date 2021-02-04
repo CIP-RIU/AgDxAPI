@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*
 
 @RequestMapping("api/v1/crop")
 @RestController
-@Tag(name = "Crop data", description = "Operations pertaining crop recorded")
+@Tag(name = "Crop data", description = "Operations pertaining crop")
 //@SecurityRequirement(name = "api")
 class CropController() {
 
@@ -22,9 +22,9 @@ class CropController() {
     @Operation(summary = "Add new crop", description = "", tags = ["add-crop"])
     fun addCropData(@RequestBody cropData: CropEntity): ResponseEntity<CropEntity> {
 
-        val pestData = CropEntity()
+        val cropData = CropEntity()
 
-        return ResponseEntity<CropEntity>(pestData, HttpStatus.OK)
+        return ResponseEntity<CropEntity>(cropData, HttpStatus.OK)
     }
 
     @SecurityRequirement(name = "api")
@@ -35,8 +35,7 @@ class CropController() {
         @RequestBody cropData: CropEntity
     ): ResponseEntity<CropEntity> {
 
-        val pestData = CropEntity()
-        return ResponseEntity<CropEntity>(pestData, HttpStatus.OK)
+        return ResponseEntity<CropEntity>(CropEntity(), HttpStatus.OK)
     }
 
     @GetMapping
@@ -70,7 +69,7 @@ class CropController() {
         return ResponseEntity<CropEntity>(CropEntity(), HttpStatus.OK)
     }
 
-    @GetMapping("/{ontologyId}/scientific")
+    @GetMapping("/ontology/{ontologyId}")
     @Operation(summary = "Get crops using ontology id", description = "", tags = ["crop"])
     fun getCropByOntologyId(
         @PathVariable ontologyId: String,

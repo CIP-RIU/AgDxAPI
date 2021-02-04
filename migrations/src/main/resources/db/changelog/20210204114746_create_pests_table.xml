@@ -24,6 +24,10 @@
 
             <column name="family" type="varchar(150)"/>
 
+            <column name="genus" type="varchar(150)"/>
+
+            <column name="category" type="varchar(150)"/>
+
         </createTable>
     </changeSet>
 </databaseChangeLog>

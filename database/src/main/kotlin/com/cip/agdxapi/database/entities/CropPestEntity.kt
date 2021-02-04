@@ -107,11 +107,11 @@ class CropPestEntity : BaseEntity() {
     var cultivarName: String? = null
 
     @Column(name = "pest_common_name")
-    @Schema(description = "Common pest name", example = "aphid")
+    @Schema(description = "Common pest name", example = "Wooly apple aphid")
     var pestCommonName: String? = null
 
     @Column(name = "pest_scientific_name")
-    @Schema(description = "Scientific pest name", example = "Acuticauda solidaginifoliae")
+    @Schema(description = "Scientific pest name", example = "Eriosoma lanigerum")
     var pestScientificName: String? = null
 
     /**
