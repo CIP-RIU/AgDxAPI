@@ -28,7 +28,7 @@ class PestController {
     @SecurityRequirement(name = "api")
     @PutMapping("/update/{id}")
     @Operation(summary = "Update pest record", description = "", tags = ["update-pest"])
-    fun updateCropData(
+    fun updatePestData(
         @PathVariable id: Long,
         @RequestBody pestData: PestEntity
     ): ResponseEntity<PestEntity> {
@@ -38,7 +38,7 @@ class PestController {
 
     @GetMapping
     @Operation(summary = "Return list of all pests", description = "", tags = ["pest"])
-    fun getCropList(@Parameter(hidden = true) pageable: Pageable): ResponseEntity<Page<PestEntity>> {
+    fun getPestList(@Parameter(hidden = true) pageable: Pageable): ResponseEntity<Page<PestEntity>> {
 
         val pestData: Page<PestEntity> = Page.empty()
 
@@ -47,7 +47,7 @@ class PestController {
 
     @GetMapping("/{pestName}/common")
     @Operation(summary = "Get pests using common name", description = "", tags = ["pest"])
-    fun getCropByCommonName(
+    fun getPestByCommonName(
         @PathVariable pestName: String,
         @Parameter(hidden = true) pageable: Pageable
     ): ResponseEntity<Page<PestEntity>> {
@@ -59,7 +59,7 @@ class PestController {
 
     @GetMapping("/{pestName}/scientific")
     @Operation(summary = "Get pests using scientific name", description = "", tags = ["pest"])
-    fun getCropByScientificName(
+    fun getPestByScientificName(
         @PathVariable pestName: String,
         @Parameter(hidden = true) pageable: Pageable
     ): ResponseEntity<PestEntity> {
@@ -69,7 +69,7 @@ class PestController {
 
     @GetMapping("/order/{order}")
     @Operation(summary = "Get pests using order", description = "", tags = ["pest"])
-    fun getCropByOrder(
+    fun getPestByOrder(
         @PathVariable order: String,
         @Parameter(hidden = true) pageable: Pageable
     ): ResponseEntity<Page<PestEntity>> {
@@ -81,7 +81,7 @@ class PestController {
 
     @GetMapping("/family/{family}")
     @Operation(summary = "Get pests using family", description = "", tags = ["pest"])
-    fun getCropByFamily(
+    fun getPestByFamily(
         @PathVariable family: String,
         @Parameter(hidden = true) pageable: Pageable
     ): ResponseEntity<Page<PestEntity>> {
@@ -93,7 +93,7 @@ class PestController {
 
     @GetMapping("/genus/{genus}")
     @Operation(summary = "Get pests using genus", description = "", tags = ["pest"])
-    fun getCropByGenus(
+    fun getPestByGenus(
         @PathVariable genus: String,
         @Parameter(hidden = true) pageable: Pageable
     ): ResponseEntity<Page<PestEntity>> {
