@@ -4,8 +4,8 @@ import com.fasterxml.jackson.annotation.JsonProperty
 
 enum class EnumDetectionStatus {
     @JsonProperty("Undetected")
-    UNDETECTED,
+    Undetected,
 
     @JsonProperty("Detected")
-    DETECTED
+    Detected
 }

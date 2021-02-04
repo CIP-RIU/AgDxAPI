@@ -1,10 +1,9 @@
 package com.cip.agdxapi.database.entities
 
-import com.cip.agdxapi.database.entities.BaseEntity
 import com.cip.agdxapi.enums.EnumDensity
 import com.cip.agdxapi.enums.EnumDetectionStatus
 import com.cip.agdxapi.enums.EnumPestCategory
-import com.cip.agdxapi.enums.EnumStatus
+import com.cip.agdxapi.enums.EnumTreatmentStatus
 import io.swagger.v3.oas.annotations.media.Schema
 import java.math.BigDecimal
 import java.time.LocalDate
@@ -169,7 +168,7 @@ class CropPestEntity : BaseEntity() {
     @Enumerated(EnumType.STRING)
     @Column(name = "pest_status", columnDefinition = "TEXT")
     @Schema(description = "management status of the pest at time of recording (Treated, Untreated)", example = "Treated")
-    var pestStatus: EnumStatus? = null
+    var pestTreatmentStatus: EnumTreatmentStatus? = null
 
     /**
      * Vector of the pest

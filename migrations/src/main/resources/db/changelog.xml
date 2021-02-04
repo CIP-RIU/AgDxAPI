@@ -23,5 +23,7 @@
     <include file="changelog/20210203150302_create_crop_cultivar_table.xml" relativeToChangelogFile="true"/>
     <include file="changelog/20210203153317_add_crop_fk_to_cultivar_table.xml" relativeToChangelogFile="true"/>
 
+    <include file="changelog/20210204091344_add_cultivar_id_column_to_crop_disease.xml" relativeToChangelogFile="true"/>
+
 
 </databaseChangeLog>

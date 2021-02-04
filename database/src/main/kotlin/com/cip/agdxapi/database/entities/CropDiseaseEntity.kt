@@ -1,12 +1,15 @@
 package com.cip.agdxapi.database.entities
 
-import com.cip.agdxapi.database.entities.BaseEntity
 import com.cip.agdxapi.enums.EnumDetectionStatus
-import com.cip.agdxapi.enums.EnumStatus
+import com.cip.agdxapi.enums.EnumTreatmentStatus
 import io.swagger.v3.oas.annotations.media.Schema
 import java.math.BigDecimal
 import java.time.LocalDate
 import javax.persistence.*
+import javax.persistence.JoinColumn
+
+
+
 
 /**
  * Pertains to crop disease data
@@ -95,11 +98,17 @@ class CropDiseaseEntity : BaseEntity() {
 
     @Column(name = "crop_name")
     @Schema(description = "Crop name", example = "Banana")
+    @Deprecated("To be removed in the next update")
     var cropName: String? = null
 
     @Column(name = "cultivar_name")
     @Schema(description = "Crop cultivar", example = "TMS 90257")
+    @Deprecated("To be removed in the next update")
     var cultivarName: String? = null
+
+    @ManyToOne
+    @JoinColumn(name = "cultivar_id", nullable = false)
+    var cultivar: CropCultivarEntity? = null
 
     @Column(name = "pathogen_common_name")
     @Schema(description = "Common pest name", example = "BXW")
@@ -151,7 +160,7 @@ class CropDiseaseEntity : BaseEntity() {
     @Enumerated(EnumType.STRING)
     @Column(name = "pathogen_status", columnDefinition = "TEXT")
     @Schema(description = "management status of the pathogen at time of recording (Treated, Untreated)", example = "Treated")
-    var pathogenStatus: EnumStatus? = null
+    var pathogenTreatmentStatus: EnumTreatmentStatus? = null
 
     /**
      * This can contain multiple verification methods

@@ -4,7 +4,7 @@ import com.cip.agdxapi.core.service.CropPestDataService
 import com.cip.agdxapi.database.entities.CropPestEntity
 import com.cip.agdxapi.enums.EnumDetectionStatus
 import com.cip.agdxapi.enums.EnumPestCategory
-import com.cip.agdxapi.enums.EnumStatus
+import com.cip.agdxapi.enums.EnumTreatmentStatus
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.Parameter
 import io.swagger.v3.oas.annotations.tags.Tag
@@ -154,7 +154,7 @@ class CropPestDataController(private val cropPestDataService: CropPestDataServic
     @GetMapping("/management-status/{status}")
     @Operation(summary = "Get pests by management status", description = "", tags = ["status", "managment"])
     fun getPestByManagementStatus(
-        @PathVariable status: EnumStatus,
+        @PathVariable status: EnumTreatmentStatus,
         @Parameter(hidden = true) pageable: Pageable
     ): ResponseEntity<Page<CropPestEntity>> {
         val pestData: Page<CropPestEntity> = Page.empty()

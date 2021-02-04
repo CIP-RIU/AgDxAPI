@@ -2,12 +2,9 @@ package com.cip.agdxapi.api.controllers
 
 import com.cip.agdxapi.core.service.CropDiseaseDataService
 import com.cip.agdxapi.database.entities.CropDiseaseEntity
-import com.cip.agdxapi.enums.EnumNameType
-import com.cip.agdxapi.enums.EnumNativity
-import com.cip.agdxapi.enums.EnumStatus
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.Parameter
-import io.swagger.v3.oas.annotations.media.ExampleObject
+import io.swagger.v3.oas.annotations.security.SecurityRequirement
 import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
@@ -23,14 +20,27 @@ import java.time.LocalDate
 //@SecurityRequirement(name = "api")
 class CropDiseaseDataController(val cropDiseaseDataService: CropDiseaseDataService) {
 
-//    @PostMapping
-//    @Operation(summary = "Add new crop disease record", description = "", tags = ["crop-disease"])
-//    fun addPestData(@RequestBody cropDiseaseData: CropDiseaseEntity): ResponseEntity<CropDiseaseEntity> {
-//
-//        val pestData = cropDiseaseDataService.addCropDisease(cropDiseaseData = cropDiseaseData)
-//
-//        return ResponseEntity<CropDiseaseEntity>(pestData, HttpStatus.OK)
-//    }
+    @PostMapping("/add")
+    @Operation(summary = "Add new crop pest record", description = "", tags = ["crop-disease"])
+    fun addPestData(@RequestBody cropDiseaseData: CropDiseaseEntity): ResponseEntity<CropDiseaseEntity> {
+
+        val pestData = cropDiseaseDataService.addCropDisease(cropDiseaseData = cropDiseaseData)
+
+        return ResponseEntity<CropDiseaseEntity>(pestData, HttpStatus.OK)
+    }
+
+    @PutMapping("/update/{id}")
+    @SecurityRequirement(name = "api")
+    @Operation(summary = "Update crop pest record", description = "", tags = ["crop-disease"])
+    fun updatePestData(
+        @PathVariable id: Long,
+        @RequestBody cropDiseaseData: CropDiseaseEntity
+    ): ResponseEntity<CropDiseaseEntity> {
+
+        val pestData = cropDiseaseDataService.addCropDisease(cropDiseaseData = cropDiseaseData)
+
+        return ResponseEntity<CropDiseaseEntity>(pestData, HttpStatus.OK)
+    }
 
     @GetMapping
     @Operation(summary = "Return list of all diseases", description = "", tags = ["crop-disease"])
