@@ -7,12 +7,15 @@ buildscript {
 }
 
 plugins {
-    val kotlinVersion = "1.4.21"
-    val springVersion = "2.4.1"
+    val kotlinVersion = "1.4.30"
+    val springVersion = "2.4.2"
 
     id("org.springframework.boot") version springVersion apply false
     id("io.spring.dependency-management") version "1.0.10.RELEASE" apply false
     id("name.remal.check-updates") version "1.0.211" apply false
+
+    id("com.github.johnrengelman.processes") version "0.5.0" apply false
+    id("org.springdoc.openapi-gradle-plugin") version "1.3.0" apply false
 
 
     kotlin("jvm") version kotlinVersion apply false
@@ -21,7 +24,7 @@ plugins {
 }
 allprojects {
     group = "com.cip"
-    version = "1.0.0"
+    version = "1.0.0-beta1"
 
     tasks.withType<JavaCompile> {
         sourceCompatibility = "14"
@@ -51,5 +54,7 @@ subprojects {
     apply {
         plugin("io.spring.dependency-management")
         plugin("name.remal.check-updates")
+        plugin("com.github.johnrengelman.processes")
+        plugin("org.springdoc.openapi-gradle-plugin")
     }
 }

@@ -16,7 +16,7 @@ tasks.getByName<Jar>("jar") {
 
 
 dependencies {
-    val springDoc  = "1.5.2"
+
 
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
 
@@ -29,16 +29,14 @@ dependencies {
 
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-actuator")
+
     api("org.springframework.boot:spring-boot-starter-validation")
-    api("org.springframework.boot:spring-boot-starter-security")
-//    implementation("org.springframework.boot:spring-boot-starter-security")
-//    api("org.springframework.boot:spring-boot-starter-data-rest")
+//    api("org.springframework.boot:spring-boot-starter-security")
     api("com.fasterxml.jackson.module:jackson-module-kotlin")
 
     api("com.github.rozidan:modelmapper-spring-boot-starter:2.3.1")
 
-    api("org.springdoc:springdoc-openapi-ui:${springDoc}")
-    api("org.springdoc:springdoc-openapi-kotlin:${springDoc}")
+
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
 //    testImplementation("org.springframework.security:spring-security-test")

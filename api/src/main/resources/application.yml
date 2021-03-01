@@ -19,19 +19,31 @@ spring:
     web:
       pageable:
         one-indexed-parameters: true
+  jackson:
+    mapper:
+      ACCEPT_CASE_INSENSITIVE_ENUMS: true
+  mvc:
+    format:
+      date: yyyy-MM-dd
+      date-time: yyyy-MM-dd HH:mm:ss
+      time: HH:mm:ss
 
 springdoc:
   show-actuator: true
+  default-produces-media-type: "application/json"
+  #  pathsToMatch: /api/v1/**, /actuator/**
   pathsToMatch: /api/v1/**
   api-docs:
-    path: /agdxapi
+    path: /agdx-api
+    groups:
+      enabled: false
   swagger-ui:
-#    tags-sorter: alpha
-    operations-sorter: alpha
+    tags-sorter: alpha
+#    operations-sorter: alpha
 
 cip:
-  name: 'AgDxAPI'
-  version: '1.0.0'
+  name: 'AgDx API'
+  version: '1.0.0-beta1'
   desc: 'Description here'
-  externaldoc: '1.0.0'
-  license: '1.0.0'
+  externaldoc: '1.0.0-beta1'
+  license: '1.0.0-beta1'

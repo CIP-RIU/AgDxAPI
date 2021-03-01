@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet id="20210204114746" author="smbar" labels="agdxapi">
+        <createTable tableName="pest">
+
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" primaryKeyName="pk-pest-id" nullable="false"/>
+            </column>
+
+            <column name="common_name" type="varchar(150)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="scientific_name" type="varchar(150)">
+                <constraints nullable="false"/>
+            </column>
+
+
+            <column name="order" type="varchar(150)"/>
+
+            <column name="family" type="varchar(150)"/>
+
+            <column name="genus" type="varchar(150)"/>
+
+            <column name="category" type="varchar(150)"/>
+
+        </createTable>
+    </changeSet>
+</databaseChangeLog>

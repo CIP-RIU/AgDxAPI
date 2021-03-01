@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet id="20210204091344" author="smbar" labels="agdxapi">
+        <addColumn tableName="crop_pests">
+            <column name="cultivar_id" type="bigint" afterColumn="id" beforeColumn="country_code"
+                    remarks="References the cultivar type in the cultivar table"/>
+        </addColumn>
+    </changeSet>
+</databaseChangeLog>

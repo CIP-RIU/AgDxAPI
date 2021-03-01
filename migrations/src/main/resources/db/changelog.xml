@@ -4,15 +4,33 @@
         xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
 
-        <include file="changelog/20210111115117_create_source_data_table.xml" relativeToChangelogFile="true"/>
+    <include file="changelog/20210111115117_create_source_data_table.xml" relativeToChangelogFile="true"/>
 
-        <include file="changelog/20210113113700_modify_area_unit_data_type.xml" relativeToChangelogFile="true"/>
-        <include file="changelog/20210113124428_modify_datetime_to_date_columns.xml" relativeToChangelogFile="true"/>
-        <include file="changelog/20210113130253_modify_alt_column_data_precision.xml" relativeToChangelogFile="true"/>
-        <include file="changelog/20210113130356_modify_accuracy_column_data_precision.xml" relativeToChangelogFile="true"/>
-        <include file="changelog/20210113144359_create_api_users_table.xml" relativeToChangelogFile="true"/>
-        <include file="changelog/20210113150543_create_authorities_table.xml" relativeToChangelogFile="true"/>
-        <include file="changelog/20210113150831_add_unique_index_to_authorities_table.xml" relativeToChangelogFile="true"/>
+    <include file="changelog/20210113113700_modify_area_unit_data_type.xml" relativeToChangelogFile="true"/>
+    <include file="changelog/20210113124428_modify_datetime_to_date_columns.xml" relativeToChangelogFile="true"/>
+    <include file="changelog/20210113130253_modify_alt_column_data_precision.xml" relativeToChangelogFile="true"/>
+    <include file="changelog/20210113130356_modify_accuracy_column_data_precision.xml" relativeToChangelogFile="true"/>
+<!--    <include file="changelog/20210113144359_create_api_users_table.xml" relativeToChangelogFile="true"/>-->
+<!--    <include file="changelog/20210113150543_create_authorities_table.xml" relativeToChangelogFile="true"/>-->
+<!--    <include file="changelog/20210113150831_add_unique_index_to_authorities_table.xml" relativeToChangelogFile="true"/>-->
+
+    <include file="changelog/20210125110308_create_crop_disease_table.xml" relativeToChangelogFile="true"/>
+    <include file="changelog/20210125110309_create_crop_pests_table.xml" relativeToChangelogFile="true"/>
+
+    <include file="changelog/20210125135123_rename_crop_disease_table.xml" relativeToChangelogFile="true"/>
+
+    <include file="changelog/20210203150254_create_crop_table.xml" relativeToChangelogFile="true"/>
+    <include file="changelog/20210203150302_create_crop_cultivar_table.xml" relativeToChangelogFile="true"/>
+    <include file="changelog/20210203153317_add_crop_fk_to_cultivar_table.xml" relativeToChangelogFile="true"/>
+
+    <include file="changelog/20210204091344_add_cultivar_id_column_to_crop_disease.xml" relativeToChangelogFile="true"/>
+    <include file="changelog/20210204091344_add_cultivar_id_column_to_crop_pests.xml" relativeToChangelogFile="true"/>
+    <include file="changelog/20210204114746_create_pests_table.xml" relativeToChangelogFile="true"/>
+    <include file="changelog/20210204120007_add_pest_id_to_crop_pest_table.xml" relativeToChangelogFile="true"/>
+    <include file="changelog/20210204130732_crop_common_data_table.xml" relativeToChangelogFile="true"/>
+    <include file="changelog/20210204141519_add_pest_fk_to_crop_pests_table.xml" relativeToChangelogFile="true"/>
+    <include file="changelog/20210204141538_add_cultivar_fk_to_crop_disease_table.xml" relativeToChangelogFile="true"/>
+    <include file="changelog/20210204142039_add_cultivar_fk_to_crop_pest_table.xml" relativeToChangelogFile="true"/>
 
 
 </databaseChangeLog>
