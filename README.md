@@ -73,7 +73,7 @@ This research was undertaken as part of, and funded by, the CGIAR Research Progr
 
 ## Dependencies
 
-- JDK 15
+- JDK 14
 
 ## Tools used
 - Gradle
