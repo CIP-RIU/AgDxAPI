@@ -14,10 +14,9 @@ import org.springframework.web.bind.annotation.*
 @RequestMapping("api/v1/pest")
 @RestController
 @Tag(name = "Pest data", description = "Operations pertaining pests")
-//@SecurityRequirement(name = "api")
+@SecurityRequirement(name = "api")
 class PestController {
 
-    @SecurityRequirement(name = "api")
     @PostMapping("/add")
     @Operation(summary = "Add new pest", description = "", tags = ["add-pest"])
     fun addPestData(@RequestBody pestData: PestEntity): ResponseEntity<PestEntity> {
@@ -25,7 +24,6 @@ class PestController {
         return ResponseEntity<PestEntity>(PestEntity(), HttpStatus.OK)
     }
 
-    @SecurityRequirement(name = "api")
     @PutMapping("/update/{id}")
     @Operation(summary = "Update pest record", description = "", tags = ["update-pest"])
     fun updatePestData(
