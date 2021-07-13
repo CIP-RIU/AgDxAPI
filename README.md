@@ -1,19 +1,18 @@
 # Table of contents
 
 - [Crop Pest and Disease Data API (AgDxAPI)](#crop-pest-and-disease-data-api-agdxapi)
-   - [Background](#background)
-   - [Objectives:](#objectives)
-   - [Funding](#funding)
-   - [Tasks](#tasks)
-   - [Deliverables](#deliverables)
-   - [Versions](#versions)
-   - [Dependencies](#dependencies)
-   - [Tools used](#tools-used)
+    - [Background](#background)
+    - [Objectives:](#objectives)
+    - [Funding](#funding)
+    - [Tasks](#tasks)
+    - [Deliverables](#deliverables)
+    - [Versions](#versions)
+    - [Dependencies](#dependencies)
+    - [Tools used](#tools-used)
 - [Development setup](#development-setup)
-   - [Setup IntelliJ](#setup-intellij)
-   - [Migration](#migration)
-   - [API Explorer](#api-explorer)
-
+    - [Setup IntelliJ](#setup-intellij)
+    - [Migration](#migration)
+    - [API Explorer](#api-explorer)
 
 # Crop Pest and Disease Data API (AgDxAPI)
 
@@ -38,6 +37,7 @@ Collaboration among a community of developers of pest and disease databases and 
 It will build on existing data standards for Agriculture, such as the Crop and Agronomy ontologies.
 
 ## Funding
+
 This research was undertaken as part of, and funded by, the CGIAR Research Program on Roots, Tubes and Bananas (RTB) and supported by
 [**CGIAR Trust Fund contributors.**](https://www.cgiar.org/funders/)
 
@@ -61,6 +61,7 @@ This research was undertaken as part of, and funded by, the CGIAR Research Progr
 4. [ ] Documentation of the **AgDxAPI** including on online API documentation systems such as Apiary and Swagger
 
 ---
+
 ## Versions
 
 ### V1
@@ -76,6 +77,7 @@ This research was undertaken as part of, and funded by, the CGIAR Research Progr
 - JDK 14
 
 ## Tools used
+
 - Gradle
 - Kotlin
 
@@ -121,6 +123,12 @@ argument:
 ```
 
 > Remember to add the changelog file to the `changelog.xml` file
+
+### Generate Swagerjson file
+
+```bash
+  ./gradlew :api:generateOpenApiDocs
+```
 
 ### To override default java version without messing with your machine paths and ENV
 
