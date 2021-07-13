@@ -145,3 +145,20 @@ Change the path according to your JDK installation
 To explore the api endpoints refer to this [**LINK**](https://app.swaggerhub.com/apis/masgeek/agdxapi).
 
 ### Apiary
+
+## Other tools
+
+### generate api HTML
+```bash
+  npm install -g redoc-cli
+
+  redoc-cli bundle -o .\docs\index.html .\api\docs\swagger.json
+```
+
+### generate markdown files
+
+```bash
+  npm install -g openapi-to-md
+
+  openapi-to-md .\api\docs\swagger.json > .\docs\API.MD
+```
