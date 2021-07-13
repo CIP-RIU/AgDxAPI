@@ -1,5 +1,5 @@
 debug: ${DEBUG:false}
-trace: false
+trace: ${TRACE:false}
 
 server:
   port: 9100
@@ -36,14 +36,14 @@ springdoc:
   api-docs:
     path: /agdx-api
     groups:
-      enabled: false
+      enabled: true
   swagger-ui:
     tags-sorter: alpha
 #    operations-sorter: alpha
 
 cip:
   name: 'AgDx API'
-  version: '1.0.0-beta1'
+  version: '0.0.1'
   desc: 'Description here'
-  externaldoc: '1.0.0-beta1'
-  license: '1.0.0-beta1'
+  externaldoc: ${cip.version}
+  license: ${cip.version}
