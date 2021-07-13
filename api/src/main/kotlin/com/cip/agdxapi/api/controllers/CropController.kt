@@ -15,10 +15,10 @@ import org.springframework.web.bind.annotation.*
 @RequestMapping("api/v1/crop")
 @RestController
 @Tag(name = "Crop data", description = "Operations pertaining crop")
-//@SecurityRequirement(name = "api")
+@SecurityRequirement(name = "api")
 class CropController(val cropDataService: CropDataService) {
 
-    @SecurityRequirement(name = "api")
+
     @PostMapping("/add")
     @Operation(summary = "Add new crop", description = "", tags = ["add-crop"])
     fun addCropData(@RequestBody cropData: CropEntity): ResponseEntity<CropEntity> {
@@ -26,7 +26,6 @@ class CropController(val cropDataService: CropDataService) {
         return ResponseEntity<CropEntity>(CropEntity(), HttpStatus.OK)
     }
 
-    @SecurityRequirement(name = "api")
     @PutMapping("/update/{id}")
     @Operation(summary = "Update crop record", description = "", tags = ["update-crop"])
     fun updateCropData(

@@ -7,7 +7,7 @@ plugins {
 
 openApi {
     apiDocsUrl.set("http://localhost:9200/agdx-api")
-    outputDir.set(file("$projectDir/api-docs"))
+    outputDir.set(file("docs"))
     outputFileName.set("swagger.json")
     waitTimeInSeconds.set(70)
     forkProperties.set("-Dserver.port=9200")
