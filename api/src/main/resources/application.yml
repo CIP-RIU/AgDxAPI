@@ -43,7 +43,7 @@ springdoc:
 
 cip:
   name: 'AgDx API'
-  version: '0.0.1'
+  version: ${VERSION:'0.0.2'}
   desc: 'Description here'
   externaldoc: ${cip.version}
   license: ${cip.version}
