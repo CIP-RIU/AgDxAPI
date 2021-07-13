@@ -13,7 +13,7 @@
    - [Setup IntelliJ](#setup-intellij)
    - [Migration](#migration)
    - [API Explorer](#api-explorer)
-   
+
 
 # Crop Pest and Disease Data API (AgDxAPI)
 
@@ -97,7 +97,7 @@ To switch the environment in dev mode adjust these basic parameters
 
 ```
 SPRING_PROFILES_ACTIVE=dev;DB_URL=jdbc:postgresql://localhost:5432/postgres;DB_USER=user;DB_PASS=pass
-``` 
+```
 
 ## Migration
 
