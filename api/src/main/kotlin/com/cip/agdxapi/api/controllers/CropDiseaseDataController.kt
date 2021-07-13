@@ -17,10 +17,9 @@ import java.time.LocalDate
 @RequestMapping("api/v1/crop/disease")
 @RestController
 @Tag(name = "Crop disease data", description = "Operations pertaining crop disease data")
-//@SecurityRequirement(name = "api")
+@SecurityRequirement(name = "api")
 class CropDiseaseDataController(val cropDiseaseDataService: CropDiseaseDataService) {
 
-    @SecurityRequirement(name = "api")
     @PostMapping("/add")
     @Operation(summary = "Add new crop pest record", description = "", tags = ["add-crop-disease"])
     fun addPestData(@RequestBody cropDiseaseData: CropDiseaseEntity): ResponseEntity<CropDiseaseEntity> {
@@ -30,7 +29,6 @@ class CropDiseaseDataController(val cropDiseaseDataService: CropDiseaseDataServi
         return ResponseEntity<CropDiseaseEntity>(pestData, HttpStatus.OK)
     }
 
-    @SecurityRequirement(name = "api")
     @PutMapping("/update/{id}")
     @Operation(summary = "Update crop disease record", description = "", tags = ["update-crop-disease"])
     fun updatePestData(
