@@ -21,6 +21,7 @@ dependencies {
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
 
     implementation(project(":database"))
+    implementation(project(":enums"))
 
 
     implementation(kotlin("reflect"))
