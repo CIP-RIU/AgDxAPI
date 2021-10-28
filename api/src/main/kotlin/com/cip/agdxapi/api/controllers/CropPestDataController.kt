@@ -2,6 +2,7 @@ package com.cip.agdxapi.api.controllers
 
 import com.cip.agdxapi.core.dto.PestDataDto
 import com.cip.agdxapi.core.geojson.DiseaseFeatureCollection
+import com.cip.agdxapi.core.geojson.PestFeatureCollection
 import com.cip.agdxapi.core.service.CropPestDataService
 import com.cip.agdxapi.database.entities.CropPestEntity
 import com.cip.agdxapi.enums.EnumDetectionStatus
@@ -46,16 +47,8 @@ class CropPestDataController(private val cropPestDataService: CropPestDataServic
 
     @GetMapping
     @Operation(summary = "Return list of all pests", description = "", tags = ["crop-pest"])
-    fun pestList(@Parameter(hidden = true) pageable: Pageable): ResponseEntity<DiseaseFeatureCollection> {
-        val pestData: DiseaseFeatureCollection = cropPestDataService.getPestList(pageable)
-
-        return ResponseEntity(pestData, HttpStatus.OK)
-    }
-
-    @GetMapping("/all")
-    @Operation(summary = "Return list of all pests", description = "", tags = ["crop-pest"])
-    fun getPests(@Parameter(hidden = true) pageable: Pageable): ResponseEntity<Page<PestDataDto>> {
-        val pestData: Page<PestDataDto> = cropPestDataService.getPests(pageable)
+    fun pestList(@Parameter(hidden = true) pageable: Pageable): ResponseEntity<PestFeatureCollection> {
+        val pestData = cropPestDataService.getPestList(pageable)
 
         return ResponseEntity(pestData, HttpStatus.OK)
     }
