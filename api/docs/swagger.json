@@ -1264,6 +1264,25 @@
       }
     },
     "securitySchemes": {
+      "api": {
+        "type": "oauth2",
+        "flows": {
+          "implicit": {
+            "authorizationUrl": "https://example.org/oauth/dialog",
+            "scopes": {
+              "write:pests": "modify pests in your database",
+              "read:pests": "read pests in your database",
+              "write:diseases": "modify diseases in your database",
+              "read:diseases": "read diseases in your database"
+            }
+          }
+        }
+      },
+      "bearer": {
+        "type": "apiKey",
+        "name": "bearer",
+        "in": "header"
+      },
       "jwt": {
         "bearerFormat": "JWT",
         "scheme": "bearer",
@@ -1271,12 +1290,6 @@
         "name": "Authorization",
         "type": "http"
       },
-      "api": {
-        "scheme": "basic",
-        "in": "header",
-        "name": "Authorization",
-        "type": "http"
-      }
     }
   },
   "servers": [
