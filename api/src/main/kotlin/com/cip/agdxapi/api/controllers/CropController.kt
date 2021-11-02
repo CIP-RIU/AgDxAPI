@@ -12,10 +12,10 @@ import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
-//@RequestMapping("api/v1/crop")
-//@RestController
-//@Tag(name = "Crop data", description = "Operations pertaining crop")
-//@SecurityRequirement(name = "api")
+@RequestMapping("api/v1/crop")
+@RestController
+@Tag(name = "Crop data", description = "Operations pertaining crop")
+@SecurityRequirement(name = "api")
 class CropController(val cropDataService: CropDataService) {
 
 

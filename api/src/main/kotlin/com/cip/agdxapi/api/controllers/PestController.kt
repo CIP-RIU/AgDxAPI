@@ -11,10 +11,10 @@ import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
-//@RequestMapping("api/v1/pest")
-//@RestController
-//@Tag(name = "Pest data", description = "Operations pertaining pests")
-//@SecurityRequirement(name = "api")
+@RequestMapping("api/v1/pest")
+@RestController
+@Tag(name = "Pest data", description = "Operations pertaining pests")
+@SecurityRequirement(name = "api")
 class PestController {
 
     @PostMapping("/add")

@@ -18,7 +18,7 @@ import java.time.LocalDate
 @RequestMapping("api/v1/crop/disease")
 @RestController
 @Tag(name = "Crop diseases", description = "Operations pertaining crop disease")
-//@SecurityRequirement(name = "api")
+@SecurityRequirement(name = "api")
 class CropDiseaseDataController(val cropDiseaseDataService: CropDiseaseDataService) {
 
     @PostMapping("/add")
