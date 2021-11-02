@@ -6,9 +6,9 @@ import org.modelmapper.convention.MatchingStrategies
 object MyModelMapper : ModelMapper() {
 
     fun init(): MyModelMapper {
-        configuration.isSkipNullEnabled = true
+        configuration.isSkipNullEnabled = false
         configuration.propertyCondition
-        configuration.matchingStrategy = MatchingStrategies.STRICT
+        configuration.matchingStrategy = MatchingStrategies.STANDARD
 
         return this
     }

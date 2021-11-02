@@ -1,12 +1,17 @@
 package com.cip.agdxapi.core.service
 
+import com.cip.agdxapi.core.dto.DiseaseDataDto
+import com.cip.agdxapi.core.geojson.*
 import com.cip.agdxapi.core.utils.MyModelMapper
 import com.cip.agdxapi.database.entities.CropDiseaseEntity
+import com.cip.agdxapi.database.entities.CropPestEntity
 import com.cip.agdxapi.database.repos.CropDiseaseRepo
+import com.cip.agdxapi.enums.EnumCoordinateType
 import org.slf4j.LoggerFactory
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
+import java.math.BigDecimal
 
 @Service
 class CropDiseaseDataService
@@ -16,11 +21,6 @@ constructor(val cropDiseaseRepo: CropDiseaseRepo) {
 
     private val modelMapper = MyModelMapper.init()
 
-    fun getDiseaseData(pageable: Pageable): Page<CropDiseaseEntity> {
-        logger.info("Fetching disease data")
-        return cropDiseaseRepo.findAll(pageable)
-    }
-
     fun addCropDisease(cropDiseaseData: CropDiseaseEntity): CropDiseaseEntity {
         val entity = modelMapper.map(cropDiseaseData, CropDiseaseEntity::class.java)
 
@@ -28,4 +28,39 @@ constructor(val cropDiseaseRepo: CropDiseaseRepo) {
         return cropDiseaseRepo.save(entity)
     }
 
+    fun getDiseaseData(pageable: Pageable): DiseaseFeatureCollection {
+        logger.info("Fetching disease data")
+        val diseaseList = cropDiseaseRepo.findAll()
+
+        return buildGeoJson(diseaseList)
+    }
+
+    private fun buildGeoJson(diseaseList: List<CropDiseaseEntity>): DiseaseFeatureCollection {
+        val featureCollection = DiseaseFeatureCollection()
+        val featureList = mutableListOf<DiseaseFeature>()
+        diseaseList.map { data ->
+            val feature = DiseaseFeature();
+            val geometry = Geometry()
+            geometry.altitude = data.alt
+            geometry.locationLevel1 = data.locationLevel1
+            geometry.locationLevel2 = data.locationLevel2
+            geometry.locationLevel3 = data.locationLevel3
+            geometry.type = EnumCoordinateType.Point
+
+            val coordinates = mutableListOf<BigDecimal>()
+            coordinates.add(data.lon!!)
+            coordinates.add(data.lat!!)
+            coordinates.add(data.alt!!)
+            geometry.coordinates = coordinates
+
+            feature.geometry = geometry
+
+            val cropPestDto = modelMapper.map(data, DiseaseDataDto::class.java)
+            feature.properties = cropPestDto
+            featureList.add(feature)
+            featureList
+        }
+        featureCollection.features = featureList
+        return featureCollection
+    }
 }

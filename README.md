@@ -64,11 +64,18 @@ This research was undertaken as part of, and funded by, the CGIAR Research Progr
 
 ## Versions
 
-### V1
+### v0.xx
 
 | Version       | Status      | Release Date | SwaggerHub   | Notes |
 |---------------|-------------|--------------|-----------|-------|
-| V 0.0.1 | Development | Feb 04, 2021 | [**LINK**](https://app.swaggerhub.com/apis/masgeek/agdxapi)|       |
+| v0.0.1 | Development | Feb 04, 2021 | [**LINK**](https://app.swaggerhub.com/apis/masgeek/agdxapi/0.0.1)|       |
+| v0.0.2 | Development | Jul 13, 2021 | [**LINK**](https://app.swaggerhub.com/apis/masgeek/agdxapi/0.0.2)|       |
+
+### v1.xx
+
+| Version       | Status      | Release Date | SwaggerHub   | Notes |
+|---------------|-------------|--------------|-----------|-------|
+| v1.0.0 | Development | Oct 27, 2021 | [**LINK**](https://app.swaggerhub.com/apis/masgeek/agdxapi/1.0.0)|       |
 
 ---
 

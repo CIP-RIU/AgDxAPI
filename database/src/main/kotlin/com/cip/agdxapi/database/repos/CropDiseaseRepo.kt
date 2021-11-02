@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository
 
 @Repository
 interface CropDiseaseRepo : PagingAndSortingRepository<CropDiseaseEntity, Long> {
-    fun findByCountryCode(@Param("countryCode") countryCode: String): List<CropDiseaseEntity>
 
+    fun findByCountryCode(@Param("countryCode") countryCode: String): List<CropDiseaseEntity>
+    override fun findAll(): List<CropDiseaseEntity>
 }
