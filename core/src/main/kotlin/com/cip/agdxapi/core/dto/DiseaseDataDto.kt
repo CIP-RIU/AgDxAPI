@@ -32,7 +32,7 @@ class DiseaseDataDto : CommonDataDto() {
     override var affectedSampleSize: Int? = null
 
     @Schema(description = "Severity of occurrence", example = "4", required = true)
-    override var severity: Int? = null
+    override var occurrenceSeverity: Int? = null
 
     /**
      * whether detected or undetected

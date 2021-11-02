@@ -61,7 +61,7 @@ open class CommonDataDto {
     open var affectedSampleSize: Int? = null
 
     @Schema(description = "Severity of occurrence", example = "4", required = true)
-    open var severity: Int? = null
+    open var occurrenceSeverity: Int? = null
 
     @Schema(description = "Status of occurrence", example = "Detected", required = true)
     open var occurrenceStatus: String? = null
