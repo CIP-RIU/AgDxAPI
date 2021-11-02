@@ -34,7 +34,7 @@ class PestDataDto : CommonDataDto() {
     override var affectedSampleSize: Int? = null
 
     @Schema(description = "Severity of occurrence", example = "4", required = true)
-    override var severity: Int? = null
+    override var occurrenceSeverity: Int? = null
 
     @Schema(description = "Status of occurrence", example = "Detected", required = true)
     override var occurrenceStatus: String? = null

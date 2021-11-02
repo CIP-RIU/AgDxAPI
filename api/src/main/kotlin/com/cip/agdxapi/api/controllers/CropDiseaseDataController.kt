@@ -1,5 +1,6 @@
 package com.cip.agdxapi.api.controllers
 
+import com.cip.agdxapi.core.geojson.DiseaseFeatureCollection
 import com.cip.agdxapi.core.service.CropDiseaseDataService
 import com.cip.agdxapi.database.entities.CropDiseaseEntity
 import io.swagger.v3.oas.annotations.Operation
@@ -16,7 +17,7 @@ import java.time.LocalDate
 
 @RequestMapping("api/v1/crop/disease")
 @RestController
-@Tag(name = "Crop disease data", description = "Operations pertaining crop disease data")
+@Tag(name = "Crop diseases", description = "Operations pertaining crop disease")
 @SecurityRequirement(name = "api")
 class CropDiseaseDataController(val cropDiseaseDataService: CropDiseaseDataService) {
 
@@ -43,11 +44,11 @@ class CropDiseaseDataController(val cropDiseaseDataService: CropDiseaseDataServi
 
     @GetMapping
     @Operation(summary = "Return list of all diseases", description = "", tags = ["crop-disease"])
-    fun getDiseaseList(@Parameter(hidden = true) pageable: Pageable): ResponseEntity<Page<CropDiseaseEntity>> {
+    fun getDiseaseList(@Parameter(hidden = true) pageable: Pageable): ResponseEntity<DiseaseFeatureCollection> {
 
-        val diseaseData: Page<CropDiseaseEntity> = cropDiseaseDataService.getDiseaseData(pageable = pageable)
+        val diseaseData = cropDiseaseDataService.getDiseaseData(pageable = pageable)
 
-        return ResponseEntity<Page<CropDiseaseEntity>>(diseaseData, HttpStatus.OK)
+        return ResponseEntity(diseaseData, HttpStatus.OK)
     }
 
     @GetMapping("/{diseaseName}/common")
@@ -55,11 +56,11 @@ class CropDiseaseDataController(val cropDiseaseDataService: CropDiseaseDataServi
     fun getDiseaseByCommonName(
         @PathVariable diseaseName: String,
         @Parameter(hidden = true) pageable: Pageable
-    ): ResponseEntity<Page<CropDiseaseEntity>> {
+    ): ResponseEntity<DiseaseFeatureCollection> {
 
-        val diseaseData: Page<CropDiseaseEntity> = cropDiseaseDataService.getDiseaseData(pageable = pageable)
+        val diseaseData = cropDiseaseDataService.getDiseaseData(pageable = pageable)
 
-        return ResponseEntity<Page<CropDiseaseEntity>>(diseaseData, HttpStatus.OK)
+        return ResponseEntity(diseaseData, HttpStatus.OK)
     }
 
     @GetMapping("/{diseaseName}/scientific")
@@ -67,11 +68,11 @@ class CropDiseaseDataController(val cropDiseaseDataService: CropDiseaseDataServi
     fun getDiseaseByScientificName(
         @PathVariable diseaseName: String,
         @Parameter(hidden = true) pageable: Pageable
-    ): ResponseEntity<Page<CropDiseaseEntity>> {
+    ): ResponseEntity<DiseaseFeatureCollection> {
 
-        val diseaseData: Page<CropDiseaseEntity> = cropDiseaseDataService.getDiseaseData(pageable = pageable)
+        val diseaseData = cropDiseaseDataService.getDiseaseData(pageable = pageable)
 
-        return ResponseEntity<Page<CropDiseaseEntity>>(diseaseData, HttpStatus.OK)
+        return ResponseEntity(diseaseData, HttpStatus.OK)
     }
 
     @GetMapping("/observe-date")
@@ -80,11 +81,11 @@ class CropDiseaseDataController(val cropDiseaseDataService: CropDiseaseDataServi
         @Parameter @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) fromDate: LocalDate,
         @Parameter @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) toDate: LocalDate,
         @Parameter(hidden = true) pageable: Pageable
-    ): ResponseEntity<Page<CropDiseaseEntity>> {
+    ): ResponseEntity<DiseaseFeatureCollection> {
 
-        val diseaseData: Page<CropDiseaseEntity> = cropDiseaseDataService.getDiseaseData(pageable = pageable)
+        val diseaseData = cropDiseaseDataService.getDiseaseData(pageable = pageable)
 
-        return ResponseEntity<Page<CropDiseaseEntity>>(diseaseData, HttpStatus.OK)
+        return ResponseEntity(diseaseData, HttpStatus.OK)
     }
 
     @GetMapping("/reporting-date")
@@ -93,11 +94,11 @@ class CropDiseaseDataController(val cropDiseaseDataService: CropDiseaseDataServi
         @Parameter @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) fromDate: LocalDate,
         @Parameter @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) toDate: LocalDate,
         @Parameter(hidden = true) pageable: Pageable
-    ): ResponseEntity<Page<CropDiseaseEntity>> {
+    ): ResponseEntity<DiseaseFeatureCollection> {
 
-        val diseaseData: Page<CropDiseaseEntity> = cropDiseaseDataService.getDiseaseData(pageable = pageable)
+        val diseaseData = cropDiseaseDataService.getDiseaseData(pageable = pageable)
 
-        return ResponseEntity<Page<CropDiseaseEntity>>(diseaseData, HttpStatus.OK)
+        return ResponseEntity(diseaseData, HttpStatus.OK)
     }
 
     @GetMapping("/record-date")
@@ -106,11 +107,11 @@ class CropDiseaseDataController(val cropDiseaseDataService: CropDiseaseDataServi
         @Parameter @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) fromDate: LocalDate,
         @Parameter @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) toDate: LocalDate,
         @Parameter(hidden = true) pageable: Pageable
-    ): ResponseEntity<Page<CropDiseaseEntity>> {
+    ): ResponseEntity<DiseaseFeatureCollection> {
 
-        val diseaseData: Page<CropDiseaseEntity> = cropDiseaseDataService.getDiseaseData(pageable = pageable)
+        val diseaseData = cropDiseaseDataService.getDiseaseData(pageable = pageable)
 
-        return ResponseEntity<Page<CropDiseaseEntity>>(diseaseData, HttpStatus.OK)
+        return ResponseEntity(diseaseData, HttpStatus.OK)
     }
 
     @GetMapping("/crop-name/{cropName}")
@@ -118,9 +119,10 @@ class CropDiseaseDataController(val cropDiseaseDataService: CropDiseaseDataServi
     fun getDiseaseByCropName(
         @PathVariable cropName: String,
         @Parameter(hidden = true) pageable: Pageable
-    ): ResponseEntity<Page<CropDiseaseEntity>> {
-        val diseaseData: Page<CropDiseaseEntity> = cropDiseaseDataService.getDiseaseData(pageable = pageable)
-        return ResponseEntity<Page<CropDiseaseEntity>>(diseaseData, HttpStatus.OK)
+    ): ResponseEntity<DiseaseFeatureCollection> {
+        val diseaseData = cropDiseaseDataService.getDiseaseData(pageable = pageable)
+
+        return ResponseEntity(diseaseData, HttpStatus.OK)
     }
 
     @GetMapping("/cultivar/{cultivar}")
@@ -128,9 +130,10 @@ class CropDiseaseDataController(val cropDiseaseDataService: CropDiseaseDataServi
     fun getDiseaseByCultivarName(
         @PathVariable cultivar: String,
         @Parameter(hidden = true) pageable: Pageable
-    ): ResponseEntity<Page<CropDiseaseEntity>> {
-        val diseaseData: Page<CropDiseaseEntity> = cropDiseaseDataService.getDiseaseData(pageable = pageable)
-        return ResponseEntity<Page<CropDiseaseEntity>>(diseaseData, HttpStatus.OK)
+    ): ResponseEntity<DiseaseFeatureCollection> {
+        val diseaseData = cropDiseaseDataService.getDiseaseData(pageable = pageable)
+
+        return ResponseEntity(diseaseData, HttpStatus.OK)
     }
 
     @GetMapping("/verification-method/{verificationMethod}")
@@ -138,22 +141,22 @@ class CropDiseaseDataController(val cropDiseaseDataService: CropDiseaseDataServi
     fun getDiseaseByVerificationMethod(
         @PathVariable verificationMethod: ArrayList<String>,
         @Parameter(hidden = true) pageable: Pageable
-    ): ResponseEntity<Page<CropDiseaseEntity>> {
-        val diseaseData: Page<CropDiseaseEntity> = cropDiseaseDataService.getDiseaseData(pageable = pageable)
-        return ResponseEntity<Page<CropDiseaseEntity>>(diseaseData, HttpStatus.OK)
-    }
+    ): ResponseEntity<DiseaseFeatureCollection> {
+        val diseaseData = cropDiseaseDataService.getDiseaseData(pageable = pageable)
 
-    //pathogens
+        return ResponseEntity(diseaseData, HttpStatus.OK)
+    }
 
     @GetMapping("/pathogen/{name}/common")
     @Operation(summary = "Get list of diseases by common pathogen names", description = "Search parameters are optional", tags = ["crop-disease"])
     fun getDiseaseByCommonPathogen(
         @PathVariable name: String,
         @Parameter(hidden = true) pageable: Pageable
-    ): ResponseEntity<Page<CropDiseaseEntity>> {
+    ): ResponseEntity<DiseaseFeatureCollection> {
 
-        val diseaseData: Page<CropDiseaseEntity> = cropDiseaseDataService.getDiseaseData(pageable = pageable)
-        return ResponseEntity<Page<CropDiseaseEntity>>(diseaseData, HttpStatus.OK)
+        val diseaseData = cropDiseaseDataService.getDiseaseData(pageable = pageable)
+
+        return ResponseEntity(diseaseData, HttpStatus.OK)
     }
 
     @GetMapping("/pathogen/{name}/scientific")
@@ -161,10 +164,10 @@ class CropDiseaseDataController(val cropDiseaseDataService: CropDiseaseDataServi
     fun getDiseaseByScientificPathogen(
         @PathVariable name: String,
         @Parameter(hidden = true) pageable: Pageable
-    ): ResponseEntity<Page<CropDiseaseEntity>> {
+    ): ResponseEntity<DiseaseFeatureCollection> {
+        val diseaseData = cropDiseaseDataService.getDiseaseData(pageable = pageable)
 
-        val diseaseData: Page<CropDiseaseEntity> = cropDiseaseDataService.getDiseaseData(pageable = pageable)
-        return ResponseEntity<Page<CropDiseaseEntity>>(diseaseData, HttpStatus.OK)
+        return ResponseEntity(diseaseData, HttpStatus.OK)
     }
 
     @GetMapping("/genebank/{accessionNumber}")
@@ -172,10 +175,11 @@ class CropDiseaseDataController(val cropDiseaseDataService: CropDiseaseDataServi
     fun getDiseaseByGeneBankNumber(
         @PathVariable accessionNumber: String,
         @Parameter(hidden = true) pageable: Pageable
-    ): ResponseEntity<Page<CropDiseaseEntity>> {
+    ): ResponseEntity<DiseaseFeatureCollection> {
 
-        val diseaseData: Page<CropDiseaseEntity> = cropDiseaseDataService.getDiseaseData(pageable = pageable)
-        return ResponseEntity<Page<CropDiseaseEntity>>(diseaseData, HttpStatus.OK)
+        val diseaseData = cropDiseaseDataService.getDiseaseData(pageable = pageable)
+
+        return ResponseEntity(diseaseData, HttpStatus.OK)
     }
 
 
@@ -184,10 +188,10 @@ class CropDiseaseDataController(val cropDiseaseDataService: CropDiseaseDataServi
     fun getDiseaseByProjectName(
         @PathVariable project: String,
         @Parameter(hidden = true) pageable: Pageable
-    ): ResponseEntity<Page<CropDiseaseEntity>> {
+    ): ResponseEntity<DiseaseFeatureCollection> {
+        val diseaseData = cropDiseaseDataService.getDiseaseData(pageable = pageable)
 
-        val diseaseData: Page<CropDiseaseEntity> = cropDiseaseDataService.getDiseaseData(pageable = pageable)
-        return ResponseEntity<Page<CropDiseaseEntity>>(diseaseData, HttpStatus.OK)
+        return ResponseEntity(diseaseData, HttpStatus.OK)
     }
 
     @GetMapping("/country/{countryCode}")
@@ -195,11 +199,11 @@ class CropDiseaseDataController(val cropDiseaseDataService: CropDiseaseDataServi
     fun getDiseaseByCountry(
         @PathVariable countryCode: String,
         @Parameter(hidden = true) pageable: Pageable
-    ): ResponseEntity<Page<CropDiseaseEntity>> {
+    ): ResponseEntity<DiseaseFeatureCollection> {
 
-        val diseaseData: Page<CropDiseaseEntity> = cropDiseaseDataService.getDiseaseData(pageable = pageable)
+        val diseaseData = cropDiseaseDataService.getDiseaseData(pageable = pageable)
 
-        return ResponseEntity<Page<CropDiseaseEntity>>(diseaseData, HttpStatus.OK)
+        return ResponseEntity(diseaseData, HttpStatus.OK)
     }
 
     @GetMapping("/admin-level/{adminName}/one")
@@ -207,11 +211,11 @@ class CropDiseaseDataController(val cropDiseaseDataService: CropDiseaseDataServi
     fun getDiseaseByAdminLevelOne(
         @PathVariable adminName: String,
         @Parameter(hidden = true) pageable: Pageable
-    ): ResponseEntity<Page<CropDiseaseEntity>> {
+    ): ResponseEntity<DiseaseFeatureCollection> {
 
-        val diseaseData: Page<CropDiseaseEntity> = cropDiseaseDataService.getDiseaseData(pageable = pageable)
+        val diseaseData = cropDiseaseDataService.getDiseaseData(pageable = pageable)
 
-        return ResponseEntity<Page<CropDiseaseEntity>>(diseaseData, HttpStatus.OK)
+        return ResponseEntity(diseaseData, HttpStatus.OK)
     }
 
     @GetMapping("/admin-level/{adminName}/two")
@@ -219,11 +223,11 @@ class CropDiseaseDataController(val cropDiseaseDataService: CropDiseaseDataServi
     fun getDiseaseByAdminLevelTwo(
         @PathVariable adminName: String,
         @Parameter(hidden = true) pageable: Pageable
-    ): ResponseEntity<Page<CropDiseaseEntity>> {
+    ): ResponseEntity<DiseaseFeatureCollection> {
 
-        val diseaseData: Page<CropDiseaseEntity> = cropDiseaseDataService.getDiseaseData(pageable = pageable)
+        val diseaseData = cropDiseaseDataService.getDiseaseData(pageable = pageable)
 
-        return ResponseEntity<Page<CropDiseaseEntity>>(diseaseData, HttpStatus.OK)
+        return ResponseEntity(diseaseData, HttpStatus.OK)
     }
 
     @GetMapping("/admin-level/{adminName}/three")
@@ -231,11 +235,11 @@ class CropDiseaseDataController(val cropDiseaseDataService: CropDiseaseDataServi
     fun getDiseaseByAdminLevelThree(
         @PathVariable adminName: String,
         @Parameter(hidden = true) pageable: Pageable
-    ): ResponseEntity<Page<CropDiseaseEntity>> {
+    ): ResponseEntity<DiseaseFeatureCollection> {
 
-        val diseaseData: Page<CropDiseaseEntity> = cropDiseaseDataService.getDiseaseData(pageable = pageable)
+        val diseaseData = cropDiseaseDataService.getDiseaseData(pageable = pageable)
 
-        return ResponseEntity<Page<CropDiseaseEntity>>(diseaseData, HttpStatus.OK)
+        return ResponseEntity(diseaseData, HttpStatus.OK)
     }
 
 }
