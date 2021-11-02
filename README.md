@@ -75,7 +75,7 @@ This research was undertaken as part of, and funded by, the CGIAR Research Progr
 
 | Version       | Status      | Release Date | SwaggerHub   | Notes |
 |---------------|-------------|--------------|-----------|-------|
-| v1.0.0 | Development | Oct 27, 2021 | [**LINK**](https://app.swaggerhub.com/apis/masgeek/agdxapi/1.0.0)|       |
+| v1.0.0 | Production | Nov 02, 2021 | [**LINK**](https://app.swaggerhub.com/apis/masgeek/agdxapi/1.0.0)|       |
 
 ---
 
