@@ -11,6 +11,9 @@ import java.util.*
 
 @Repository
 interface CropPestRepo : PagingAndSortingRepository<CropPestEntity, Long> {
+
+    override fun findById(id: Long): Optional<CropPestEntity>
+
     override fun findAll(pageable: Pageable): Page<CropPestEntity>
     override fun findAll(): List<CropPestEntity>
 

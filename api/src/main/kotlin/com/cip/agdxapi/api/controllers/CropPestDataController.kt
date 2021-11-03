@@ -1,5 +1,6 @@
 package com.cip.agdxapi.api.controllers
 
+import com.cip.agdxapi.core.dto.PestDataDto
 import com.cip.agdxapi.core.geojson.PestFeatureCollection
 import com.cip.agdxapi.core.service.CropPestDataService
 import com.cip.agdxapi.database.entities.CropPestEntity
@@ -47,6 +48,14 @@ class CropPestDataController(private val cropPestDataService: CropPestDataServic
     @Operation(summary = "Return list of all pests", description = "", tags = ["crop-pest"])
     fun pestList(@Parameter(hidden = true) pageable: Pageable): ResponseEntity<PestFeatureCollection> {
         val pestData = cropPestDataService.getPestList(pageable)
+
+        return ResponseEntity(pestData, HttpStatus.OK)
+    }
+
+    @GetMapping("/{id}")
+    @Operation(summary = "Return specific record by its id", description = "", tags = ["crop-pest"])
+    fun pestInfo(@PathVariable id: Long): ResponseEntity<CropPestEntity> {
+        val pestData = cropPestDataService.getPestById(id = id)
 
         return ResponseEntity(pestData, HttpStatus.OK)
     }
@@ -140,7 +149,7 @@ class CropPestDataController(private val cropPestDataService: CropPestDataServic
         @PathVariable cropName: String,
         @Parameter(hidden = true) pageable: Pageable
     ): ResponseEntity<PestFeatureCollection> {
-        val pestData = cropPestDataService.getPestByCropName(cropName = cropName,pageable = pageable)
+        val pestData = cropPestDataService.getPestByCropName(cropName = cropName, pageable = pageable)
         return ResponseEntity(pestData, HttpStatus.OK)
     }
 
@@ -150,7 +159,7 @@ class CropPestDataController(private val cropPestDataService: CropPestDataServic
         @PathVariable cultivar: String,
         @Parameter(hidden = true) pageable: Pageable
     ): ResponseEntity<PestFeatureCollection> {
-        val pestData = cropPestDataService.getPestByCultivar(cultivar = cultivar,pageable=pageable)
+        val pestData = cropPestDataService.getPestByCultivar(cultivar = cultivar, pageable = pageable)
         return ResponseEntity(pestData, HttpStatus.OK)
     }
 
@@ -160,7 +169,7 @@ class CropPestDataController(private val cropPestDataService: CropPestDataServic
         @PathVariable status: EnumDetectionStatus,
         @Parameter(hidden = true) pageable: Pageable
     ): ResponseEntity<PestFeatureCollection> {
-        val pestData = cropPestDataService.getPestByDetectionStatus(detectionStatus = status,pageable=pageable)
+        val pestData = cropPestDataService.getPestByDetectionStatus(detectionStatus = status, pageable = pageable)
         return ResponseEntity(pestData, HttpStatus.OK)
     }
 
@@ -171,7 +180,7 @@ class CropPestDataController(private val cropPestDataService: CropPestDataServic
         @PathVariable status: EnumTreatmentStatus,
         @Parameter(hidden = true) pageable: Pageable
     ): ResponseEntity<PestFeatureCollection> {
-        val pestData = cropPestDataService.getPestByTreatmentStatus(treatmentStatus = status,pageable=pageable)
+        val pestData = cropPestDataService.getPestByTreatmentStatus(treatmentStatus = status, pageable = pageable)
         return ResponseEntity(pestData, HttpStatus.OK)
     }
 
@@ -181,7 +190,7 @@ class CropPestDataController(private val cropPestDataService: CropPestDataServic
         @PathVariable vector: String,
         @Parameter(hidden = true) pageable: Pageable
     ): ResponseEntity<PestFeatureCollection> {
-        val pestData = cropPestDataService.getPestByVector(vector = vector,pageable=pageable)
+        val pestData = cropPestDataService.getPestByVector(vector = vector, pageable = pageable)
         return ResponseEntity(pestData, HttpStatus.OK)
     }
 
@@ -191,7 +200,7 @@ class CropPestDataController(private val cropPestDataService: CropPestDataServic
         @PathVariable adminLevel: String,
         @Parameter(hidden = true) pageable: Pageable
     ): ResponseEntity<PestFeatureCollection> {
-        val pestData = cropPestDataService.getPestByAdminLevel(adminLevel = adminLevel,pageable=pageable)
+        val pestData = cropPestDataService.getPestByAdminLevel(adminLevel = adminLevel, pageable = pageable)
         return ResponseEntity(pestData, HttpStatus.OK)
     }
 
@@ -201,7 +210,7 @@ class CropPestDataController(private val cropPestDataService: CropPestDataServic
         @PathVariable adminLevel: String,
         @Parameter(hidden = true) pageable: Pageable
     ): ResponseEntity<PestFeatureCollection> {
-        val pestData = cropPestDataService.getPestByAdminLevel(adminLevel = adminLevel,pageable=pageable)
+        val pestData = cropPestDataService.getPestByAdminLevel(adminLevel = adminLevel, pageable = pageable)
         return ResponseEntity(pestData, HttpStatus.OK)
     }
 
@@ -211,7 +220,7 @@ class CropPestDataController(private val cropPestDataService: CropPestDataServic
         @PathVariable adminLevel: String,
         @Parameter(hidden = true) pageable: Pageable
     ): ResponseEntity<PestFeatureCollection> {
-        val pestData = cropPestDataService.getPestByAdminLevel(adminLevel = adminLevel,pageable=pageable)
+        val pestData = cropPestDataService.getPestByAdminLevel(adminLevel = adminLevel, pageable = pageable)
         return ResponseEntity(pestData, HttpStatus.OK)
     }
 }

@@ -11,8 +11,11 @@ import com.cip.agdxapi.enums.EnumTreatmentStatus
 import org.slf4j.LoggerFactory
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
+import org.springframework.data.repository.findByIdOrNull
+import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Service
 import org.springframework.util.MultiValueMap
+import org.springframework.web.client.HttpClientErrorException
 import java.math.BigDecimal
 import java.time.LocalDate
 
@@ -94,6 +97,15 @@ constructor(val cropPestRepo: CropPestRepo) {
         val cropPestList = cropPestRepo.findByPestCommonName(adminLevel)
         return buildGeoJson(cropPestList)
     }
+
+    fun getPestById(id: Long): CropPestEntity {
+        val cropPestList = cropPestRepo.findById(id)
+        if (cropPestList.isPresent) {
+            return cropPestList.get()//modelMapper.map(cropPestList.get(), PestDataDto::class.java)
+        }
+        throw HttpClientErrorException(HttpStatus.NOT_FOUND, "Record not found")
+    }
+
 
     private fun buildGeoJson(cropPestList: List<CropPestEntity>): PestFeatureCollection {
         val featureCollection = PestFeatureCollection()
