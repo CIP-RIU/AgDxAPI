@@ -9,7 +9,7 @@ import javax.persistence.Table
  * Pertains to crop data
  */
 @Entity
-@Table(name = "crop")
+@Table(name = "crops")
 class CropEntity : BaseEntity() {
 
     @Column(name = "common_name")
@@ -31,4 +31,10 @@ class CropEntity : BaseEntity() {
     @Column(name = "family")
     @Schema(description = "Family crop", example = "Musaceae")
     var family: String? = null
+
+    @Transient
+    var diseaseCount: Int? = 0
+
+    @Transient
+    var pestCount: Int? = 0
 }

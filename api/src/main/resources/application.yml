@@ -14,7 +14,7 @@ spring:
   datasource:
     url: ${DB_URL:jdbc:mysql://localhost:3306/agdxapi}
     username: ${DB_USER:root}
-    password: ${DB_PASS:andalite6}
+    password: ${DB_PASS:}
   data:
     web:
       pageable:
