@@ -10,8 +10,8 @@ import java.time.LocalDateTime
 
 class DiseaseDataDto : CommonDataDto() {
 
-    @Schema(description = "Common ontology name", example = "Banana", required = true)
-    override var ontologyName: String? = null
+    @Schema(description = "Common ontology id", example = "CO_334", required = true)
+    override var ontologyId: String? = null
 
     @Schema(description = "Common disease name", example = "BXW", required = true)
     override var commonName: String? = null

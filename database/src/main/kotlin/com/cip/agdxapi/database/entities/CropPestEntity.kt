@@ -12,6 +12,10 @@ import javax.persistence.*
 @Entity
 @Table(name = "crop_pests")
 class CropPestEntity : BaseEntity() {
+
+    @Column(name = "crop_id")
+    var cropId: Long? = null
+
     /**
      * Can be ISO2 or ISO3
      */
@@ -356,4 +360,7 @@ class CropPestEntity : BaseEntity() {
     @Column(name = "contributing_system_id")
     @Schema(description = "Unique identifier from system contributing data for followup and updating")
     var contributingSystemId: String? = null
+
+    @Column(name = "attribution", columnDefinition = "TEXT")
+    var attribution: String? = null
 }

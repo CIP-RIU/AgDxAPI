@@ -45,6 +45,9 @@
             <column name="crop_name" type="varchar(150)"/>
             <column name="cultivar_name" type="varchar(150)"/>
 
+            <column name="disease_common_name" type="varchar(255)"/>
+            <column name="disease_scientific_name" type="varchar(255)"/>
+
             <column name="pathogen_common_name" type="varchar(255)"/>
             <column name="pathogen_scientific_name" type="varchar(255)"/>
             <column name="pathogen_nativity" type="varchar(30)" remarks="Native or Introduced"/>
@@ -55,7 +58,7 @@
             <column name="pathogen_verification_method" type="text" remarks="This can contain multiple verification methods"/>
             <column name="pathogen_status" type="text" remarks="Status of the pathogen at time of recording (Treated, Untreated)"/>
             <column name="pathogen_record_basis" type="text" remarks="The basis of the occurrence (Human observation)"/>
-            <column name="pathogen_verified" type="boolean"/>
+            <column name="pathogen_verified" type="boolean" defaultValue="0"/>
 
             <column name="severity_number_scale" type="int(2)" remarks="Severity scale on an number level (5)"/>
             <column name="severity_percentage_scale" type="decimal(3,2)" remarks="Severity scale on an percentage level"/>
@@ -69,8 +72,8 @@
             <column name="sample_source" type="text" remarks="Source of the sample i.e Field, greenhouse, lab"/>
             <column name="sample_desc" type="text" remarks="Description of the sample i.e roots, leaves"/>
 
-            <column name="num_of_samples" type="int(6)"/>
-            <column name="num_of_affected_samples" type="int(6)"/>
+            <column name="no_of_samples" type="int(6)"/>
+            <column name="no_of_affected_samples" type="int(6)"/>
             <column name="sample_units" type="varchar(6)" remarks="Unit of measure (individuals, adults, grams, etc.)"/>
 
             <column name="lab_sample_id" type="varchar(120)"/>
@@ -96,7 +99,6 @@
 
             <column name="contributing_system_id" type="varchar(255)"
                     remarks="Unique identifier from system contributing data for followup and updating">
-                <constraints unique="true" uniqueConstraintName="pest_sys_id"/>
             </column>
 
         </createTable>

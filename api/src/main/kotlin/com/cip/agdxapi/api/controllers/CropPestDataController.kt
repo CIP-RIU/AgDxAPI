@@ -19,10 +19,10 @@ import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import java.time.LocalDate
 
-@RequestMapping("api/v1/crop/pest")
-@RestController
-@Tag(name = "Crop pests", description = "Operations pertaining crop pests")
-@SecurityRequirement(name = "api")
+//@RequestMapping("api/v1/crops/pest")
+//@RestController
+//@Tag(name = "Crop pests", description = "Operations pertaining crop pests")
+//@SecurityRequirement(name = "api")
 class CropPestDataController(private val cropPestDataService: CropPestDataService) {
 
     @PostMapping("/add")

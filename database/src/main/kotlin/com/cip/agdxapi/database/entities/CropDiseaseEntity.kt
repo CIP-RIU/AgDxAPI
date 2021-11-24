@@ -8,9 +8,7 @@ import io.swagger.v3.oas.annotations.media.Schema
 import java.math.BigDecimal
 import java.time.LocalDate
 import javax.persistence.*
-import javax.persistence.JoinColumn
-
-
+import kotlin.jvm.Transient
 
 
 /**
@@ -19,6 +17,10 @@ import javax.persistence.JoinColumn
 @Entity
 @Table(name = "crop_diseases")
 class CropDiseaseEntity : BaseEntity() {
+
+    @Column(name = "crop_id", updatable = false, nullable = false)
+    var cropId: Long? = null
+
     /**
      * Can be ISO2 or ISO3
      */
@@ -98,19 +100,12 @@ class CropDiseaseEntity : BaseEntity() {
     @Schema(description = "Date the record was updated", example = "2021-01-13")
     var dateUpdated: LocalDate? = null
 
-    @Column(name = "crop_name")
-    @Schema(description = "Crop name", example = "Banana")
-    @Deprecated("To be removed in the next update")
-    var cropName: String? = null
+    @Column(name = "disease_common_name")
+    var diseaseCommonName: String? = null
 
-    @Column(name = "cultivar_name")
-    @Schema(description = "Crop cultivar", example = "TMS 90257")
-    @Deprecated("To be removed in the next update")
-    var cultivarName: String? = null
+    @Column(name = "disease_scientific_name")
+    var diseaseScientificName: String? = null
 
-//    @ManyToOne
-//    @JoinColumn(name = "cultivar_id", nullable = false)
-//    var cultivar: CropCultivarEntity? = null
 
     @Column(name = "pathogen_common_name")
     @Schema(description = "Common pest name", example = "BXW")
@@ -247,11 +242,11 @@ class CropDiseaseEntity : BaseEntity() {
     @Schema(description = "Description of the sample i.e roots, leaves", example = "Roots")
     var sampleDesc: String? = null
 
-    @Column(name = "num_of_samples")
+    @Column(name = "no_of_samples")
     @Schema(description = "Number of samples collected", example = "500")
     var numOfSamples: Int? = null
 
-    @Column(name = "num_of_affected_samples")
+    @Column(name = "no_of_affected_samples")
     @Schema(description = "Number of affected samples collected", example = "350")
     var numOfAffectedSamples: Int? = null
 
@@ -314,8 +309,10 @@ class CropDiseaseEntity : BaseEntity() {
      * Used in cases where two aggregators may encounter the same data.
      */
     @Column(name = "original_system_id")
-    @Schema(description = "In the case of data from an aggregator,the unique identifier from the original data set." +
-            "Used in cases where two aggregators may encounter the same data.")
+    @Schema(
+        description = "In the case of data from an aggregator,the unique identifier from the original data set." +
+                "Used in cases where two aggregators may encounter the same data."
+    )
     var originalSystemId: String? = null
 
     /**
@@ -324,4 +321,10 @@ class CropDiseaseEntity : BaseEntity() {
     @Column(name = "contributing_system_id")
     @Schema(description = "Unique identifier from system contributing data for followup and updating")
     var contributingSystemId: String? = null
+
+    @Column(name = "attribution", columnDefinition = "TEXT")
+    var attribution: String? = null
+
+    @Transient
+    var cropEntity: CropEntity? = null
 }

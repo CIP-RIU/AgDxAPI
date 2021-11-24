@@ -31,7 +31,7 @@ open class CommonDataDto {
     var dateReviewed: LocalDate? = null
 
     @Schema(description = "Common ontology name for the crop e.g Banana, Cassava, Rice", example = "Banana", required = true)
-    open var ontologyName: String? = null
+    open var ontologyId: String? = null
 
     @Schema(description = "Common name", example = "BXW", required = true)
     open var commonName: String? = null

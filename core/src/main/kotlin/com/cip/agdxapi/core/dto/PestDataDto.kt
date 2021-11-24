@@ -13,7 +13,7 @@ class PestDataDto : CommonDataDto() {
 
 
     @Schema(description = "Common ontology name", example = "Banana", required = true)
-    override var ontologyName: String? = null
+    override var ontologyId: String? = null
 
     @Schema(description = "Common pest name", example = "Banana weevil borer", required = true)
     override var commonName: String? = null

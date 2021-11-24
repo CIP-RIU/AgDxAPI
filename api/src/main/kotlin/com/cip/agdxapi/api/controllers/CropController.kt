@@ -19,21 +19,30 @@ import org.springframework.web.bind.annotation.*
 class CropController(val cropDataService: CropDataService) {
 
 
-    @PostMapping("/add")
+    @PostMapping("/add-new")
     @Operation(summary = "Add new crop", description = "", tags = ["add-crop"])
     fun addCropData(@RequestBody cropData: CropEntity): ResponseEntity<CropEntity> {
-
-        return ResponseEntity<CropEntity>(CropEntity(), HttpStatus.OK)
+        val data = cropDataService.addCrop(cropData)
+        return ResponseEntity<CropEntity>(data, HttpStatus.OK)
     }
 
-    @PutMapping("/update/{id}")
+    @PutMapping("/update/{cropId}")
     @Operation(summary = "Update crop record", description = "", tags = ["update-crop"])
     fun updateCropData(
-        @PathVariable id: Long,
+        @PathVariable cropId: Long,
         @RequestBody cropData: CropEntity
     ): ResponseEntity<CropEntity> {
-        val data = cropDataService.getCrop()
+        val data = cropDataService.getCrop(cropId)
         return ResponseEntity<CropEntity>(data, HttpStatus.OK)
+    }
+
+    @GetMapping("/{cropId}")
+    @Operation(summary = "Return crop data using crop id", description = "", tags = ["crop"])
+    fun crop(@PathVariable cropId: Long): ResponseEntity<CropEntity> {
+
+        val cropData: CropEntity? = cropDataService.getCrop(cropId)
+
+        return ResponseEntity<CropEntity>(cropData, HttpStatus.OK)
     }
 
     @GetMapping
