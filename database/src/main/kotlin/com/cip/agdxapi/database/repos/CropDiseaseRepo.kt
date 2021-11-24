@@ -19,7 +19,11 @@ interface CropDiseaseRepo : PagingAndSortingRepository<CropDiseaseEntity, Long> 
 
     fun findAllByDateIdentifiedBetween(fromDate: LocalDate, toDate: LocalDate): List<CropDiseaseEntity>
 
+    fun findAllByCropIdAndDateObservedBetween(cropId: Long, fromDate: LocalDate, toDate: LocalDate): List<CropDiseaseEntity>
+
     fun findAllByCropIdAndDateRecordedBetween(cropId: Long, fromDate: LocalDate, toDate: LocalDate): List<CropDiseaseEntity>
 
     fun findAllByCropIdAndCountryCode(cropId: Long, countryCode: String): List<CropDiseaseEntity>
+
+    fun findAllByProjectName(projectName: String): List<CropDiseaseEntity>
 }

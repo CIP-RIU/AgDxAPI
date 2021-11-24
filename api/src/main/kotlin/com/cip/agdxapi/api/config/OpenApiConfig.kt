@@ -15,8 +15,8 @@ import org.springframework.context.annotation.Configuration
 class OpenApiConfig {
     @Bean
     fun api(
-        @Value("\${cip.version}") appVersion: String,
-        @Value("\${cip.name}") appName: String
+        @Value("\${agdx.version}") appVersion: String,
+        @Value("\${agdx.name}") appName: String
     ): OpenAPI {
         return OpenAPI()
             .info(

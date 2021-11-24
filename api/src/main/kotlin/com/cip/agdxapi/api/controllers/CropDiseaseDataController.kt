@@ -1,6 +1,7 @@
 package com.cip.agdxapi.api.controllers
 
 import com.cip.agdxapi.core.geojson.DiseaseFeatureCollection
+import com.cip.agdxapi.core.request.CoordinateRequest
 import com.cip.agdxapi.core.service.CropDiseaseDataService
 import com.cip.agdxapi.database.entities.CropDiseaseEntity
 import io.swagger.v3.oas.annotations.Operation
@@ -20,8 +21,9 @@ import java.time.LocalDate
 @SecurityRequirement(name = "api")
 class CropDiseaseDataController(val cropDiseaseDataService: CropDiseaseDataService) {
 
+    //    @Tag(name = "Crop disease record management",)
     @PostMapping("/disease/{cropId}/add")
-    @Operation(summary = "Add disease to the database using crop id", description = "", tags = ["crop-disease"])
+    @Operation(summary = "Add disease to the database using crop id", description = "", tags = ["a-crop-disease"])
     fun addDiseaseData(
         @PathVariable cropId: Long,
         @RequestBody cropDiseaseData: CropDiseaseEntity
@@ -32,8 +34,9 @@ class CropDiseaseDataController(val cropDiseaseDataService: CropDiseaseDataServi
         return ResponseEntity<CropDiseaseEntity>(pestData, HttpStatus.OK)
     }
 
+    //    @Tag(name = "Crop disease record management",)
     @PutMapping("/disease/{diseaseId}/update")
-    @Operation(summary = "Update crop disease record", description = "", tags = ["crop-disease"])
+    @Operation(summary = "Update crop disease record", description = "", tags = ["a-crop-disease"])
     fun updateDiseaseData(
         @PathVariable diseaseId: Long,
         @RequestBody cropDiseaseData: CropDiseaseEntity
@@ -66,11 +69,26 @@ class CropDiseaseDataController(val cropDiseaseDataService: CropDiseaseDataServi
     }
 
     @GetMapping("/disease/{cropId}/observation-date")
-    @Operation(summary = "Find a crop disease using crop id and a specified date range", description = "", tags = ["crop-disease-0"])
+    @Operation(summary = "Return list of diseases using crop id and a specified observation date range", description = "", tags = ["crop-disease-0"])
+    fun cropDiseaseByObservationDate(
+        @PathVariable cropId: Long,
+        @Parameter(example = "2020-01-01") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) fromDate: LocalDate,
+        @Parameter(example = "2021-01-01") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) toDate: LocalDate,
+        @Parameter(hidden = true) pageable: Pageable
+    ): ResponseEntity<DiseaseFeatureCollection> {
+
+        val diseaseData =
+            cropDiseaseDataService.getCropDiseasesByObservedDate(cropId = cropId, fromDate = fromDate, toDate = toDate, pageable = pageable)
+
+        return ResponseEntity(diseaseData, HttpStatus.OK)
+    }
+
+    @GetMapping("/disease/{cropId}/recording-date")
+    @Operation(summary = "Return list of diseases using crop id and a specified recorded date range", description = "", tags = ["crop-disease-0"])
     fun cropDiseaseByRecordedDate(
         @PathVariable cropId: Long,
-        @Parameter @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) fromDate: LocalDate,
-        @Parameter @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) toDate: LocalDate,
+        @Parameter(example = "2020-01-01") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) fromDate: LocalDate,
+        @Parameter(example = "2021-01-01") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) toDate: LocalDate,
         @Parameter(hidden = true) pageable: Pageable
     ): ResponseEntity<DiseaseFeatureCollection> {
 
@@ -80,11 +98,11 @@ class CropDiseaseDataController(val cropDiseaseDataService: CropDiseaseDataServi
         return ResponseEntity(diseaseData, HttpStatus.OK)
     }
 
-    @GetMapping("/disease/{cropId}/country-code/{countryCode}")
-    @Operation(summary = "Find a crop disease using crop id and country code", description = "", tags = ["crop-disease-0"])
+    @GetMapping("/disease/{cropId}/country-code")
+    @Operation(summary = "Return list of diseases using crop id and country code", description = "", tags = ["crop-disease-0"])
     fun cropDiseaseByCountryCode(
         @PathVariable cropId: Long,
-        @PathVariable countryCode: String,
+        @Parameter(example = "CO") countryCode: String,
         @Parameter(hidden = true) pageable: Pageable
     ): ResponseEntity<DiseaseFeatureCollection> {
 
@@ -97,17 +115,35 @@ class CropDiseaseDataController(val cropDiseaseDataService: CropDiseaseDataServi
         return ResponseEntity(diseaseData, HttpStatus.OK)
     }
 
-    @GetMapping("/disease/{cropId}/country-code/{countryCode}")
-    @Operation(summary = "Find a crop disease using crop id and country code", description = "", tags = ["crop-disease-0"])
+    @GetMapping("/disease/{cropId}/coordinates")
+    @Operation(summary = "Return list of diseases using crop id and array of coordinates", description = "", tags = ["crop-disease-0"])
     fun cropDiseaseByLocations(
         @PathVariable cropId: Long,
-        @PathVariable countryCode: String,
+        @Parameter coordinates: List<CoordinateRequest>,
         @Parameter(hidden = true) pageable: Pageable
     ): ResponseEntity<DiseaseFeatureCollection> {
 
+
         val diseaseData = cropDiseaseDataService.getCropDiseasesByCountryCode(
             cropId = cropId,
-            countryCode = countryCode,
+            countryCode = "",
+            pageable = pageable
+        )
+
+        return ResponseEntity(diseaseData, HttpStatus.OK)
+    }
+
+    @GetMapping("/disease/{cropId}/project")
+    @Operation(summary = "Return list of diseases using crop id and project name", description = "", tags = ["crop-disease-2"])
+    fun cropDiseaseByProject(
+        @PathVariable cropId: Long,
+        @Parameter(example = "PestDisplace") projectName: String,
+        @Parameter(hidden = true) pageable: Pageable
+    ): ResponseEntity<DiseaseFeatureCollection> {
+
+        val diseaseData = cropDiseaseDataService.getCropDiseasesByProjectName(
+            cropId = cropId,
+            projectName = projectName,
             pageable = pageable
         )
 

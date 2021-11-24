@@ -43,6 +43,11 @@ constructor(val cropDiseaseRepo: CropDiseaseRepo, val cropRepo: CropRepo) {
         return buildGeoJson(diseaseList, crop.get())
     }
 
+    fun getCropDiseasesByObservedDate(cropId: Long, fromDate: LocalDate, toDate: LocalDate, pageable: Pageable): DiseaseFeatureCollection {
+        val cropDiseaseList = cropDiseaseRepo.findAllByCropIdAndDateObservedBetween(cropId = cropId, fromDate = fromDate, toDate = toDate)
+        return buildGeoJson(cropDiseaseList)
+    }
+
     fun getCropDiseasesByRecordedDate(cropId: Long, fromDate: LocalDate, toDate: LocalDate, pageable: Pageable): DiseaseFeatureCollection {
         val cropDiseaseList = cropDiseaseRepo.findAllByCropIdAndDateRecordedBetween(cropId = cropId, fromDate = fromDate, toDate = toDate)
         return buildGeoJson(cropDiseaseList)
@@ -50,6 +55,11 @@ constructor(val cropDiseaseRepo: CropDiseaseRepo, val cropRepo: CropRepo) {
 
     fun getCropDiseasesByCountryCode(cropId: Long, countryCode: String, pageable: Pageable): DiseaseFeatureCollection {
         val cropDiseaseList = cropDiseaseRepo.findAllByCropIdAndCountryCode(cropId = cropId, countryCode = countryCode)
+        return buildGeoJson(cropDiseaseList)
+    }
+
+    fun getCropDiseasesByProjectName(cropId: Long, projectName: String, pageable: Pageable): DiseaseFeatureCollection {
+        val cropDiseaseList = cropDiseaseRepo.findAllByProjectName(projectName = projectName)
         return buildGeoJson(cropDiseaseList)
     }
 
