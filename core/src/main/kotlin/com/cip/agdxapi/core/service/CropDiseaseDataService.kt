@@ -10,7 +10,6 @@ import com.cip.agdxapi.enums.EnumCoordinateType
 import org.slf4j.LoggerFactory
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
-import org.springframework.util.MultiValueMap
 import java.math.BigDecimal
 import java.time.LocalDate
 
@@ -55,6 +54,11 @@ constructor(val cropDiseaseRepo: CropDiseaseRepo, val cropRepo: CropRepo) {
 
     fun getCropDiseasesByCountryCode(cropId: Long, countryCode: String, pageable: Pageable): DiseaseFeatureCollection {
         val cropDiseaseList = cropDiseaseRepo.findAllByCropIdAndCountryCode(cropId = cropId, countryCode = countryCode)
+        return buildGeoJson(cropDiseaseList)
+    }
+
+    fun getCropDiseasesByCountryCode(cropId: Long, countryCode: List<String>, pageable: Pageable): DiseaseFeatureCollection {
+        val cropDiseaseList = cropDiseaseRepo.findAllByCropIdAndCountryCodeIn(cropId = cropId, countryCode = countryCode)
         return buildGeoJson(cropDiseaseList)
     }
 

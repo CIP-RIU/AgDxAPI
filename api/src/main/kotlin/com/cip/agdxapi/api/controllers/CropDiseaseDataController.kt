@@ -99,16 +99,17 @@ class CropDiseaseDataController(val cropDiseaseDataService: CropDiseaseDataServi
     }
 
     @GetMapping("/disease/{cropId}/country-code")
-    @Operation(summary = "Return list of diseases using crop id and country code", description = "", tags = ["crop-disease-0"])
+    @Operation(summary = "Return list of diseases using crop id and country codes", description = "", tags = ["crop-disease-0"])
     fun cropDiseaseByCountryCode(
         @PathVariable cropId: Long,
-        @Parameter(example = "CO") countryCode: String,
+        @Parameter(example = "CO,KE") countryCode: String,
         @Parameter(hidden = true) pageable: Pageable
     ): ResponseEntity<DiseaseFeatureCollection> {
 
+        val countryCodes: List<String> = countryCode.split(",")
         val diseaseData = cropDiseaseDataService.getCropDiseasesByCountryCode(
             cropId = cropId,
-            countryCode = countryCode,
+            countryCode = countryCodes,
             pageable = pageable
         )
 
