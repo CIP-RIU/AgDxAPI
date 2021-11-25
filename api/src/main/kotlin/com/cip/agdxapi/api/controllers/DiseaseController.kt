@@ -30,7 +30,7 @@ class DiseaseController(val cropDiseaseDataService: CropDiseaseDataService) {
     }
 
     @PutMapping("/{diseaseId}")
-    @Operation(summary = "Update disease record", description = "", tags = ["disease"])
+    @Operation(summary = "Update disease record", description = "", tags = ["disease-0"])
     fun updateDiseaseData(
         @PathVariable diseaseId: Long,
         @RequestBody cropDiseaseData: CropDiseaseEntity
@@ -41,8 +41,17 @@ class DiseaseController(val cropDiseaseDataService: CropDiseaseDataService) {
         return ResponseEntity<CropDiseaseEntity>(pestData, HttpStatus.OK)
     }
 
+    @GetMapping("/{diseaseId}")
+    @Operation(summary = "Return details of single disease using diseaseId", description = "", tags = ["disease-1"])
+    fun getDiseaseDetails(
+        @Parameter(example = "1") @PathVariable diseaseId: Long
+    ): ResponseEntity<CropDiseaseEntity> {
+        val diseaseData = cropDiseaseDataService.getSingleCropDisease(diseaseId = diseaseId)
+        return ResponseEntity(diseaseData, HttpStatus.OK)
+    }
+
     @GetMapping
-    @Operation(summary = "Return list of diseases in the database", description = "", tags = ["disease-0"])
+    @Operation(summary = "Return list of diseases in the database", description = "", tags = ["disease-1"])
     fun cropDiseases(
         @Parameter(hidden = true) pageable: Pageable
     ): ResponseEntity<DiseaseFeatureCollection> {

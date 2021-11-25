@@ -9,6 +9,7 @@ import com.cip.agdxapi.database.repos.CropRepo
 import com.cip.agdxapi.enums.EnumCoordinateType
 import org.slf4j.LoggerFactory
 import org.springframework.data.domain.Pageable
+import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 import java.math.BigDecimal
 import java.time.LocalDate
@@ -20,6 +21,15 @@ constructor(val cropDiseaseRepo: CropDiseaseRepo, val cropRepo: CropRepo) {
     private val logger = LoggerFactory.getLogger(CropDiseaseDataService::class.java)
 
     private val modelMapper = MyModelMapper.init()
+
+    fun getSingleCropDisease(diseaseId: Long): CropDiseaseEntity? {
+        logger.info("Fetching disease data for disease id $diseaseId")
+        val diseaseList = cropDiseaseRepo.findByIdOrNull(diseaseId)
+        val crop = diseaseList?.cropId?.let { cropRepo.findByIdOrNull(it) }
+
+        diseaseList?.cropEntity = crop
+        return diseaseList
+    }
 
     fun addCropDisease(cropDiseaseData: CropDiseaseEntity): CropDiseaseEntity {
         val entity = modelMapper.map(cropDiseaseData, CropDiseaseEntity::class.java)
