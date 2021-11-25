@@ -19,6 +19,7 @@ import kotlin.jvm.Transient
 class CropDiseaseEntity : BaseEntity() {
 
     @Column(name = "crop_id", updatable = false, nullable = false)
+    @Schema(description = "Crop record identifier", example = "10")
     var cropId: Long? = null
 
     /**
@@ -102,6 +103,9 @@ class CropDiseaseEntity : BaseEntity() {
 
     @Column(name = "disease_common_name")
     var diseaseCommonName: String? = null
+
+    @Column(name = "disease_short_name")
+    var diseaseShortName: String? = null
 
     @Column(name = "disease_scientific_name")
     var diseaseScientificName: String? = null

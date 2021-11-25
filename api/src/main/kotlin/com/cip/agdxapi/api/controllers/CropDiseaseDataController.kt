@@ -17,37 +17,11 @@ import java.time.LocalDate
 
 @RequestMapping("api/v1/crops")
 @RestController
-@Tag(name = "Crop diseases", description = "Operations pertaining crop disease")
+@Tag(name = "Crop diseases", description = "Operations pertaining to disease of a specific crop")
 @SecurityRequirement(name = "api")
 class CropDiseaseDataController(val cropDiseaseDataService: CropDiseaseDataService) {
 
-    //    @Tag(name = "Crop disease record management",)
-    @PostMapping("/disease/{cropId}/add")
-    @Operation(summary = "Add disease to the database using crop id", description = "", tags = ["a-crop-disease"])
-    fun addDiseaseData(
-        @PathVariable cropId: Long,
-        @RequestBody cropDiseaseData: CropDiseaseEntity
-    ): ResponseEntity<CropDiseaseEntity> {
-
-        val pestData = cropDiseaseDataService.addCropDisease(cropDiseaseData = cropDiseaseData)
-
-        return ResponseEntity<CropDiseaseEntity>(pestData, HttpStatus.OK)
-    }
-
-    //    @Tag(name = "Crop disease record management",)
-    @PutMapping("/disease/{diseaseId}/update")
-    @Operation(summary = "Update crop disease record", description = "", tags = ["a-crop-disease"])
-    fun updateDiseaseData(
-        @PathVariable diseaseId: Long,
-        @RequestBody cropDiseaseData: CropDiseaseEntity
-    ): ResponseEntity<CropDiseaseEntity> {
-
-        val pestData = cropDiseaseDataService.addCropDisease(cropDiseaseData = cropDiseaseData)
-
-        return ResponseEntity<CropDiseaseEntity>(pestData, HttpStatus.OK)
-    }
-
-    @GetMapping("/diseases/{cropId}")
+    @GetMapping("/{cropId}/diseases")
     @Operation(summary = "Return list of diseases using crop id", description = "", tags = ["crop-disease-0"])
     fun cropDiseases(
         @PathVariable cropId: Long,
@@ -57,7 +31,7 @@ class CropDiseaseDataController(val cropDiseaseDataService: CropDiseaseDataServi
         return ResponseEntity(diseaseData, HttpStatus.OK)
     }
 
-    @GetMapping("/diseases/{cropId}/cultivar/{cultivarId}")
+    @GetMapping("/{cropId}/cultivar/{cultivarId}/diseases")
     @Operation(summary = "Return list of diseases using crop id and cultivar id", description = "", tags = ["crop-disease-1"])
     fun cropDiseasesByCultivar(
         @PathVariable cropId: Long,
@@ -68,7 +42,7 @@ class CropDiseaseDataController(val cropDiseaseDataService: CropDiseaseDataServi
         return ResponseEntity(diseaseData, HttpStatus.OK)
     }
 
-    @GetMapping("/disease/{cropId}/observation-date")
+    @GetMapping("/{cropId}/diseases/observation-date")
     @Operation(summary = "Return list of diseases using crop id and a specified observation date range", description = "", tags = ["crop-disease-0"])
     fun cropDiseaseByObservationDate(
         @PathVariable cropId: Long,
@@ -83,7 +57,7 @@ class CropDiseaseDataController(val cropDiseaseDataService: CropDiseaseDataServi
         return ResponseEntity(diseaseData, HttpStatus.OK)
     }
 
-    @GetMapping("/disease/{cropId}/recording-date")
+    @GetMapping("/{cropId}/diseases/recording-date")
     @Operation(summary = "Return list of diseases using crop id and a specified recorded date range", description = "", tags = ["crop-disease-0"])
     fun cropDiseaseByRecordedDate(
         @PathVariable cropId: Long,
@@ -98,7 +72,7 @@ class CropDiseaseDataController(val cropDiseaseDataService: CropDiseaseDataServi
         return ResponseEntity(diseaseData, HttpStatus.OK)
     }
 
-    @GetMapping("/disease/{cropId}/country-code")
+    @GetMapping("/{cropId}/diseases/country-code")
     @Operation(summary = "Return list of diseases using crop id and country codes", description = "", tags = ["crop-disease-0"])
     fun cropDiseaseByCountryCode(
         @PathVariable cropId: Long,
@@ -116,25 +90,25 @@ class CropDiseaseDataController(val cropDiseaseDataService: CropDiseaseDataServi
         return ResponseEntity(diseaseData, HttpStatus.OK)
     }
 
-    @GetMapping("/disease/{cropId}/coordinates")
-    @Operation(summary = "Return list of diseases using crop id and array of coordinates", description = "", tags = ["crop-disease-0"])
-    fun cropDiseaseByLocations(
-        @PathVariable cropId: Long,
-        @Parameter coordinates: List<CoordinateRequest>,
-        @Parameter(hidden = true) pageable: Pageable
-    ): ResponseEntity<DiseaseFeatureCollection> {
+//    @GetMapping("/{cropId}/diseases/coordinates")
+//    @Operation(summary = "Return list of diseases using crop id and array of coordinates", description = "", tags = ["crop-disease-0"])
+//    fun cropDiseaseByLocations(
+//        @PathVariable cropId: Long,
+//        @Parameter coordinates: List<CoordinateRequest>,
+//        @Parameter(hidden = true) pageable: Pageable
+//    ): ResponseEntity<DiseaseFeatureCollection> {
+//
+//
+//        val diseaseData = cropDiseaseDataService.getCropDiseasesByCountryCode(
+//            cropId = cropId,
+//            countryCode = "",
+//            pageable = pageable
+//        )
+//
+//        return ResponseEntity(diseaseData, HttpStatus.OK)
+//    }
 
-
-        val diseaseData = cropDiseaseDataService.getCropDiseasesByCountryCode(
-            cropId = cropId,
-            countryCode = "",
-            pageable = pageable
-        )
-
-        return ResponseEntity(diseaseData, HttpStatus.OK)
-    }
-
-    @GetMapping("/disease/{cropId}/project")
+    @GetMapping("/{cropId}/diseases/project")
     @Operation(summary = "Return list of diseases using crop id and project name", description = "", tags = ["crop-disease-2"])
     fun cropDiseaseByProject(
         @PathVariable cropId: Long,

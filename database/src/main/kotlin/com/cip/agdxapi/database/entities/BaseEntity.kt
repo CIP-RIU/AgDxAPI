@@ -1,5 +1,6 @@
 package com.cip.agdxapi.database.entities
 
+import io.swagger.v3.oas.annotations.media.Schema
 import org.hibernate.annotations.CreationTimestamp
 import org.hibernate.annotations.UpdateTimestamp
 import java.time.LocalDateTime
@@ -11,6 +12,7 @@ open class BaseEntity {
     @Id
     @Column(name = "id", updatable = false, nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Schema(description = "Record identifier", example = "1")
     var id: Long? = null
 
 //    @CreationTimestamp

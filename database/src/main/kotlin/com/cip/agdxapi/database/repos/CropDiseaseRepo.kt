@@ -14,6 +14,7 @@ interface CropDiseaseRepo : PagingAndSortingRepository<CropDiseaseEntity, Long> 
     override fun findAll(): List<CropDiseaseEntity>
 
     fun findAllByCountryCode(countryCode: String): List<CropDiseaseEntity>
+    fun findAllByCountryCodeIn(countryCodes: List<String>): List<CropDiseaseEntity>
 
     fun findAllByCropId(cropId: Long): List<CropDiseaseEntity>
 
@@ -25,6 +26,7 @@ interface CropDiseaseRepo : PagingAndSortingRepository<CropDiseaseEntity, Long> 
 
     fun findAllByCropIdAndCountryCode(cropId: Long, countryCode: String): List<CropDiseaseEntity>
     fun findAllByCropIdAndCountryCodeIn(cropId: Long, countryCode: List<String>): List<CropDiseaseEntity>
+
 
     fun findAllByProjectName(projectName: String): List<CropDiseaseEntity>
 }

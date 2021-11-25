@@ -62,10 +62,21 @@ constructor(val cropDiseaseRepo: CropDiseaseRepo, val cropRepo: CropRepo) {
         return buildGeoJson(cropDiseaseList)
     }
 
+    fun getCropDiseasesByCountryCode(countryCodes: List<String>, pageable: Pageable): DiseaseFeatureCollection {
+        val cropDiseaseList = cropDiseaseRepo.findAllByCountryCodeIn(countryCodes = countryCodes)
+        return buildGeoJson(cropDiseaseList)
+    }
+
     fun getCropDiseasesByProjectName(cropId: Long, projectName: String, pageable: Pageable): DiseaseFeatureCollection {
         val cropDiseaseList = cropDiseaseRepo.findAllByProjectName(projectName = projectName)
         return buildGeoJson(cropDiseaseList)
     }
+
+    fun getCropDiseasesByProjectName(projectName: String, pageable: Pageable): DiseaseFeatureCollection {
+        val cropDiseaseList = cropDiseaseRepo.findAllByProjectName(projectName = projectName)
+        return buildGeoJson(cropDiseaseList)
+    }
+
 
     private fun buildGeoJson(diseaseList: List<CropDiseaseEntity>, crop: CropEntity? = null): DiseaseFeatureCollection {
         val featureCollection = DiseaseFeatureCollection()

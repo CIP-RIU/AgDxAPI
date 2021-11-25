@@ -23,7 +23,7 @@ class Geometry {
     @JsonProperty("altitude")
     var altitude: BigDecimal? = null
 
-    @Schema(description = "GPS coordinates lon,lat,alt", type = "List", example = "[36.821945, 6.234674, 0]", required = true)
+    @Schema(description = "GPS coordinates lon,lat,alt", type = "List", example = "[36.821945, -1.292066, 0]", required = true)
     @JsonProperty("coordinates")
     var coordinates: MutableList<BigDecimal>? = null
 
@@ -46,6 +46,7 @@ class Geometry {
     @JsonProperty("location_level3")
     var locationLevel3: String? = null
 
+    @Schema(description = "Administrative level four", example = "Lvl 4", required = false)
     @JsonProperty("location_level4")
     var locationLevel4: String? = null
 
