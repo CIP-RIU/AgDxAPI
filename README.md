@@ -161,7 +161,7 @@ To explore the api endpoints refer to this [**LINK**](https://app.swaggerhub.com
 ```bash
   npm install -g redoc-cli
 
-  redoc-cli bundle -o .\docs\index.html .\docs\swagger.json
+  redoc-cli bundle -o .\docs\index.html .\docs\agdx.json
 ```
 
 ### generate markdown files
@@ -169,5 +169,5 @@ To explore the api endpoints refer to this [**LINK**](https://app.swaggerhub.com
 ```bash
   npm install -g openapi-to-md
 
-  openapi-to-md .\docs\swagger.json > .\docs\API.MD
+  openapi-to-md .\docs\agdx.json > .\docs\API.MD
 ```
