@@ -49,16 +49,16 @@ This research was undertaken as part of, and funded by, the CGIAR Research Progr
 3. [x] Review existing data definition standards and ontologies from the CGIAR, Academia, and development organizations like FAO for reuse in defining
    data exchange attributes for the **AgDxAPI**.
 4. [x] Create a draft version of the **AgDxAPI** standardized web service API specification for data exchange.
-5. [ ] Lead the review of the specification in a (virtual) workshop of all stakeholders. The workshop will provide feedback and provide input for the
+5. [x] Lead the review of the specification in a (virtual) workshop of all stakeholders. The workshop will provide feedback and provide input for the
    finalization of the first version of the specification.
-6. [ ] Document the **AgDxAPI** using widely accepted API documentation standards
-
+6. [x] Document the **AgDxAPI** using widely accepted API documentation standards
+7. [ ] Develop a demo website showcasing capabilities of **AgDxAPI**
 ## Deliverables
 
 1. [x] List of minimum data elements suitable for exchange between the pest and disease databases and applications
 2. [x] Harmonization of the minimum data elements with existing data standards and ontologies
 3. [x] **AgDxAPI** standardized web service API specification published on the AgDx Alliance Github
-4. [ ] Documentation of the **AgDxAPI** including on online API documentation systems such as Apiary and Swagger
+4. [x] Documentation of the **AgDxAPI** including on online API documentation systems such as Apiary and Swagger
 
 ---
 
@@ -76,6 +76,7 @@ This research was undertaken as part of, and funded by, the CGIAR Research Progr
 | Version       | Status      | Release Date | SwaggerHub   | Notes |
 |---------------|-------------|--------------|-----------|-------|
 | v1.0.0 | Development | Oct 27, 2021 | [**LINK**](https://app.swaggerhub.com/apis/masgeek/agdxapi/1.0.0)|       |
+| v1.0.1 | Development | Oct 27, 2021 | [**LINK**](https://app.swaggerhub.com/apis/masgeek/agdxapi/1.0.0)|       |
 
 ---
 
