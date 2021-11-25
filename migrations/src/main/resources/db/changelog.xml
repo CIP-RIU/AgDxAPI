@@ -38,4 +38,6 @@
     <include file="changelog/20211117140530_add_attribution_column_to_disease_table.xml" relativeToChangelogFile="true"/>
     <include file="changelog/20211117140538_add_attribution_column_to_pests_table.xml" relativeToChangelogFile="true"/>
 
+    <include file="changelog/20211125090803_add_disease_short_name_to_crop_disease_table.xml" relativeToChangelogFile="true"/>
+
 </databaseChangeLog>
