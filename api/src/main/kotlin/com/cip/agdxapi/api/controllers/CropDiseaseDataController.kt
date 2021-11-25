@@ -18,11 +18,10 @@ import java.time.LocalDate
 @RequestMapping("api/v1/crops")
 @RestController
 @Tag(name = "Crop diseases", description = "Operations pertaining to disease of a specific crop")
-@SecurityRequirement(name = "api")
 class CropDiseaseDataController(val cropDiseaseDataService: CropDiseaseDataService) {
 
     @GetMapping("/{cropId}/diseases")
-    @Operation(summary = "Return list of diseases using crop id", description = "", tags = ["crop-disease-0"])
+    @Operation(description = "Return list of diseases using crop id",  tags = ["crop-disease-0"])
     fun cropDiseases(
         @PathVariable cropId: Long,
         @Parameter(hidden = true) pageable: Pageable
@@ -32,7 +31,7 @@ class CropDiseaseDataController(val cropDiseaseDataService: CropDiseaseDataServi
     }
 
     @GetMapping("/{cropId}/cultivar/{cultivarId}/diseases")
-    @Operation(summary = "Return list of diseases using crop id and cultivar id", description = "", tags = ["crop-disease-1"])
+    @Operation(description = "Return list of diseases using crop id and cultivar id",  tags = ["crop-disease-1"])
     fun cropDiseasesByCultivar(
         @PathVariable cropId: Long,
         @PathVariable cultivarId: Long,
@@ -43,7 +42,7 @@ class CropDiseaseDataController(val cropDiseaseDataService: CropDiseaseDataServi
     }
 
     @GetMapping("/{cropId}/diseases/observation-date")
-    @Operation(summary = "Return list of diseases using crop id and a specified observation date range", description = "", tags = ["crop-disease-0"])
+    @Operation(description = "Return list of diseases using crop id and a specified observation date range",  tags = ["crop-disease-0"])
     fun cropDiseaseByObservationDate(
         @PathVariable cropId: Long,
         @Parameter(example = "2020-01-01") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) fromDate: LocalDate,
@@ -58,7 +57,7 @@ class CropDiseaseDataController(val cropDiseaseDataService: CropDiseaseDataServi
     }
 
     @GetMapping("/{cropId}/diseases/recording-date")
-    @Operation(summary = "Return list of diseases using crop id and a specified recorded date range", description = "", tags = ["crop-disease-0"])
+    @Operation(description = "Return list of diseases using crop id and a specified recorded date range",  tags = ["crop-disease-0"])
     fun cropDiseaseByRecordedDate(
         @PathVariable cropId: Long,
         @Parameter(example = "2020-01-01") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) fromDate: LocalDate,
@@ -73,7 +72,7 @@ class CropDiseaseDataController(val cropDiseaseDataService: CropDiseaseDataServi
     }
 
     @GetMapping("/{cropId}/diseases/country-code")
-    @Operation(summary = "Return list of diseases using crop id and country codes", description = "", tags = ["crop-disease-0"])
+    @Operation(description = "Return list of diseases using crop id and country codes",  tags = ["crop-disease-0"])
     fun cropDiseaseByCountryCode(
         @PathVariable cropId: Long,
         @Parameter(example = "CO,KE") countryCode: String,
@@ -91,7 +90,7 @@ class CropDiseaseDataController(val cropDiseaseDataService: CropDiseaseDataServi
     }
 
 //    @GetMapping("/{cropId}/diseases/coordinates")
-//    @Operation(summary = "Return list of diseases using crop id and array of coordinates", description = "", tags = ["crop-disease-0"])
+//    @Operation(description = "Return list of diseases using crop id and array of coordinates",  tags = ["crop-disease-0"])
 //    fun cropDiseaseByLocations(
 //        @PathVariable cropId: Long,
 //        @Parameter coordinates: List<CoordinateRequest>,
@@ -109,7 +108,7 @@ class CropDiseaseDataController(val cropDiseaseDataService: CropDiseaseDataServi
 //    }
 
     @GetMapping("/{cropId}/diseases/project")
-    @Operation(summary = "Return list of diseases using crop id and project name", description = "", tags = ["crop-disease-2"])
+    @Operation(description = "Return list of diseases using crop id and project name",  tags = ["crop-disease-2"])
     fun cropDiseaseByProject(
         @PathVariable cropId: Long,
         @Parameter(example = "PestDisplace") projectName: String,

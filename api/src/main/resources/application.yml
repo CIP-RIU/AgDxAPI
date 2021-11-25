@@ -45,5 +45,9 @@ agdx:
   name: 'AgDx API'
   version: ${VERSION:1.0.2}
   desc: 'Description here'
-  externaldoc: ${cip.version}
-  license: ${cip.version}
+  externaldoc: ${agdx.version}
+  license: ${agdx.version}
+  contact:
+    name: ${agdx.name}
+    email: agdx@agdx.org
+    url: agdx.org

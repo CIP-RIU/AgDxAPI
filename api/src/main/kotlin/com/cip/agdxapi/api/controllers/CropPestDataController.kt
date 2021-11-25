@@ -22,18 +22,17 @@ import java.time.LocalDate
 //@RequestMapping("api/v1/crops/pest")
 //@RestController
 //@Tag(name = "Crop pests", description = "Operations pertaining crop pests")
-//@SecurityRequirement(name = "api")
 class CropPestDataController(private val cropPestDataService: CropPestDataService) {
 
     @PostMapping("/add")
-    @Operation(summary = "Add new pest", description = "", tags = ["crop-pest"])
+    @Operation(description = "Add new pest",  tags = ["crop-pest"])
     fun addPestData(@RequestBody pestEntity: CropPestEntity): ResponseEntity<CropPestEntity> {
         val pestData = cropPestDataService.addPest(pestEntity = pestEntity)
         return ResponseEntity<CropPestEntity>(pestData, HttpStatus.OK)
     }
 
     @PutMapping("/update/{id}")
-    @Operation(summary = "Update crop pest record", description = "", tags = ["update-crop-pest"])
+    @Operation(description = "Update crop pest record",  tags = ["update-crop-pest"])
     fun updatePestData(
         @PathVariable id: Long,
         @RequestBody pestEntity: CropPestEntity
@@ -45,7 +44,7 @@ class CropPestDataController(private val cropPestDataService: CropPestDataServic
     }
 
     @GetMapping
-    @Operation(summary = "Return list of all pests", description = "", tags = ["crop-pest"])
+    @Operation(description = "Return list of all pests",  tags = ["crop-pest"])
     fun pestList(@Parameter(hidden = true) pageable: Pageable): ResponseEntity<PestFeatureCollection> {
         val pestData = cropPestDataService.getPestList(pageable)
 
@@ -53,7 +52,7 @@ class CropPestDataController(private val cropPestDataService: CropPestDataServic
     }
 
     @GetMapping("/{id}")
-    @Operation(summary = "Return specific record by its id", description = "", tags = ["crop-pest"])
+    @Operation(description = "Return specific record by its id",  tags = ["crop-pest"])
     fun pestInfo(@PathVariable id: Long): ResponseEntity<CropPestEntity> {
         val pestData = cropPestDataService.getPestById(id = id)
 
@@ -61,7 +60,7 @@ class CropPestDataController(private val cropPestDataService: CropPestDataServic
     }
 
     @GetMapping("/{commonName}/common")
-    @Operation(summary = "Get details of specific pest using its common name", description = "", tags = ["crop-pest"])
+    @Operation(description = "Get details of specific pest using its common name",  tags = ["crop-pest"])
     fun getPestByCommonName(
         @PathVariable commonName: String,
         @Parameter(hidden = true) pageable: Pageable
@@ -73,7 +72,7 @@ class CropPestDataController(private val cropPestDataService: CropPestDataServic
     }
 
     @GetMapping("/{sccientificName}/scientific")
-    @Operation(summary = "Get details of specific pest using its scientific name", description = "", tags = ["crop-pest"])
+    @Operation(description = "Get details of specific pest using its scientific name",  tags = ["crop-pest"])
     fun getPestByScientificName(
         @PathVariable sccientificName: String,
         @Parameter(hidden = true) pageable: Pageable
@@ -85,7 +84,7 @@ class CropPestDataController(private val cropPestDataService: CropPestDataServic
     }
 
     @GetMapping("/category/{category}")
-    @Operation(summary = "Get pest by category", description = "", tags = ["crop-pest"])
+    @Operation(description = "Get pest by category",  tags = ["crop-pest"])
     fun getPestByCategory(
         @PathVariable category: ArrayList<EnumPestCategory>,
         @Parameter(hidden = true) pageable: Pageable
@@ -95,7 +94,7 @@ class CropPestDataController(private val cropPestDataService: CropPestDataServic
     }
 
     @GetMapping("/habitat/{habitat}")
-    @Operation(summary = "Get pests by habitat", description = "", tags = ["crop-pest"])
+    @Operation(description = "Get pests by habitat",  tags = ["crop-pest"])
     fun getPestByHabitat(
         @PathVariable habitat: String,
         @Parameter(hidden = true) pageable: Pageable
@@ -105,7 +104,7 @@ class CropPestDataController(private val cropPestDataService: CropPestDataServic
     }
 
     @GetMapping("/observe-date")
-    @Operation(summary = "Find crop pests by observation date range", description = "", tags = ["date-crop-pest"])
+    @Operation(description = "Find crop pests by observation date range",  tags = ["date-crop-pest"])
     fun getPestsByObservedDate(
         @Parameter @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) fromDate: LocalDate,
         @Parameter @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) toDate: LocalDate,
@@ -118,7 +117,7 @@ class CropPestDataController(private val cropPestDataService: CropPestDataServic
     }
 
     @GetMapping("/reporting-date")
-    @Operation(summary = "Find crop pests by reporting date range", description = "", tags = ["date-crop-pest"])
+    @Operation(description = "Find crop pests by reporting date range",  tags = ["date-crop-pest"])
     fun getPestsByReportingDate(
         @Parameter @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) fromDate: LocalDate,
         @Parameter @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) toDate: LocalDate,
@@ -131,7 +130,7 @@ class CropPestDataController(private val cropPestDataService: CropPestDataServic
     }
 
     @GetMapping("/record-date")
-    @Operation(summary = "Find crop pests by recording date range", description = "", tags = ["date-crop-pest"])
+    @Operation(description = "Find crop pests by recording date range",  tags = ["date-crop-pest"])
     fun getPestsByRecordingDate(
         @Parameter @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) fromDate: LocalDate,
         @Parameter @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) toDate: LocalDate,
@@ -144,7 +143,7 @@ class CropPestDataController(private val cropPestDataService: CropPestDataServic
     }
 
     @GetMapping("/crop-name/{cropName}")
-    @Operation(summary = "Find crop pest by crop name", description = "", tags = ["crop-pest"])
+    @Operation(description = "Find crop pest by crop name",  tags = ["crop-pest"])
     fun getPestsByCropName(
         @PathVariable cropName: String,
         @Parameter(hidden = true) pageable: Pageable
@@ -154,7 +153,7 @@ class CropPestDataController(private val cropPestDataService: CropPestDataServic
     }
 
     @GetMapping("/cultivar/{cultivar}")
-    @Operation(summary = "Find crop pest by cultivar type", description = "", tags = ["crop-pest"])
+    @Operation(description = "Find crop pest by cultivar type",  tags = ["crop-pest"])
     fun getPestsByCultivarName(
         @PathVariable cultivar: String,
         @Parameter(hidden = true) pageable: Pageable
@@ -164,7 +163,7 @@ class CropPestDataController(private val cropPestDataService: CropPestDataServic
     }
 
     @GetMapping("/detection-status/{status}")
-    @Operation(summary = "Get pests by detection status", description = "", tags = ["status", "detection"])
+    @Operation(description = "Get pests by detection status",  tags = ["status", "detection"])
     fun getPestByDetectionStatus(
         @PathVariable status: EnumDetectionStatus,
         @Parameter(hidden = true) pageable: Pageable
@@ -175,7 +174,7 @@ class CropPestDataController(private val cropPestDataService: CropPestDataServic
 
 
     @GetMapping("/management-status/{status}")
-    @Operation(summary = "Get crop pests by management status", description = "", tags = ["status", "management"])
+    @Operation(description = "Get crop pests by management status",  tags = ["status", "management"])
     fun getPestByManagementStatus(
         @PathVariable status: EnumTreatmentStatus,
         @Parameter(hidden = true) pageable: Pageable
@@ -185,7 +184,7 @@ class CropPestDataController(private val cropPestDataService: CropPestDataServic
     }
 
     @GetMapping("/vector/{vector}")
-    @Operation(summary = "Get pests by vector", description = "", tags = ["crop-pest"])
+    @Operation(description = "Get pests by vector",  tags = ["crop-pest"])
     fun getPestByVector(
         @PathVariable vector: String,
         @Parameter(hidden = true) pageable: Pageable
@@ -195,7 +194,7 @@ class CropPestDataController(private val cropPestDataService: CropPestDataServic
     }
 
     @GetMapping("/admin-level/{adminLevel}/one")
-    @Operation(summary = "Find crop pest by administration levels", description = "", tags = ["location-crop-pest"])
+    @Operation(description = "Find crop pest by administration levels",  tags = ["location-crop-pest"])
     fun getPestByAdminLevelOne(
         @PathVariable adminLevel: String,
         @Parameter(hidden = true) pageable: Pageable
@@ -205,7 +204,7 @@ class CropPestDataController(private val cropPestDataService: CropPestDataServic
     }
 
     @GetMapping("/admin-level/{adminLevel}/two")
-    @Operation(summary = "Find crop pest by administration levels", description = "", tags = ["location-crop-pest"])
+    @Operation(description = "Find crop pest by administration levels",  tags = ["location-crop-pest"])
     fun getPestByAdminLevelTwo(
         @PathVariable adminLevel: String,
         @Parameter(hidden = true) pageable: Pageable
@@ -215,7 +214,7 @@ class CropPestDataController(private val cropPestDataService: CropPestDataServic
     }
 
     @GetMapping("/admin-level/{adminLevel}/three")
-    @Operation(summary = "Find crop pest by administration levels", description = "", tags = ["location-crop-pest"])
+    @Operation(description = "Find crop pest by administration levels",  tags = ["location-crop-pest"])
     fun getPestByAdminLevelThree(
         @PathVariable adminLevel: String,
         @Parameter(hidden = true) pageable: Pageable

@@ -14,18 +14,17 @@ import org.springframework.web.bind.annotation.*
 //@RequestMapping("api/v1/pest")
 //@RestController
 //@Tag(name = "Pest data", description = "Operations pertaining pests")
-//@SecurityRequirement(name = "api")
 class PestController {
 
     @PostMapping("/add")
-    @Operation(summary = "Add new pest", description = "", tags = ["add-pest"])
+    @Operation(description = "Add new pest",  tags = ["add-pest"])
     fun addPestData(@RequestBody pestData: PestEntity): ResponseEntity<PestEntity> {
 
         return ResponseEntity<PestEntity>(PestEntity(), HttpStatus.OK)
     }
 
     @PutMapping("/update/{id}")
-    @Operation(summary = "Update pest record", description = "", tags = ["update-pest"])
+    @Operation(description = "Update pest record",  tags = ["update-pest"])
     fun updatePestData(
         @PathVariable id: Long,
         @RequestBody pestData: PestEntity
@@ -35,7 +34,7 @@ class PestController {
     }
 
     @GetMapping
-    @Operation(summary = "Return list of all pests", description = "", tags = ["pest"])
+    @Operation(description = "Return list of all pests",  tags = ["pest"])
     fun getPestList(@Parameter(hidden = true) pageable: Pageable): ResponseEntity<Page<PestEntity>> {
 
         val pestData: Page<PestEntity> = Page.empty()
@@ -44,7 +43,7 @@ class PestController {
     }
 
     @GetMapping("/{pestName}/common")
-    @Operation(summary = "Get pests using common name", description = "", tags = ["pest"])
+    @Operation(description = "Get pests using common name",  tags = ["pest"])
     fun getPestByCommonName(
         @PathVariable pestName: String,
         @Parameter(hidden = true) pageable: Pageable
@@ -56,7 +55,7 @@ class PestController {
     }
 
     @GetMapping("/{pestName}/scientific")
-    @Operation(summary = "Get pests using scientific name", description = "", tags = ["pest"])
+    @Operation(description = "Get pests using scientific name",  tags = ["pest"])
     fun getPestByScientificName(
         @PathVariable pestName: String,
         @Parameter(hidden = true) pageable: Pageable
@@ -66,7 +65,7 @@ class PestController {
     }
 
     @GetMapping("/order/{order}")
-    @Operation(summary = "Get pests using order", description = "", tags = ["pest"])
+    @Operation(description = "Get pests using order",  tags = ["pest"])
     fun getPestByOrder(
         @PathVariable order: String,
         @Parameter(hidden = true) pageable: Pageable
@@ -78,7 +77,7 @@ class PestController {
     }
 
     @GetMapping("/family/{family}")
-    @Operation(summary = "Get pests using family", description = "", tags = ["pest"])
+    @Operation(description = "Get pests using family",  tags = ["pest"])
     fun getPestByFamily(
         @PathVariable family: String,
         @Parameter(hidden = true) pageable: Pageable
@@ -90,7 +89,7 @@ class PestController {
     }
 
     @GetMapping("/genus/{genus}")
-    @Operation(summary = "Get pests using genus", description = "", tags = ["pest"])
+    @Operation(description = "Get pests using genus",  tags = ["pest"])
     fun getPestByGenus(
         @PathVariable genus: String,
         @Parameter(hidden = true) pageable: Pageable

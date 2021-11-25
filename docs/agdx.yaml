@@ -1,0 +1,800 @@
+openapi: 3.0.1
+info:
+  title: AgDx API
+  description: AgDx API facilitates sharing of crop pest and disease data between
+    platforms and/or by providing links between complementary ICT tools where appropriate.
+  contact:
+    name: AgDx API
+    url: agdx.org
+    email: agdx@agdx.org
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+  version: 1.0.2
+externalDocs:
+  description: AgDx API Wiki Documentation
+  url: '#'
+servers:
+- url: http://localhost:9100
+  description: Generated server url
+tags:
+- name: Crop diseases
+  description: Operations pertaining to disease of a specific crop
+- name: Crops
+  description: Operations pertaining to crops
+- name: Diseases
+  description: Operations pertaining to all crop diseases
+paths:
+  /api/v1/diseases/{diseaseId}:
+    get:
+      tags:
+      - Diseases
+      description: Return details of single disease using diseaseId
+      operationId: getDiseaseDetails
+      parameters:
+      - name: diseaseId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+        example: 1
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CropDiseaseEntity'
+    put:
+      tags:
+      - Diseases
+      description: Update disease record
+      operationId: updateDiseaseData
+      parameters:
+      - name: diseaseId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CropDiseaseEntity'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CropDiseaseEntity'
+  /api/v1/crops/update/{cropId}:
+    put:
+      tags:
+      - Crops
+      description: Update crop record
+      operationId: updateCropData
+      parameters:
+      - name: cropId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CropEntity'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CropEntity'
+  /api/v1/diseases/add:
+    post:
+      tags:
+      - Diseases
+      description: Add disease to the database
+      operationId: addDiseaseData
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CropDiseaseEntity'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CropDiseaseEntity'
+  /api/v1/crops/add-new:
+    post:
+      tags:
+      - Crops
+      description: Add new crop
+      operationId: addCropData
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CropEntity'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CropEntity'
+  /api/v1/diseases:
+    get:
+      tags:
+      - Diseases
+      description: Return list of diseases in the database
+      operationId: cropDiseases
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DiseaseFeatureCollection'
+  /api/v1/diseases/{projectName}/project:
+    get:
+      tags:
+      - Diseases
+      description: Return list of diseases using project name
+      operationId: cropDiseasesByProject
+      parameters:
+      - name: projectName
+        in: path
+        required: true
+        schema:
+          type: string
+        example: PestDisplace
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DiseaseFeatureCollection'
+  /api/v1/diseases/{countryCode}/country:
+    get:
+      tags:
+      - Diseases
+      description: Return list of diseases using country codes
+      operationId: cropDiseasesByCountry
+      parameters:
+      - name: countryCode
+        in: path
+        required: true
+        schema:
+          type: string
+        example: "CO,KE,NG"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DiseaseFeatureCollection'
+  /api/v1/crops:
+    get:
+      tags:
+      - Crops
+      description: Return list of all crops in the database
+      operationId: allCrops
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PageCropEntity'
+  /api/v1/crops/{cropId}:
+    get:
+      tags:
+      - Crops
+      description: Return crop data using crop id
+      operationId: crop
+      parameters:
+      - name: cropId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CropEntity'
+  /api/v1/crops/{cropId}/diseases:
+    get:
+      tags:
+      - Crop diseases
+      description: Return list of diseases using crop id
+      operationId: cropDiseases_1
+      parameters:
+      - name: cropId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DiseaseFeatureCollection'
+  /api/v1/crops/{cropId}/diseases/recording-date:
+    get:
+      tags:
+      - Crop diseases
+      description: Return list of diseases using crop id and a specified recorded
+        date range
+      operationId: cropDiseaseByRecordedDate
+      parameters:
+      - name: cropId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: fromDate
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date
+        example: 2020-01-01
+      - name: toDate
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date
+        example: 2021-01-01
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DiseaseFeatureCollection'
+  /api/v1/crops/{cropId}/diseases/project:
+    get:
+      tags:
+      - Crop diseases
+      description: Return list of diseases using crop id and project name
+      operationId: cropDiseaseByProject
+      parameters:
+      - name: cropId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: projectName
+        in: query
+        required: true
+        schema:
+          type: string
+        example: PestDisplace
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DiseaseFeatureCollection'
+  /api/v1/crops/{cropId}/diseases/observation-date:
+    get:
+      tags:
+      - Crop diseases
+      description: Return list of diseases using crop id and a specified observation
+        date range
+      operationId: cropDiseaseByObservationDate
+      parameters:
+      - name: cropId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: fromDate
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date
+        example: 2020-01-01
+      - name: toDate
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date
+        example: 2021-01-01
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DiseaseFeatureCollection'
+  /api/v1/crops/{cropId}/diseases/country-code:
+    get:
+      tags:
+      - Crop diseases
+      description: Return list of diseases using crop id and country codes
+      operationId: cropDiseaseByCountryCode
+      parameters:
+      - name: cropId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: countryCode
+        in: query
+        required: true
+        schema:
+          type: string
+        example: "CO,KE"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DiseaseFeatureCollection'
+  /api/v1/crops/{cropId}/cultivar/{cultivarId}/diseases:
+    get:
+      tags:
+      - Crop diseases
+      description: Return list of diseases using crop id and cultivar id
+      operationId: cropDiseasesByCultivar
+      parameters:
+      - name: cropId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: cultivarId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DiseaseFeatureCollection'
+components:
+  schemas:
+    CropDiseaseEntity:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Record identifier
+          format: int64
+          example: 1
+        cropId:
+          type: integer
+          description: Crop record identifier
+          format: int64
+          example: 10
+        countryCode:
+          type: string
+          description: Can be ISO2(KE) or ISO3(KEN)
+          example: KE
+        lat:
+          type: number
+          description: GPS lat
+          example: 36.821945
+        lon:
+          type: number
+          description: GPS lon
+          example: -1.292066
+        alt:
+          type: number
+          description: Identification Altitude above sea level
+          example: 1200
+        accuracy:
+          type: number
+          description: Accuracy of GPS location in meters
+          example: 1.0
+        geodeticDatum:
+          type: string
+          description: North America Datum or World geodetic coordinate system
+          example: NAD83
+        locationLevel1:
+          type: string
+          description: "Province, district or region"
+          example: "Carroll, Ohio, United States"
+        locationLevel2:
+          type: string
+          description: "Municipality,district"
+          example: Victoria
+        locationLevel3:
+          type: string
+          description: "Administrative level i.e city,down"
+          example: CITY
+        dateObserved:
+          type: string
+          description: Date when it was detected
+          format: date
+          example: 2021-01-01
+        dateIdentified:
+          type: string
+          description: Date when it was identified
+          format: date
+          example: 2021-01-13
+        dateRecorded:
+          type: string
+          description: Date when it was recorded into the system
+          format: date
+          example: 2021-01-13
+        dateUpdated:
+          type: string
+          description: Date the record was updated
+          format: date
+          example: 2021-01-13
+        diseaseCommonName:
+          type: string
+        diseaseShortName:
+          type: string
+        diseaseScientificName:
+          type: string
+        pathogenCommonName:
+          type: string
+          description: Common pest name
+          example: BXW
+        pathogenScientificName:
+          type: string
+          description: Scientific pest name
+          example: Xanthomonas wilt of banana
+        pathogenNativity:
+          type: string
+          description: Pest nativity status
+          example: Introduced
+          enum:
+          - Introduced
+          - Native
+        pathogenDetectionStatus:
+          type: string
+          description: Pathogen detection status
+          example: Detected
+          enum:
+          - Undetected
+          - Detected
+        pathogenCategory:
+          type: string
+          description: Pathogen category
+          example: Virus
+          enum:
+          - Virus
+          - Bacteria
+          - Fungi
+          - Protozoa
+          - Plants
+        pathogenVector:
+          type: string
+          description: Pathogen vector
+          example: "Aphids, Equipment"
+        pathogenIdentificationMethod:
+          type: string
+          description: "This can contain multiple identification methods (PCR,ELISA)"
+          example: PCR
+        pathogenTreatmentStatus:
+          type: string
+          description: "management status of the pathogen at time of recording (Treated,\
+            \ Untreated)"
+          example: Treated
+          enum:
+          - Treated
+          - Untreated
+        pathogenVerificationMethod:
+          type: string
+          description: This can contain multiple verification methods
+          example: Visual
+        pathogenRecordBasis:
+          type: string
+          description: The basis of the occurrence (Human observation)
+          example: Human observation
+        pathogenVerified:
+          type: boolean
+          description: Observed pathogen has been verified
+        severityNumberScale:
+          type: integer
+          description: Severity scale on an number level (5)
+          format: int32
+          example: 5
+        severityPercentageScale:
+          type: number
+          description: Severity scale on an percentage level
+          example: 0.5
+        severityRangeScale:
+          type: string
+          description: Severity scale on an range level
+          example: 1-5
+        pathogenIncidence:
+          type: string
+          description: Number of measure for disease occurrence on subject population
+          example: 50 Percent
+        areaUnit:
+          type: string
+          description: "Area measurement unit ha,acre,sqm"
+          example: ha
+        sampledAreaSize:
+          type: number
+          description: Size of area sampled
+          example: 20.5
+        affectedAreaSize:
+          type: number
+          description: Size of area affected
+          example: 15
+        sampleSource:
+          type: string
+          description: "Source of the sample i.e Field, greenhouse, lab"
+          example: Field
+        sampleDesc:
+          type: string
+          description: "Description of the sample i.e roots, leaves"
+          example: Roots
+        numOfSamples:
+          type: integer
+          description: Number of samples collected
+          format: int32
+          example: 500
+        numOfAffectedSamples:
+          type: integer
+          description: Number of affected samples collected
+          format: int32
+          example: 350
+        sampleUnits:
+          type: string
+          description: "Unit of measure (individuals, pieces, grams, etc.)"
+          example: grams
+        labSampleId:
+          type: string
+          description: Lab sample identifier
+          example: SMPL-100
+        hasVisualSymptoms:
+          type: boolean
+          description: Specimens portrayed visual symptoms related to the disease
+        dataCollectionMethod:
+          type: string
+          description: Methodology/protocol used to take the data (Field visit)
+          example: Field visit
+        genbankAccessionNumber:
+          type: string
+          description: GeneBank number for identification and confirmation ofr the
+            disease
+          example: LC.789546
+        projectName:
+          type: string
+          description: Name of the project as the source of data
+          example: CIAT
+        identifiedBy:
+          type: string
+        reportedBy:
+          type: string
+        recordedBy:
+          type: string
+        reviewedBy:
+          type: string
+        comments:
+          type: string
+        identificationMethod:
+          type: string
+        visuallyIdentified:
+          type: boolean
+        originalSystemId:
+          type: string
+          description: "In the case of data from an aggregator,the unique identifier\
+            \ from the original data set.Used in cases where two aggregators may encounter\
+            \ the same data."
+        contributingSystemId:
+          type: string
+          description: Unique identifier from system contributing data for followup
+            and updating
+        attribution:
+          type: string
+        cropEntity:
+          $ref: '#/components/schemas/CropEntity'
+    CropEntity:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Record identifier
+          format: int64
+          example: 1
+        commonName:
+          type: string
+          description: Crop common name
+          example: Banana
+        scientificName:
+          type: string
+          description: Crop scientific name
+          example: Musca
+        ontologyId:
+          type: string
+          description: Ontology id of the crop
+          example: C350
+        genus:
+          type: string
+          description: Genus crop
+          example: Musa
+        family:
+          type: string
+          description: Family crop
+          example: Musaceae
+        diseaseCount:
+          type: integer
+          format: int32
+        pestCount:
+          type: integer
+          format: int32
+    DiseaseFeature:
+      required:
+      - type
+      type: object
+      properties:
+        geometry:
+          $ref: '#/components/schemas/Geometry'
+        properties:
+          $ref: '#/components/schemas/CropDiseaseEntity'
+        type:
+          type: string
+          enum:
+          - Feature
+    DiseaseFeatureCollection:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - FeatureCollection
+        features:
+          type: array
+          items:
+            $ref: '#/components/schemas/DiseaseFeature'
+    Geometry:
+      required:
+      - high_accuracy_gps
+      - type
+      type: object
+      properties:
+        altitude:
+          type: number
+        coordinates:
+          type: array
+          description: "GPS coordinates lon,lat,alt"
+          example:
+          - 36.821945
+          - -1.292066
+          - 0
+          items:
+            type: number
+            description: "GPS coordinates lon,lat,alt"
+        high_accuracy_gps:
+          type: integer
+          description: Accuracy of GPS location in meters
+          format: int64
+        iso3:
+          type: string
+        location_level1:
+          type: string
+          description: "Administrative level one; Province,district,region"
+          example: Western Province
+        location_level2:
+          type: string
+          description: "Administrative level two; municipality,district"
+          example: Kakamega
+        location_level3:
+          type: string
+          description: "Administrative level three; city,town or farm name"
+          example: Shianda
+        location_level4:
+          type: string
+          description: Administrative level four
+          example: Lvl 4
+        type:
+          type: string
+          enum:
+          - Point
+          - LineString
+          - Polygon
+          - MultiPoint
+          - MultiLineString
+          - MultiPolygon
+    PageCropEntity:
+      type: object
+      properties:
+        totalElements:
+          type: integer
+          format: int64
+        totalPages:
+          type: integer
+          format: int32
+        size:
+          type: integer
+          format: int32
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/CropEntity'
+        number:
+          type: integer
+          format: int32
+        sort:
+          $ref: '#/components/schemas/Sort'
+        first:
+          type: boolean
+        last:
+          type: boolean
+        numberOfElements:
+          type: integer
+          format: int32
+        pageable:
+          $ref: '#/components/schemas/Pageable'
+        empty:
+          type: boolean
+    Pageable:
+      type: object
+      properties:
+        page:
+          minimum: 0
+          type: integer
+          format: int32
+        size:
+          minimum: 1
+          type: integer
+          format: int32
+        sort:
+          type: array
+          items:
+            type: string
+    Sort:
+      type: object
+      properties:
+        sorted:
+          type: boolean
+        unsorted:
+          type: boolean
+        empty:
+          type: boolean
+  securitySchemes:
+    jwt:
+      type: http
+      name: Authorization
+      in: header
+      scheme: bearer
+      bearerFormat: JWT
+    api:
+      type: http
+      name: Authorization
+      in: header
+      scheme: basic

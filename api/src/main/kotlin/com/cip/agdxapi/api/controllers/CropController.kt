@@ -15,19 +15,18 @@ import org.springframework.web.bind.annotation.*
 @RequestMapping("api/v1/crops")
 @RestController
 @Tag(name = "Crops", description = "Operations pertaining to crops")
-@SecurityRequirement(name = "api")
 class CropController(val cropDataService: CropDataService) {
 
 
     @PostMapping("/add-new")
-    @Operation(summary = "Add new crop", description = "", tags = ["add-crop"])
+    @Operation(description = "Add new crop",  tags = ["add-crop"])
     fun addCropData(@RequestBody cropData: CropEntity): ResponseEntity<CropEntity> {
         val data = cropDataService.addCrop(cropData)
         return ResponseEntity<CropEntity>(data, HttpStatus.OK)
     }
 
     @PutMapping("/update/{cropId}")
-    @Operation(summary = "Update crop record", description = "", tags = ["update-crop"])
+    @Operation(description = "Update crop record",  tags = ["update-crop"])
     fun updateCropData(
         @PathVariable cropId: Long,
         @RequestBody cropData: CropEntity
@@ -37,7 +36,7 @@ class CropController(val cropDataService: CropDataService) {
     }
 
     @GetMapping("/{cropId}")
-    @Operation(summary = "Return crop data using crop id", description = "", tags = ["crop"])
+    @Operation(description = "Return crop data using crop id",  tags = ["crop"])
     fun crop(@PathVariable cropId: Long): ResponseEntity<CropEntity> {
 
         val cropData: CropEntity? = cropDataService.getCrop(cropId)
@@ -46,7 +45,7 @@ class CropController(val cropDataService: CropDataService) {
     }
 
     @GetMapping
-    @Operation(summary = "Return list of all crops in the database", description = "", tags = ["crop"])
+    @Operation(description = "Return list of all crops in the database",  tags = ["crop"])
     fun allCrops(@Parameter(hidden = true) pageable: Pageable): ResponseEntity<Page<CropEntity>> {
 
         val cropData: Page<CropEntity> = cropDataService.getCrops(pageable = pageable)
