@@ -17,6 +17,9 @@ interface CropPestRepo : PagingAndSortingRepository<CropPestEntity, Long> {
     override fun findAll(pageable: Pageable): Page<CropPestEntity>
     override fun findAll(): List<CropPestEntity>
 
+    fun findByPestId(pestId: Long, pageable: Pageable): Page<CropPestEntity>
+    fun findByPestId(pestId: Long): List<CropPestEntity>
+
     fun findByPestScientificName(scientificName: String): List<CropPestEntity>
 
     fun findByPestCommonName(commonName: String): List<CropPestEntity>

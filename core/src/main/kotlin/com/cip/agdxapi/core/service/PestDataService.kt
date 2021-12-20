@@ -23,7 +23,9 @@ constructor(val cropPestRepo: PestRepo) {
 
     fun getPests(pageable: Pageable): Page<PestEntity> {
         logger.info("Fetching crop pest data")
-        return cropPestRepo.findAll(pageable)
+        val pests = cropPestRepo.findAll(pageable)
+
+        return pests;
     }
 
 

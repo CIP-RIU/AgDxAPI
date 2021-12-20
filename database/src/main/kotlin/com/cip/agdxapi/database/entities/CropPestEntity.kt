@@ -5,6 +5,7 @@ import io.swagger.v3.oas.annotations.media.Schema
 import java.math.BigDecimal
 import java.time.LocalDate
 import javax.persistence.*
+import kotlin.jvm.Transient
 
 /**
  * Pertains to crop pests data
@@ -13,8 +14,12 @@ import javax.persistence.*
 @Table(name = "crop_pests")
 class CropPestEntity : BaseEntity() {
 
+
     @Column(name = "crop_id")
     var cropId: Long? = null
+
+    @Column(name = "pest_id")
+    var pestId: Long? = null
 
     /**
      * Can be ISO2 or ISO3
@@ -363,4 +368,7 @@ class CropPestEntity : BaseEntity() {
 
     @Column(name = "attribution", columnDefinition = "TEXT")
     var attribution: String? = null
+
+    @Transient
+    var pestEntity: PestEntity? = null
 }
