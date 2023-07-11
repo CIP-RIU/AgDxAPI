@@ -14,7 +14,7 @@ spring:
   datasource:
     url: ${DB_URL:jdbc:mysql://localhost:3306/agdxapi}
     username: ${DB_USER:root}
-    password: ${DB_PASS:andalite6}
+    password: ${DB_PASS:}
   data:
     web:
       pageable:
@@ -29,7 +29,7 @@ spring:
       time: HH:mm:ss
 
 springdoc:
-  show-actuator: true
+  show-actuator: false
   default-produces-media-type: "application/json"
   #  pathsToMatch: /api/v1/**, /actuator/**
   pathsToMatch: /api/v1/**
@@ -38,12 +38,16 @@ springdoc:
     groups:
       enabled: true
   swagger-ui:
-    tags-sorter: alpha
-#    operations-sorter: alpha
+    #    tags-sorter: alpha
+    operations-sorter: method
 
-cip:
+agdx:
   name: 'AgDx API'
-  version: ${VERSION:1.0.0}
+  version: ${VERSION:1.0.2}
   desc: 'Description here'
-  externaldoc: ${cip.version}
-  license: ${cip.version}
+  externaldoc: ${agdx.version}
+  license: ${agdx.version}
+  contact:
+    name: ${agdx.name}
+    email: agdx@agdx.org
+    url: agdx.org

@@ -1,25 +1,35 @@
 package com.cip.agdxapi.core.service
 
-import com.cip.agdxapi.core.dto.DiseaseDataDto
 import com.cip.agdxapi.core.geojson.*
 import com.cip.agdxapi.core.utils.MyModelMapper
 import com.cip.agdxapi.database.entities.CropDiseaseEntity
-import com.cip.agdxapi.database.entities.CropPestEntity
+import com.cip.agdxapi.database.entities.CropEntity
 import com.cip.agdxapi.database.repos.CropDiseaseRepo
+import com.cip.agdxapi.database.repos.CropRepo
 import com.cip.agdxapi.enums.EnumCoordinateType
 import org.slf4j.LoggerFactory
-import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
+import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 import java.math.BigDecimal
+import java.time.LocalDate
 
 @Service
 class CropDiseaseDataService
-constructor(val cropDiseaseRepo: CropDiseaseRepo) {
+constructor(val cropDiseaseRepo: CropDiseaseRepo, val cropRepo: CropRepo) {
 
     private val logger = LoggerFactory.getLogger(CropDiseaseDataService::class.java)
 
     private val modelMapper = MyModelMapper.init()
+
+    fun getSingleCropDisease(diseaseId: Long): CropDiseaseEntity? {
+        logger.info("Fetching disease data for disease id $diseaseId")
+        val diseaseList = cropDiseaseRepo.findByIdOrNull(diseaseId)
+        val crop = diseaseList?.cropId?.let { cropRepo.findByIdOrNull(it) }
+
+        diseaseList?.cropEntity = crop
+        return diseaseList
+    }
 
     fun addCropDisease(cropDiseaseData: CropDiseaseEntity): CropDiseaseEntity {
         val entity = modelMapper.map(cropDiseaseData, CropDiseaseEntity::class.java)
@@ -35,9 +45,53 @@ constructor(val cropDiseaseRepo: CropDiseaseRepo) {
         return buildGeoJson(diseaseList)
     }
 
-    private fun buildGeoJson(diseaseList: List<CropDiseaseEntity>): DiseaseFeatureCollection {
+    fun getCropDisease(cropId: Long, pageable: Pageable): DiseaseFeatureCollection {
+        logger.info("Fetching disease data for crop id $cropId")
+        val diseaseList = cropDiseaseRepo.findAllByCropId(cropId)
+        val crop = cropRepo.findById(cropId)
+        return buildGeoJson(diseaseList, crop.get())
+    }
+
+    fun getCropDiseasesByObservedDate(cropId: Long, fromDate: LocalDate, toDate: LocalDate, pageable: Pageable): DiseaseFeatureCollection {
+        val cropDiseaseList = cropDiseaseRepo.findAllByCropIdAndDateObservedBetween(cropId = cropId, fromDate = fromDate, toDate = toDate)
+        return buildGeoJson(cropDiseaseList)
+    }
+
+    fun getCropDiseasesByRecordedDate(cropId: Long, fromDate: LocalDate, toDate: LocalDate, pageable: Pageable): DiseaseFeatureCollection {
+        val cropDiseaseList = cropDiseaseRepo.findAllByCropIdAndDateRecordedBetween(cropId = cropId, fromDate = fromDate, toDate = toDate)
+        return buildGeoJson(cropDiseaseList)
+    }
+
+    fun getCropDiseasesByCountryCode(cropId: Long, countryCode: String, pageable: Pageable): DiseaseFeatureCollection {
+        val cropDiseaseList = cropDiseaseRepo.findAllByCropIdAndCountryCode(cropId = cropId, countryCode = countryCode)
+        return buildGeoJson(cropDiseaseList)
+    }
+
+    fun getCropDiseasesByCountryCode(cropId: Long, countryCode: List<String>, pageable: Pageable): DiseaseFeatureCollection {
+        val cropDiseaseList = cropDiseaseRepo.findAllByCropIdAndCountryCodeIn(cropId = cropId, countryCode = countryCode)
+        return buildGeoJson(cropDiseaseList)
+    }
+
+    fun getCropDiseasesByCountryCode(countryCodes: List<String>, pageable: Pageable): DiseaseFeatureCollection {
+        val cropDiseaseList = cropDiseaseRepo.findAllByCountryCodeIn(countryCodes = countryCodes)
+        return buildGeoJson(cropDiseaseList)
+    }
+
+    fun getCropDiseasesByProjectName(cropId: Long, projectName: String, pageable: Pageable): DiseaseFeatureCollection {
+        val cropDiseaseList = cropDiseaseRepo.findAllByProjectName(projectName = projectName)
+        return buildGeoJson(cropDiseaseList)
+    }
+
+    fun getCropDiseasesByProjectName(projectName: String, pageable: Pageable): DiseaseFeatureCollection {
+        val cropDiseaseList = cropDiseaseRepo.findAllByProjectName(projectName = projectName)
+        return buildGeoJson(cropDiseaseList)
+    }
+
+
+    private fun buildGeoJson(diseaseList: List<CropDiseaseEntity>, crop: CropEntity? = null): DiseaseFeatureCollection {
         val featureCollection = DiseaseFeatureCollection()
         val featureList = mutableListOf<DiseaseFeature>()
+
         diseaseList.map { data ->
             val feature = DiseaseFeature();
             val geometry = Geometry()
@@ -54,9 +108,12 @@ constructor(val cropDiseaseRepo: CropDiseaseRepo) {
             geometry.coordinates = coordinates
 
             feature.geometry = geometry
-
-            val cropPestDto = modelMapper.map(data, DiseaseDataDto::class.java)
-            feature.properties = cropPestDto
+            if (crop != null) {
+//                cropDiseaseDto.commonName = crop.commonName
+//                cropDiseaseDto.scientificName = crop.scientificName
+                data.cropEntity = crop
+            }
+            feature.properties = data
             featureList.add(feature)
             featureList
         }

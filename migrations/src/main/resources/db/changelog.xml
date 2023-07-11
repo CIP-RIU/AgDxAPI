@@ -10,9 +10,9 @@
     <include file="changelog/20210113124428_modify_datetime_to_date_columns.xml" relativeToChangelogFile="true"/>
     <include file="changelog/20210113130253_modify_alt_column_data_precision.xml" relativeToChangelogFile="true"/>
     <include file="changelog/20210113130356_modify_accuracy_column_data_precision.xml" relativeToChangelogFile="true"/>
-<!--    <include file="changelog/20210113144359_create_api_users_table.xml" relativeToChangelogFile="true"/>-->
-<!--    <include file="changelog/20210113150543_create_authorities_table.xml" relativeToChangelogFile="true"/>-->
-<!--    <include file="changelog/20210113150831_add_unique_index_to_authorities_table.xml" relativeToChangelogFile="true"/>-->
+    <!--    <include file="changelog/20210113144359_create_api_users_table.xml" relativeToChangelogFile="true"/>-->
+    <!--    <include file="changelog/20210113150543_create_authorities_table.xml" relativeToChangelogFile="true"/>-->
+    <!--    <include file="changelog/20210113150831_add_unique_index_to_authorities_table.xml" relativeToChangelogFile="true"/>-->
 
     <include file="changelog/20210125110308_create_crop_disease_table.xml" relativeToChangelogFile="true"/>
     <include file="changelog/20210125110309_create_crop_pests_table.xml" relativeToChangelogFile="true"/>
@@ -32,5 +32,12 @@
     <include file="changelog/20210204141538_add_cultivar_fk_to_crop_disease_table.xml" relativeToChangelogFile="true"/>
     <include file="changelog/20210204142039_add_cultivar_fk_to_crop_pest_table.xml" relativeToChangelogFile="true"/>
 
+    <include file="changelog/20211112122957_add_crop_id_to_crop_disease_table.xml" relativeToChangelogFile="true"/>
+    <include file="changelog/20211112123039_add_crop_id_to_crop_pests_table.xml" relativeToChangelogFile="true"/>
+
+    <include file="changelog/20211117140530_add_attribution_column_to_disease_table.xml" relativeToChangelogFile="true"/>
+    <include file="changelog/20211117140538_add_attribution_column_to_pests_table.xml" relativeToChangelogFile="true"/>
+
+    <include file="changelog/20211125090803_add_disease_short_name_to_crop_disease_table.xml" relativeToChangelogFile="true"/>
 
 </databaseChangeLog>

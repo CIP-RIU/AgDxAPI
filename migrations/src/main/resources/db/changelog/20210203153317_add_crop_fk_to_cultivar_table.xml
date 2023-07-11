@@ -8,7 +8,7 @@
         <addForeignKeyConstraint baseTableName="crop_cultivar"
                                  baseColumnNames="crop_id"
                                  constraintName="crop-id_fk"
-                                 referencedTableName="crop"
+                                 referencedTableName="crops"
                                  referencedColumnNames="id"/>
     </changeSet>
 </databaseChangeLog>

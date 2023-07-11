@@ -8,12 +8,12 @@ import java.math.BigDecimal
 import java.time.LocalDate
 import java.time.LocalDateTime
 
-@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonInclude(JsonInclude.Include.ALWAYS)
 class PestDataDto : CommonDataDto() {
 
 
     @Schema(description = "Common ontology name", example = "Banana", required = true)
-    override var ontologyName: String? = null
+    override var ontologyId: String? = null
 
     @Schema(description = "Common pest name", example = "Banana weevil borer", required = true)
     override var commonName: String? = null

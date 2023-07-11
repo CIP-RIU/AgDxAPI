@@ -4,26 +4,35 @@ import com.cip.agdxapi.core.dto.PestDataDto
 import com.cip.agdxapi.core.geojson.*
 import com.cip.agdxapi.core.utils.MyModelMapper
 import com.cip.agdxapi.database.entities.CropPestEntity
+import com.cip.agdxapi.database.entities.PestEntity
 import com.cip.agdxapi.database.repos.CropPestRepo
+import com.cip.agdxapi.database.repos.PestRepo
 import com.cip.agdxapi.enums.EnumCoordinateType
 import com.cip.agdxapi.enums.EnumDetectionStatus
 import com.cip.agdxapi.enums.EnumTreatmentStatus
 import org.slf4j.LoggerFactory
-import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
+import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Service
-import org.springframework.util.MultiValueMap
+import org.springframework.web.client.HttpClientErrorException
 import java.math.BigDecimal
 import java.time.LocalDate
 
 
 @Service
 class CropPestDataService
-constructor(val cropPestRepo: CropPestRepo) {
+constructor(val cropPestRepo: CropPestRepo, val pestRepo: PestRepo) {
 
     private val logger = LoggerFactory.getLogger(CropPestDataService::class.java)
 
     private val modelMapper = MyModelMapper.init()
+
+    fun occurrence(pestId: Long, pageable: Pageable): PestFeatureCollection {
+        val cropPestList = cropPestRepo.findByPestId(pestId)
+        val pest = pestRepo.findById(pestId)
+        return buildGeoJson(cropPestList, pest.get())
+    }
+
 
     fun addPest(pestEntity: CropPestEntity): CropPestEntity {
         val cropPestEntity = modelMapper.map(pestEntity, CropPestEntity::class.java)
@@ -95,7 +104,16 @@ constructor(val cropPestRepo: CropPestRepo) {
         return buildGeoJson(cropPestList)
     }
 
-    private fun buildGeoJson(cropPestList: List<CropPestEntity>): PestFeatureCollection {
+    fun getPestById(id: Long): CropPestEntity {
+        val cropPestList = cropPestRepo.findById(id)
+        if (cropPestList.isPresent) {
+            return cropPestList.get()//modelMapper.map(cropPestList.get(), PestDataDto::class.java)
+        }
+        throw HttpClientErrorException(HttpStatus.NOT_FOUND, "Record not found")
+    }
+
+
+    private fun buildGeoJson(cropPestList: List<CropPestEntity>, pest: PestEntity? = null): PestFeatureCollection {
         val featureCollection = PestFeatureCollection()
         val featureList = mutableListOf<PestFeature>()
         cropPestList.map { data ->
@@ -114,9 +132,10 @@ constructor(val cropPestRepo: CropPestRepo) {
             geometry.coordinates = coordinates
 
             feature.geometry = geometry
-
-            val cropPestDto = modelMapper.map(data, PestDataDto::class.java)
-            feature.properties = cropPestDto
+            if (pest != null) {
+                data.pestEntity = pest
+            }
+            feature.properties = data
             featureList.add(feature)
             featureList
         }

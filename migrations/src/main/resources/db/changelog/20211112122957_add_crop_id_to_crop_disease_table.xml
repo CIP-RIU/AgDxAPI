@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet id="20211112122957" author="masgeek" labels="agdxapi">
+        <addColumn tableName="crop_diseases">
+            <column name="crop_id" type="bigint" afterColumn="id" beforeColumn="cultivar_id"
+                    remarks="References the crop type in the crop table"/>
+        </addColumn>
+    </changeSet>
+</databaseChangeLog>

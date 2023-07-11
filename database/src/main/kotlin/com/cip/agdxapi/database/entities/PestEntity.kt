@@ -11,6 +11,7 @@ import javax.persistence.*
 @Table(name = "pest")
 class PestEntity : BaseEntity() {
 
+
     @Column(name = "common_name")
     @Schema(description = "Pest common name", example = "Wooly apple aphid")
     var commonName: String? = null
